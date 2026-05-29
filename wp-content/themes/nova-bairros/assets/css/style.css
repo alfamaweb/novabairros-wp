@@ -6,6 +6,8 @@
   --cinza: #484848;
   --titulos: #1B1C1C;
   --sombra: 4px 4px 20px 2px #56596759;
+  --verde : #007141;
+  --amarelo : #FDB933;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -46,6 +48,7 @@ section {
 }
 
 header {
+  background-color: var(--verde);
   nav {
     a.menu-item {
       color: #939393;
@@ -54,6 +57,10 @@ header {
       }
     }
   }
+}
+
+footer {
+  background-color: var(--verde);
 }
 
 @media (min-width: 768px) {

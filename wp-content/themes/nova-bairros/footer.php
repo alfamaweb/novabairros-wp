@@ -22,25 +22,6 @@
                     </a>
                     <h3 class="text-center !font-normal">SOFISTICAÇÃO, TÉCNICA E IDENTIDADE EM CADA PROJETO</h3>
                 </div>
-                <div class="flex flex-col items-center max-md:gap-8 md:grid grid-cols-3 justify-between mt-8 mb-10 md:mt-24 md:mb-20">
-                    <?php
-                    $redes = get_field('redes', 'option');
-                    if ($redes):
-                        foreach ($redes as $rede):
-
-                    ?>
-                            <div class="col-span-1 flex flex-col items-center gap-6">
-                                <h4><?= $rede['titulo'] ?></h4>
-                                <a class="text-center !text-(--cinza)" href="<?= $rede['url'] ?>" target="_blank"
-                                    rel="noopener noreferrer">
-                                    <?= $rede['contato']; ?>
-                                </a>
-                            </div>
-                    <?php
-                        endforeach;
-                    endif;
-                    ?>
-                </div>
             </div>
         </div>
         <div class="flex justify-center items-center pb-6">
