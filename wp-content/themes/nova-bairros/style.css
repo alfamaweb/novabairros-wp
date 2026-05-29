@@ -1,0 +1,539 @@
+/*
+Theme Name: Alfama WEB v2
+Theme URI: https://alfamaweb.com.br/
+Author: Alfama Web
+Author URI: 
+Description: Site desenvolvido por Alfama Web
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags:
+Text Domain: noneplate
+*/
+
+
+/* ==========================================================================
+   Table of Contents
+   ========================================================================== */
+/*
+
+    1. Font Face
+    2. General
+    3. Utilities
+    4. Header
+    5. Page Content
+    6. Footer
+    7. Third Party Elements
+    8. Media Queries
+
+ */
+/* $variable: #b4b4c4; */
+/* ==========================================================================
+   1. Font Face - Sets up the website fonts
+   ========================================================================== */
+/*
+
+@font-face {
+  font-family: 'FontFamilyName';
+  src: url('../../fonts/fontFolder/fontfile.eot');
+  src: url('../../fonts/fontFolder/fontfile.eot') format('embedded-opentype'),
+       url('../../fonts/fontFolder/fontfile.woff2') format('woff2'),
+       url('../../fonts/fontFolder/fontfile.woff') format('woff'),
+       url('../../fonts/fontFolder/fontfile.ttf') format('truetype'),
+       url('../../fonts/fontFolder/fontfile.svg#FontFamilyName') format('svg');
+}
+
+*/
+/* ==========================================================================
+   2. General - Setting up some base styles
+   ========================================================================== */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#wrapper {
+  height: 100%;
+  overflow: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-rendering: optimizeLegibility;
+  line-height: 1;
+  margin: 0;
+  font-family: 'SF Pro Display', sans-serif;
+  color: #5A5A5A;
+  font-weight: 400;
+
+  span {
+    font-weight: 600;
+  }
+}
+
+p,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins';
+}
+
+ol ol,
+ul ul,
+ul ol,
+ol ul {
+  margin: 0.4em 0;
+}
+
+a:hover,
+a:focus,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+a[href],
+input[type="submit"],
+input[type="image"],
+label[for],
+select,
+button {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+input[type="text"],
+textarea {
+  display: inline-block;
+}
+
+.section {
+  margin-top: 60px;
+}
+
+.loading {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 99999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #f9f9f9bf;
+  color: white;
+  top: 0;
+  backdrop-filter: blur(3px);
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+  }
+
+  .loader::before,
+  .loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #cbcbcb;
+    animation: prixClipFix 2s linear infinite;
+  }
+
+  .loader::after {
+    transform: rotate3d(90, 90, 0, 180deg);
+    border-color: #FF3D00;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+  }
+
+  75%,
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+  }
+}
+
+/* ==========================================================================
+   3. Utilities - These things get used a lot
+   ========================================================================== */
+.clear-fix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ccc;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.nopadding {
+  padding: 0;
+}
+
+.mobile,
+.tablet {
+  display: none;
+}
+
+.nomobile,
+.notablet {
+  display: block;
+}
+
+@media (max-width: 992px) {
+  .tablet {
+    display: block;
+  }
+
+  .notablet {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile {
+    display: block;
+  }
+
+  .nomobile {
+    display: none;
+  }
+}
+
+.thumb .thumb-img {
+  height: 100%;
+  width: 100%;
+  background-size: cover !important;
+}
+
+.thumb img {
+  display: none;
+}
+
+.the-content>* {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.the-content>*+* {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.the-content .alignleft {
+  float: left;
+  margin-right: 2em;
+}
+
+.the-content .alignright {
+  float: right;
+  margin-left: 2em;
+}
+
+.the-content .aligncenter {
+  clear: both;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* ==========================================================================
+   4. Header - The top of every page
+   ========================================================================== */
+/* MENU - TEMPLATE SHIT */
+.navbar-brand a img,
+.navbar-brand a svg {
+  height: 60px;
+  width: auto;
+}
+
+.navbar-brand .mobile a {
+  line-height: 50px;
+}
+
+.navbar-collapse {
+  float: right;
+}
+
+.navbar-collapse li {
+  float: left;
+}
+
+.navbar-collapse a {
+  display: block;
+  padding: 0 20px;
+  line-height: 60px;
+}
+
+.primary-menu:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+#menu {
+  padding: 20px 0;
+}
+
+/* MENU - CUSTOM */
+#header {
+  position: relative;
+  z-index: 999;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   5. Page Content - When you click on an individual page
+   ========================================================================== */
+.page-404 h1 {
+  font-size: 114px;
+  font-weight: bold;
+}
+
+.page-404 a {
+  font-size: 16px;
+  color: #888;
+  border: 1px solid #ccc;
+  padding: 5px 15px;
+  margin-top: 15px;
+  display: inline-block;
+  transition: 300ms all ease-in-out;
+}
+
+.page-404 a:hover {
+  background-color: black;
+  color: white;
+}
+
+.page-404 .the-content {
+  font-size: 24px;
+  font-weight: 600;
+  color: #aaa;
+}
+
+.page-404 .the-content {
+  font-size: 24px;
+  font-weight: 600;
+  color: #9f9f9f;
+}
+
+.page-404 {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* BLOG ROLL - CUSTOM SHIT */
+.post-excerpt {
+  height: 200px;
+}
+
+/* PAGE & SINGLE - TEMPLATE SHIT */
+.page-header {
+  margin-bottom: 30px;
+}
+
+.the-content p+p {
+  margin-top: 15px;
+}
+
+.page-container {
+  padding: 30px 0;
+}
+
+.the-categories li {
+  display: inline-block;
+}
+
+.the-categories li+li:before {
+  content: ",";
+  position: relative;
+  display: inline-block;
+  margin-right: 4px;
+  left: -2px;
+}
+
+.share-this li {
+  display: inline-block;
+}
+
+
+input[type="submit"] {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background: #66cc33;
+  color: white;
+  padding: 10px;
+}
+
+label.error {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 10px;
+  color: red;
+}
+
+.lince-input .label-file {
+  background: #b4b4c4;
+  padding: 10px;
+  cursor: pointer;
+  width: 30%;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 14px;
+  text-align: center;
+}
+
+input[type="text"].file-archive {
+  width: 70%;
+}
+
+.alertify-button {
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: #66cc33 !important;
+  text-shadow: none !important;
+  margin-top: 20px;
+}
+
+/* ==========================================================================
+   6. Footer - The bottom of every page
+   ========================================================================== */
+
+/* ==========================================================================
+   7. Third Party Elements - Embeds from other services
+   ========================================================================== */
+
+/* ==========================================================================
+   8. Media Queries -
+   ========================================================================== */
+@media (max-width: 992px) {
+
+  /* PAGE & SINGLE - TEMPLATE SHIT */
+  .post+.post {
+    margin-top: 30px;
+  }
+
+  /*DISPLAY SHIT*/
+  .tablet {
+    display: block;
+  }
+
+  .slider-container .cycle-slideshow {
+    height: auto;
+  }
+
+  .slider-container .display-container {
+    display: block;
+  }
+
+  .slider-container .display-container .txt {
+    position: absolute;
+    top: 40%;
+    z-index: 999;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .slider-container .display-next,
+  .slider-container .display-prev {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* MENU - TEMPLATE SHIT */
+  #menu {
+    padding: 0;
+  }
+
+  .navbar-collapse li {
+    float: none;
+  }
+
+  .navbar-collapse a {
+    padding: 0;
+    line-height: 45px;
+  }
+
+  /* Sub Menu Things */
+  .navbar-collapse .sub-menu {
+    max-height: 0px !important;
+    padding: 0 0 0 20px;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: 1s ease;
+  }
+
+  .navbar-collapse .menu-item-has-children.opened .sub-menu {
+    max-height: 200px !important;
+    opacity: 1;
+  }
+
+  /* CONTATO - TEMPLATE SHIT */
+  .label-file span {
+    display: none;
+  }
+
+  /*GALLERY WP SHIT*/
+  .gallery-item {
+    width: 100%;
+    max-width: 100% !important;
+  }
+}

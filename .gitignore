@@ -46,3 +46,8 @@ wp-config.php
 # Note: If you wish to whitelist themes,
 # uncomment the next line
 #/wp-content/themes
+/wp-content/plugins
+/wp-content/themes/kraft/node_modules
+local-xdebuginfo.php
+/wp-content/updraft
+/wp-content/themes/nova-bairros/node_modules
