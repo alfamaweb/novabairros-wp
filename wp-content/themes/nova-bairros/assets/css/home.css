@@ -9,3 +9,79 @@ section.hero {
     }
   }
 }
+section.infraestrutura {
+  h2 {
+    color: white;
+  }
+  span {
+    color: white;
+  }
+  .card {
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 10px;
+    gap: 10px;
+    img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 135%;
+      text-align: center;
+    }
+    p {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 135%;
+      text-align: center;
+      color: var(--cinza);
+    }
+  }
+}
+
+section.diferenciais {
+  p {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 135%;
+    text-align: center;
+    color: var(--verde);
+  }
+}
+
+section.sobre {
+  .content {
+    p {
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 135%;
+      text-align: justify;
+      color: #707070;
+      strong {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--verde);
+      }
+    }
+  }
+}
+
+section.app {
+  h2 {
+    color: white;
+    text-align: start;
+  }
+  p {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 135%;
+    color: white;
+    text-align: start;
+  }
+}

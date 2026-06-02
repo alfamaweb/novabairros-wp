@@ -173,12 +173,160 @@ get_header(); ?>
                 <div class='swiper-button-prev'></div>
                 <div class='swiper-button-next'></div>
             </div>
+            <div class="flex items-center justify-center my-12">
+                <a href="/blog" class="cta w-full h-full lg:w-auto text-nowrap my-auto">
+                    Ver todos empreendimentos
+                </a>
+            </div>
         </div>
     </section>
 
     <section class="infraestrutura bg-(--verde) py-11">
         <div class="container">
+            <div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
+                <span>INFRAESTRUTURA COMPLETA</span>
+                <h2>Qualidade de vida que você merece</h2>
+                <div class="border-b border-(--amarelo) border-[3px] w-full"></div>
+            </div>
+            <?php
+            if (have_rows('cards')) :
+            ?>
+                <div class='swiper infraestrutura'>
+                    <div class='swiper-wrapper'>
+                        <?php
+                        while (have_rows('cards')) : the_row();
+                        ?>
+                            <div class='swiper-slide'>
+                                <div class="card">
+                                    <img src="<?= get_sub_field('icone')['url']; ?>" alt="<?= get_sub_field('icone')['title']; ?>">
+                                    <h3><?= get_sub_field('titulo'); ?></h3>
+                                    <p><?= get_sub_field('texto'); ?></p>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </section>
 
+    <?php
+    if (have_rows('itens')) :
+    ?>
+        <section class="diferenciais bg-[#FDB9331A] py-8 md:py-16">
+            <div class="container">
+                <div class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
+                    <?php
+                    while (have_rows('itens')) : the_row();
+                    ?>
+                        <div class="w-full md:col-span-6 xl:col-span-3">
+                            <div class="flex flex-col items-center gap-6">
+                                <span class="w-full text-center text-white py-2 bg-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
+                                <div class="flex flex-row items-center gap-2">
+                                    <img src="<?= get_sub_field('icone')['url']; ?>" alt="<?= get_sub_field('icone')['title']; ?>">
+                                    <h3><?= get_sub_field('titulo'); ?></h3>
+                                </div>
+                                <p><?= get_sub_field('texto'); ?></p>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+            </div>
+        </section>
+    <?php
+    endif;
+    if (!empty(get_field('sobre_nos'))):
+        $sobre = get_field('sobre_nos');
+    ?>
+        <section class="sobre">
+            <div class="container">
+                <div class="grid grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
+                    <div class="col-span-12 lg:col-span-6">
+                        <div class="flex flex-col items-start w-fit gap-3">
+                            <span>SOBRE NÓS</span>
+                            <h2><?= $sobre['titulo']; ?></h2>
+                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
+                        </div>
+                        <div class="content mt-8">
+                            <?= nl2br($sobre['texto']); ?>
+                        </div>
+                        <a href="#" class="cta">Saiba mais sobre nós</a>
+                    </div>
+                    <div class="col-span-12 lg:col-span-6">
+                        <img src="<?= $sobre['imagem']['url']; ?>" alt="<?= $sobre['imagem']['title']; ?>">
+                    </div>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
+    <section class="app">
+        <div class="container">
+            <div class="flex flex-row justify-between w-fit text-center items-stretch w-full bg-(--verde) lg:p-11 rounded-[10px]">
+                <div class="flex flex-col items-center justify-center">
+                    <img src="<?= IMG_URI ?>app.svg" alt="App Store">
+                </div>
+                <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
+                <div class="flex flex-col items-start text-white justify-center">
+                    <span>CONFIRA AGORA</span>
+                    <h2>Nosso aplicativo</h2>
+                </div>
+                <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
+                <div class="flex flex-col items-center justify-center max-w-120">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet.</p>
+                </div>
+                <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
+                <a href="#" class="cta w-full h-full lg:w-auto text-nowrap my-auto">
+                    Acesse o aplicativo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="empreendimentos">
+        <div class="container">
+            <div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
+                <span>BLOG DE NOTÍCIAS</span>
+                <h2>Fique por dentro das novidades</h2>
+                <div class="border-b border-(--amarelo) border-[3px] w-full"></div>
+            </div>
+            <div class='swiper blog'>
+                <div class='swiper-wrapper'>
+                    <?php
+                    $args = array(
+                        'post_type' => 'post',
+                        'posts_per_page' => 5,
+                        'orderby' => 'date',
+                        'order' => 'DESC',
+                        'post_status' => 'publish'
+                    );
+                    $the_query = new WP_Query($args);
+                    if ($the_query->have_posts()) {
+                        while ($the_query->have_posts()) {
+                            $the_query->the_post();
+                    ?>
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <h3><?= get_the_title(); ?></h3>
+                                    <p class="!my-4"><?= get_the_excerpt(); ?></p>
+                                    <img class="thumbnail" src="<?= get_the_post_thumbnail_url(get_the_ID(), 'large') ?>" alt="<?= get_the_title(); ?>">
+                                </div>
+                            </div>
+                    <?php
+                        }
+                    } else {
+                    }
+                    wp_reset_postdata();
+                    ?>
+                </div>
+
+                <div class='swiper-button-prev'></div>
+                <div class='swiper-button-next'></div>
+            </div>
+            <div class="flex items-center justify-center my-12">
+                <a href="/blog" class="cta w-full h-full lg:w-auto text-nowrap my-auto">
+                    Ver todas as notícias
+                </a>
+            </div>
         </div>
     </section>
 </main>
@@ -188,6 +336,55 @@ get_header(); ?>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const swiper = new Swiper('.swiper.empreendimentos', {
+            direction: 'horizontal',
+            loop: false,
+            spaceBetween: 30,
+            breakpoints: {
+                768: {
+                    slidesPerView: 1
+                },
+                1024: {
+                    slidesPerView: 2,
+                },
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        const swiperInfra = new Swiper('.swiper.infraestrutura', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1.5,
+                    centedredSlides: true,
+                    spaceBetween: 36
+                },
+                768: {
+                    slidesPerView: 2.5
+                },
+                1200: {
+                    slidesPerView: 6,
+                    spaceBetween: 30
+                },
+            },
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+        const swiperBlog = new Swiper('.swiper.blog', {
             direction: 'horizontal',
             loop: false,
             spaceBetween: 30,

@@ -118,6 +118,10 @@ a.cta {
   }
 }
 
+.swiper-button-next, .swiper-button-prev {
+  color: #252525;
+}
+
 /* Mobile Menu */
 .mobile-menu {
   position: fixed;
