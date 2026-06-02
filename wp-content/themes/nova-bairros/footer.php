@@ -37,7 +37,7 @@
     </div>
 </footer>
 
-<a aria-label="Falar com Corretor" href="https://api.whatsapp.com/send/?phone=5531982247411&text=Ol%C3%A1%2C+Kraft&type=phone_number&app_absent=0" target="_blank" class="fixed <?= is_single() && 'empreendimento' == get_post_type() ? 'bottom-24 lg:bottom-6' : 'bottom-6' ?> right-4 lg:right-11 w-fit h-fit z-50">
+<a aria-label="Falar com Corretor" href="https://api.whatsapp.com/send/?phone=5531982247411&text=Ol%C3%A1%2C+Kraft&type=phone_number&app_absent=0" target="_blank" class="fixed bottom-12 lg:bottom-32 right-4 lg:right-11 w-fit h-fit z-50">
     <div class="relative w-16 h-16 rounded-full bg-[#484848] shadow-[0_4px_4px_0_#00000040]">
         <svg class="absolute top-1/2 left-1/2 -translate-1/2" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="mask0_2039_476" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="2" width="26" height="26">

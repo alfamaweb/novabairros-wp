@@ -1,1 +1,11 @@
 /* Estilo automático para a página: home */
+section.hero {
+  .hero-content {
+    h2 {
+      font-weight: 500;
+      font-size: 40px;
+      line-height: 135%;
+      color: white;
+    }
+  }
+}

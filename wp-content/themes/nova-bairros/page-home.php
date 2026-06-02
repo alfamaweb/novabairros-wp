@@ -10,8 +10,8 @@
 
 get_header(); ?>
 
-<main class="h-svh overflow-hidden">
-    <section class="hero h-full relative !mt-0">
+<main>
+    <section class="hero relative !mt-0">
         <div class="swiper hero">
             <div class="swiper-wrapper">
                 <?php
@@ -91,16 +91,17 @@ get_header(); ?>
                                 </picture>
                             </a>
                             <div class="gradient"></div>
-                            <div class="hero-content">
-                                <div class="container h-100">
-                                    <div class="row h-100 align-items-center">
-                                        <div class="col-lg-6">
+                            <div class="hero-content absolute top-1/2 transform -translate-y-1/2 left-0 w-full">
+                                <div class="container">
+                                    <div class="outer-content grid grid-cols-12">
+                                        <div class="inner-content col-span-12 md:col-span-4 bg-(--verde) p-5 md:p-7 rounded-[10px]">
                                             <div class="slide-text">
+                                                <span><?= get_sub_field('texto_superior') ?></span>
                                                 <?=
                                                 get_sub_field('texto')
                                                 ?>
                                             </div>
-                                            <a href="/empreendimentos" class="cta mt-10">CONHEÇA SEU NOVO LAR</a>
+                                            <a href="/empreendimentos" class="cta mt-10"><?= get_sub_field('texto_botao'); ?></a>
                                         </div>
                                     </div>
                                 </div>
@@ -117,6 +118,91 @@ get_header(); ?>
         <div class="swiper-prev-custom hidden lg:block"></div>
         <div class="swiper-next-custom hidden lg:block"></div>
     </section>
+
+    <section class="empreendimentos">
+        <div class="container">
+            <div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
+                <span>Nossos Emprendimentos</span>
+                <h2>Escolha a opção ideal</h2>
+                <div class="border-b border-(--amarelo) border-[3px] w-full"></div>
+            </div>
+            <div class='swiper empreendimentos'>
+                <div class='swiper-wrapper'>
+                    <?php
+                    $args = array(
+                        'post_type' => 'empreendimento',
+                        'posts_per_page' => 10,
+                        'orderby' => 'date',
+                        'order' => 'DESC',
+                        'post_status' => 'publish'
+                    );
+                    $the_query = new WP_Query($args);
+                    if ($the_query->have_posts()) {
+                        while ($the_query->have_posts()) {
+                            $the_query->the_post();
+                    ?>
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <h3><?= get_the_title(); ?></h3>
+                                    <?php
+                                    if (have_rows('diferenciais_card')) :
+                                    ?>
+                                        <div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
+                                            <?php
+                                            while (have_rows('diferenciais_card')) : the_row();
+                                            ?>
+                                                <div class="inline-flex flex-[1_1_auto] items-center gap-2">
+                                                    <img src="<?= get_sub_field('icone')['url']; ?>" alt="Dot" loading="lazy" decoding="async">
+                                                    <p class="mb-0"><?= get_sub_field('texto'); ?></p>
+                                                </div>
+                                            <?php endwhile; ?>
+
+                                        </div>
+                                    <?php endif; ?>
+                                    <img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>" alt="<?= get_field('thumbnail')['title']; ?>">
+                                </div>
+                            </div>
+                    <?php
+                        }
+                    } else {
+                    }
+                    wp_reset_postdata();
+                    ?>
+                </div>
+
+                <div class='swiper-button-prev'></div>
+                <div class='swiper-button-next'></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="infraestrutura bg-(--verde) py-11">
+        <div class="container">
+
+        </div>
+    </section>
 </main>
 
 <?php get_footer(); ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const swiper = new Swiper('.swiper.empreendimentos', {
+            direction: 'horizontal',
+            loop: false,
+            spaceBetween: 30,
+            breakpoints: {
+                768: {
+                    slidesPerView: 1
+                },
+                1024: {
+                    slidesPerView: 2,
+                },
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    });
+</script>
