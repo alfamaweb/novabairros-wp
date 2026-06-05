@@ -89,7 +89,15 @@ footer {
   background-color: var(--verde);
 }
 
-a.cta {
+h1 {
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 135%;
+  text-align: center;
+}
+
+a.cta,
+button.cta {
   display: inline-block;
   padding: 12px 24px;
   background-color: var(--amarelo);
@@ -104,22 +112,98 @@ a.cta {
   padding: 30px;
   border: 1px solid var(--verde);
   border-radius: 10px;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+
+  svg path {
+    transition: fill 0.3s ease-in-out;
+  }
+
+  &:hover {
+    background-color: var(--verde);
+    color: white;
+    border-color: transparent;
+    h3 {
+      color: white;
+    }
+    svg {
+      path {
+        fill: var(--amarelo);
+      }
+    }
+  }
+
   img {
     width: 28px;
     height: 28px;
     object-fit: contain;
     &.thumbnail {
       width: 100%;
-      height: 370px;
+      height: 100%;
       object-fit: cover;
-      border-radius: 10px;
-      clip-path: polygon(100% 0, 100% 70%, 75% 100%, 0% 100%, 0 49%, 0% 0%);
+      display: block;
+      transition: transform 0.4s ease-in-out;
     }
   }
 }
 
-.swiper-button-next, .swiper-button-prev {
+.thumbnail-holder {
+  width: 100%;
+  height: 370px;
+  border-radius: 10px;
+  clip-path: polygon(100% 0, 100% 65%, 70% 100%, 0% 100%, 0 49%, 0% 0%);
+  overflow: hidden;
+}
+
+.card-outer:hover .thumbnail-holder img.thumbnail {
+  transform: scale(1.1);
+}
+
+.card-outer {
+  transition: transform 0.3s ease-in-out;
+  img.seta {
+    transition: transform 0.3s ease-in-out;
+  }
+  &:hover {
+    img.seta {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.card-seta {
+  padding: 30px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
   color: #252525;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  label {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    color: var(--verde);
+  }
+  input,
+  select {
+    padding: 8px 16px;
+    border-bottom: 1px solid #e2e4e5;
+    transition: 300ms ease-in-out;
+    &:focus-visible {
+      outline: none;
+      border-bottom: 1px solid var(--cinza);
+      color: var(--verde);
+    }
+  }
 }
 
 /* Mobile Menu */

@@ -142,25 +142,34 @@ get_header(); ?>
                             $the_query->the_post();
                     ?>
                             <div class="swiper-slide">
-                                <div class="card">
-                                    <h3><?= get_the_title(); ?></h3>
-                                    <?php
-                                    if (have_rows('diferenciais_card')) :
-                                    ?>
-                                        <div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
-                                            <?php
-                                            while (have_rows('diferenciais_card')) : the_row();
-                                            ?>
-                                                <div class="inline-flex flex-[1_1_auto] items-center gap-2">
-                                                    <img src="<?= get_sub_field('icone')['url']; ?>" alt="Dot" loading="lazy" decoding="async">
-                                                    <p class="mb-0"><?= get_sub_field('texto'); ?></p>
-                                                </div>
-                                            <?php endwhile; ?>
-
+                                <a class="card-outer relative" href="<?= get_permalink(); ?>">
+                                    <div class="card">
+                                        <h3><?= get_the_title(); ?></h3>
+                                        <?php if (have_rows('diferenciais_card')) : ?>
+                                            <div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
+                                                <?php while (have_rows('diferenciais_card')) : the_row(); ?>
+                                                    <div class="inline-flex flex-[1_1_auto] items-center gap-2">
+                                                        <?php
+                                                        $icone = get_sub_field('icone');
+                                                        $svg_path = get_attached_file($icone['ID']);
+                                                        if ($svg_path && file_exists($svg_path)) {
+                                                            echo file_get_contents($svg_path);
+                                                        }
+                                                        ?>
+                                                        <p class="mb-0"><?= get_sub_field('texto'); ?></p>
+                                                    </div>
+                                                <?php endwhile; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="thumbnail-holder">
+                                            <img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>" alt="<?= get_field('thumbnail')['title']; ?>">
                                         </div>
-                                    <?php endif; ?>
-                                    <img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>" alt="<?= get_field('thumbnail')['title']; ?>">
-                                </div>
+                                    </div>
+                                    <div class="w-15 h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
+                                        <img class="seta !w-12 !h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                            src="<?= IMG_URI ?>arrow-right.svg" alt="">
+                                    </div>
+                                </a>
                             </div>
                     <?php
                         }
@@ -305,11 +314,19 @@ get_header(); ?>
                             $the_query->the_post();
                     ?>
                             <div class="swiper-slide">
-                                <div class="card">
-                                    <h3><?= get_the_title(); ?></h3>
-                                    <p class="!my-4"><?= get_the_excerpt(); ?></p>
-                                    <img class="thumbnail" src="<?= get_the_post_thumbnail_url(get_the_ID(), 'large') ?>" alt="<?= get_the_title(); ?>">
-                                </div>
+                                <a class="card-outer relative" href="<?= get_permalink(); ?>">
+                                    <div class="card">
+                                        <h3><?= get_the_title(); ?></h3>
+                                        <p class="!my-4"><?= get_the_excerpt(); ?></p>
+                                        <div class="thumbnail-holder">
+                                            <img class="thumbnail" src="<?= get_the_post_thumbnail_url(get_the_ID(), 'large') ?>" alt="<?= get_the_title(); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="w-15 h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
+                                        <img class="seta !w-12 !h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                            src="<?= IMG_URI ?>arrow-right.svg" alt="">
+                                    </div>
+                                </a>
                             </div>
                     <?php
                         }

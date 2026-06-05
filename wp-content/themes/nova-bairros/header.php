@@ -74,7 +74,7 @@
                     <img src="<?= IMG_URI ?>logo.svg" alt="">
                 </a>
                 <nav class="flex flex-row items-center justify-end-safe gap-8 ms-auto">
-                    <a class="menu-item <?= is_page('quem-somos') ? 'gray' : '' ?> hidden lg:block" href="/quem-somos">QUEM SOMOS</a>
+                    <a class="menu-item <?= is_page('sobre') ? 'gray' : '' ?> hidden lg:block" href="/sobre">Sobre Nós</a>
                     <a class="menu-item <?= is_page('portfolio') ? 'gray' : '' ?> hidden lg:block" href="/portfolio">PORTÓLIO</a>
                     <a class="menu-item <?= is_page('contato') ? 'gray' : '' ?> hidden lg:block" href="/contato">CONTATO</a>
                     <a class="menu-item <?= is_page() ?> hidden lg:block" href="#"><img src="<?= IMG_URI ?>insta-gray.svg" alt="Instagram"></a>
