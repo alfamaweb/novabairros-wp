@@ -73,12 +73,13 @@
                 <a href="<?= home_url() ?>" aria-label="Home Kraft" class="navbar-brand">
                     <img src="<?= IMG_URI ?>logo.svg" alt="">
                 </a>
-                <nav class="flex flex-row items-center justify-end-safe gap-8 ms-auto">
-                    <a class="menu-item <?= is_page('sobre') ? 'gray' : '' ?> hidden lg:block" href="/sobre">Sobre Nós</a>
-                    <a class="menu-item <?= is_page('portfolio') ? 'gray' : '' ?> hidden lg:block" href="/portfolio">PORTÓLIO</a>
-                    <a class="menu-item <?= is_page('contato') ? 'gray' : '' ?> hidden lg:block" href="/contato">CONTATO</a>
-                    <a class="menu-item <?= is_page() ?> hidden lg:block" href="#"><img src="<?= IMG_URI ?>insta-gray.svg" alt="Instagram"></a>
-                    <a class="menu-item <?= is_page() ?> block lg:hidden js-menu-toggle" href="#" aria-label="Abrir menu"><img src="<?= IMG_URI ?>menu.svg" alt="Menu"></a>
+                <nav class="flex flex-row items-center gap-8 ms-auto">
+                    <a class="menu-item <?= is_page('sobre') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/sobre">Sobre</a>
+                    <a class="menu-item <?= is_singular('empreendimento') || is_page('empreendimentos') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/empreendimentos">Empreendimentos</a>
+                    <a class="menu-item <?= is_home() || is_page('blog') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/blog">Blog</a>
+                    <a class="menu-item <?= is_page('contato') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/contato">Fale Conosco</a>
+                    <a class="cta hidden lg:block" href="#">Área do Cliente</a>
+                    <a class="block lg:hidden js-menu-toggle" href="#" aria-label="Abrir menu"><img src="<?= IMG_URI ?>menu.svg" alt="Menu"></a>
                 </nav>
             </div>
         </div>
@@ -90,9 +91,10 @@
             <span></span>
         </button>
         <nav class="mobile-menu__nav">
-            <a href="/quem-somos">QUEM SOMOS</a>
-            <a href="/portfolio">PORTÓLIO</a>
-            <a href="/contato">CONTATO</a>
-            <a href="#" aria-label="Instagram"><img src="<?= IMG_URI ?>instagram.svg" alt="Instagram"></a>
+            <a href="<?= home_url() ?>/sobre">Sobre</a>
+            <a href="<?= home_url() ?>/empreendimentos">Empreendimentos</a>
+            <a href="<?= home_url() ?>/blog">Blog</a>
+            <a href="<?= home_url() ?>/contato">Fale Conosco</a>
+            <a class="cta" href="#">Área do Cliente</a>
         </nav>
     </div>

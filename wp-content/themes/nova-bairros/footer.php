@@ -11,27 +11,92 @@
  */
 ?>
 
-<footer class="mt-16 md:mt-28 <?= is_page('contato') ? 'bg-[#F8F8F8] pt-6' : '' ?>">
+<footer class="mt-16 md:mt-28">
     <div class="container">
-        <div
-            class="grid grid-cols-12 items-center justify-center content-center <?= is_page('contato') ? 'hidden' : '' ?>">
-            <div class="inner-content col-span-12 lg:col-span-10 col-start-1 lg:col-start-2 mb-12">
-                <div class="flex flex-col items-center justify-center gap-6">
-                    <a href="<?= home_url() ?>" aria-label="Home Kraft" class="navbar-brand">
-                        <img src="<?= IMG_URI ?>logo.svg" alt="">
+        <div class="flex flex-col lg:grid grid-cols-12 gap-8 py-12">
+
+            <!-- Logo + tagline + redes sociais -->
+            <div class="col-span-12 lg:col-span-3 flex flex-col gap-6">
+                <a href="<?= home_url() ?>" aria-label="Home" class="navbar-brand w-fit">
+                    <img src="<?= IMG_URI ?>logo.svg" alt="Logo">
+                </a>
+                <p class="!text-white">SOFISTICAÇÃO, TÉCNICA E IDENTIDADE EM CADA PROJETO</p>
+                <div class="flex flex-row gap-3">
+                    <a href="#" aria-label="Instagram" class="dif-item flex flex-row items-center gap-3">
+                        <div class="rounded-full w-10 h-10 relative bg-white/20 content-center justify-items-center hover:bg-(--amarelo) transition-colors duration-300">
+                            <img src="<?= IMG_URI ?>instagram.svg" alt="Instagram" class="w-5 h-5">
+                        </div>
                     </a>
-                    <h3 class="text-center !font-normal">SOFISTICAÇÃO, TÉCNICA E IDENTIDADE EM CADA PROJETO</h3>
+                    <a href="https://api.whatsapp.com/send/?phone=5531982247411" target="_blank" aria-label="WhatsApp" class="dif-item flex flex-row items-center gap-3">
+                        <div class="rounded-full w-10 h-10 relative bg-white/20 content-center justify-items-center hover:bg-(--amarelo) transition-colors duration-300">
+                            <svg class="w-5 h-5" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.73 26.66a1 1 0 001.22.26l5.76-1.5A12.45 12.45 0 0015.05 27.3C21.91 27.3 27.5 21.73 27.5 14.9A12.47 12.47 0 0015.05 2.5C8.2 2.5 2.61 8.06 2.61 14.89c0 2.17.57 4.31 1.66 6.19L2.73 26.66zm8.38-17.7c.23.006.48.018.72.55l1.35 3.18c.13.315.065.63-.1.84l-.35.42c-.11.13-.21.26-.3.35-.16.16-.33.33-.14.65.184.32.833 1.374 1.792 2.222A7.47 7.47 0 0016.08 17.9c.087.037.156.069.21.096.32.16.51.135.696-.08.186-.216.803-.936 1.02-1.255.217-.32.432-.27.73-.16.296.11 1.878.886 2.2 1.045l.178.087c.224.107.375.18.44.287.08.136.08.775-.185 1.527-.272.75-1.583 1.47-2.177 1.525l-.169.02c-.545.065-1.235.15-3.695-.818C10.3 19 8.3 16.04 7.9 15.44l-.066-.095C7.63 15.095 6.5 13.59 6.5 12.03c0-1.487.734-2.262 1.068-2.615l.059-.062a1.09 1.09 0 01.83-.385c.217 0 .434 0 .619.008l.034.003z" fill="white"/></svg>
+                        </div>
+                    </a>
+                    <a href="#" aria-label="Facebook" class="dif-item flex flex-row items-center gap-3">
+                        <div class="rounded-full w-10 h-10 relative bg-white/20 content-center justify-items-center hover:bg-(--amarelo) transition-colors duration-300">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </a>
                 </div>
             </div>
+
+            <!-- Links Rápidos -->
+            <div class="col-span-12 lg:col-span-3 flex flex-col gap-5">
+                <h4 class="!text-white border-b border-white/20 pb-3">Links Rápidos</h4>
+                <nav class="flex flex-col gap-3">
+                    <a class="!text-white/80 hover:!text-white transition-colors" href="<?= home_url(); ?>">Home</a>
+                    <a class="!text-white/80 hover:!text-white transition-colors" href="<?= home_url(); ?>/sobre">Sobre</a>
+                    <a class="!text-white/80 hover:!text-white transition-colors" href="<?= home_url(); ?>/empreendimentos">Empreendimentos</a>
+                    <a class="!text-white/80 hover:!text-white transition-colors" href="<?= home_url(); ?>/blog">Blog</a>
+                    <a class="!text-white/80 hover:!text-white transition-colors" href="<?= home_url(); ?>/contato">Contato</a>
+                </nav>
+            </div>
+
+            <!-- Principais Contatos -->
+            <div class="col-span-12 lg:col-span-3 flex flex-col gap-5">
+                <h4 class="!text-white border-b border-white/20 pb-3">Principais Contatos</h4>
+                <div class="flex flex-col gap-4">
+                    <a href="tel:+5500000000000" class="dif-item flex flex-row items-center gap-3">
+                        <div class="rounded-full w-10 h-10 shrink-0 relative bg-white/20 content-center justify-items-center">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.77 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.68 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.55a16 16 0 006.06 6.06l.92-1.02a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <p class="!text-white/80 !mb-0">(XX) XXXXX-XXXX</p>
+                    </a>
+                    <a href="#" class="dif-item flex flex-row items-center gap-3">
+                        <div class="rounded-full w-10 h-10 shrink-0 relative bg-white/20 content-center justify-items-center">
+                            <img src="<?= IMG_URI ?>pin.svg" alt="" class="w-5 h-5 brightness-0 invert">
+                        </div>
+                        <p class="!text-white/80 !mb-0">Rua Exemplo, 123 — Manaus, AM</p>
+                    </a>
+                    <a href="mailto:contato@novabairros.com.br" class="dif-item flex flex-row items-center gap-3">
+                        <div class="rounded-full w-10 h-10 shrink-0 relative bg-white/20 content-center justify-items-center">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <p class="!text-white/80 !mb-0">contato@novabairros.com.br</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Links Úteis -->
+            <div class="col-span-12 lg:col-span-3 flex flex-col gap-5">
+                <h4 class="!text-white border-b border-white/20 pb-3">Links Úteis</h4>
+                <div class="flex flex-col gap-3">
+                    <a href="#" class="cta !text-sm">Política de Privacidade</a>
+                    <a href="#" class="cta !text-sm">Termos de Uso</a>
+                    <a href="#" class="cta !text-sm">FAQ</a>
+                </div>
+            </div>
+
         </div>
-        <div class="flex justify-center items-center pb-6">
+
+        <!-- Barra de copyright -->
+        <div class="border-t border-white/20 flex justify-center items-center py-6">
             <div class="flex flex-col md:flex-row text-center text-sm items-center gap-5">
-                <p class="text-end xl:text-start">Copyright <?= date('Y'); ?> - Todos os direitos reservados.</p>
-                <div class="hidden md:block w-[1px] h-4 bg-[#D9D9D9] mx-3"></div>
-                <a class="font-medium !underline text-center" href="">Política de Privacidade</a>
-                <div class="hidden md:block w-[1px] h-4 bg-[#D9D9D9] mx-3"></div>
-                <a class="text-center md:text-start" href="">Desenvolvido por <span
-                        class="font-medium underline">AlfamaWeb em parceria com LZ MKT e Negócios</span></a>
+                <p class="!text-white/60">Copyright <?= date('Y'); ?> - Todos os direitos reservados.</p>
+                <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div>
+                <a class="!text-white/60 font-medium !underline" href="#">Política de Privacidade</a>
+                <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div>
+                <a class="!text-white/60" href="#">Desenvolvido por <span class="font-medium underline">AlfamaWeb em parceria com LZ MKT e Negócios</span></a>
             </div>
         </div>
     </div>
