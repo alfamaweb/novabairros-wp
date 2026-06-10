@@ -91,7 +91,14 @@ section {
     line-height: 135%;
     text-align: center;
     text-transform: uppercase;
+    color: var(--verde);
   }
+}
+
+section.bg-\(--verde\) span,
+section[style*="background-color: var(--verde)"] span,
+section[style*="background:#007141"] span {
+  color: white;
 }
 
 footer {

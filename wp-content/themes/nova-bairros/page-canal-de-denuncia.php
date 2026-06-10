@@ -84,7 +84,7 @@ get_header(); ?>
 
                                     <div class="form-group flex flex-col gap-2">
                                         <label class="label">Deseja se identificar?</label>
-                                        <div class="flex flex-row gap-6">
+                                        <div class="flex flex-row gap-6" id="radio">
                                             <label class="flex items-center gap-2 cursor-pointer">
                                                 <input type="radio" name="identificar" id="identificar-nao" value="nao" checked>
                                                 Não
