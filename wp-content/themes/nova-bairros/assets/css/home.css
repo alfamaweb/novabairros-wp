@@ -9,6 +9,14 @@ section.hero {
       color: white;
     }
   }
+  img {
+    height: 528px;
+    width: 100%;
+    object-fit: cover;
+    @media (min-width: 1024px) {
+      height: 680px;
+    }
+  }
 }
 section.infraestrutura {
   h2 {
