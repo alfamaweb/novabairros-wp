@@ -87,9 +87,9 @@ get_header(); ?>
                                             class="inner-content col-span-12 md:col-span-4 bg-(--verde) p-5 md:p-7 rounded-[10px]">
                                             <div class="slide-text">
                                                 <span><?= get_sub_field('texto_superior') ?></span>
-                                                <?=
+                                                <h2><?=
                                                     get_sub_field('texto')
-                                                    ?>
+                                                    ?></h2>
                                             </div>
                                             <a href="/empreendimentos"
                                                 class="cta mt-10"><?= get_sub_field('texto_botao'); ?></a>
