@@ -49,7 +49,7 @@ foreach ($categories as $category) {
 						$post_url   = urlencode(get_permalink());
 						$post_title = urlencode(get_the_title());
 						?>
-						<div class="flex flex-row justify-center items-center gap-4 py-8 ms-4">
+						<div class="flex flex-row justify-center items-center gap-4 ms-4">
 							<a href="https://api.whatsapp.com/send?text=<?= $post_title ?>%20<?= $post_url ?>" target="_blank" rel="noopener noreferrer">
 								<img src="<?= IMG_URI ?>ic_baseline-whatsapp.svg" alt="WhatsApp" class="w-7 h-7">
 							</a>
