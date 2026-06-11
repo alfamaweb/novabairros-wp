@@ -47,7 +47,7 @@ get_header(); ?>
                     ?>
                         <div class="w-full md:col-span-6 xl:col-span-3">
                             <div class="flex flex-col items-center gap-6">
-                                <span class="w-full text-center text-white py-2 bg-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
+                                <span class="w-full text-center !text-white py-2 bg-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
                                 <div class="flex flex-row items-center gap-2">
                                     <img src="<?= get_sub_field('icone')['url']; ?>" alt="<?= get_sub_field('icone')['title']; ?>">
                                     <h3><?= get_sub_field('titulo'); ?></h3>

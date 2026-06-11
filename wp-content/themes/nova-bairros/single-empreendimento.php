@@ -108,7 +108,7 @@ get_header(); ?>
             </div>
         </section>
     <?php endif; ?>
-    <div class="form-mobile relative -mt-30">
+    <div class="form-mobile relative -mt-30 lg:hidden">
         <div class="container">
             <div class="form-container border border-(--verde) rounded-[10px] bg-white px-5 md:px-8 py-6 shadow-lg">
                 <h3 class="!text-(--verde) mb-4">Deseja saber mais?</h3>
@@ -166,7 +166,7 @@ get_header(); ?>
                                     <?php foreach ($resumo['itens_diferenciais'] as $item):
                                         if (empty($item['icone']) && empty($item['label'])) continue;
                                     ?>
-                                        <div class="dif-item flex flex-row items-center gap-3">
+                                        <div class="dif-item flex flex-row items-center flex-1 gap-3">
                                             <?php if (!empty($item['icone'])): ?>
                                                 <div class="rounded-full aspect-square w-15 h-15 relative bg-(--amarelo) content-center justify-items-center">
                                                     <img src="<?= esc_url($item['icone']['url']); ?>"
