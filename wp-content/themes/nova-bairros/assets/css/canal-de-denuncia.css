@@ -1,0 +1,21 @@
+/* Estilo automático para a página: canal-de-denuncia */
+body {
+    background-color: #FDB9331A;
+}
+
+input[type="radio"] {
+    accent-color: #F0B93C;
+}
+
+#radio {
+    label {
+        color: #5D5D5D !important;
+    }
+}
+
+#anexo-label {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  color: var(--verde);
+}

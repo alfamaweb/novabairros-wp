@@ -1,0 +1,58 @@
+section.galeria {
+  overflow: hidden;
+
+  .swiper.galeria {
+    overflow: visible;
+  }
+
+  .swiper-slide {
+    transform: scale(0.88);
+    opacity: 0.5;
+    transition:
+      transform 0.4s ease,
+      opacity 0.4s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+
+  .swiper-slide-active {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.barra-track {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  border-radius: 10px;
+  border: 1.5px solid var(--verde);
+  overflow: hidden;
+}
+
+.barra-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--verde);
+}
+
+section.loc {
+  h2 {
+    color: white;
+    text-align: start;
+  }
+  p {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 135%;
+    color: white;
+    text-align: start;
+  }
+}
