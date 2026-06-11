@@ -68,6 +68,11 @@ section.infraestrutura {
       text-align: center;
       color: var(--cinza);
     }
+    &:hover {
+      h3 {
+        color: inherit;
+      }
+    }
   }
 }
 
