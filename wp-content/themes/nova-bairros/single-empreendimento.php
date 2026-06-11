@@ -345,7 +345,7 @@ get_header(); ?>
                     <?php if (!empty($localizacao['texto'])): ?>
                         <div class="border-r border-(--amarelo) border-[3px] h-auto max-lg:w-full max-lg:max-w-50"></div>
                         <div class="flex flex-col items-center justify-center max-w-120">
-                            <p class="!text-center lg:text-start"><?= esc_html($localizacao['texto']); ?></p>
+                            <p class="!text-center lg:!text-start"><?= esc_html($localizacao['texto']); ?></p>
                         </div>
                     <?php endif; ?>
 
