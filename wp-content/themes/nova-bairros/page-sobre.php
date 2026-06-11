@@ -75,7 +75,7 @@ get_header(); ?>
                     </div>
                     <?php while (have_rows('mvv')): the_row(); ?>
                         <div class="col-span-12 lg:col-span-4">
-                            <div class="flex flex-col items-center rounded-[10px] bg-(--verde) gap-3 p-8">
+                            <div class="flex flex-col items-center rounded-[10px] bg-(--verde) h-full gap-3 p-8">
                                 <img src="<?= get_sub_field('icone')['url']; ?>" alt="">
                                 <h3 class="!text-white text-center"><?= get_sub_field('titulo'); ?></h3>
                                 <p class="text-white text-center"><?= get_sub_field('texto'); ?></p>

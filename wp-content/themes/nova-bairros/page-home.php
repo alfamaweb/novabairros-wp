@@ -168,7 +168,7 @@ get_header(); ?>
                 <div class='swiper-button-next'></div>
             </div>
             <div class="flex items-center justify-center my-12">
-                <a href="/blog" class="cta w-full h-full lg:w-auto text-nowrap my-auto">
+                <a href="/empreendimentos" class="cta w-full h-full lg:w-auto text-nowrap my-auto">
                     Ver todos empreendimentos
                 </a>
             </div>
@@ -416,6 +416,7 @@ get_header(); ?>
             direction: 'horizontal',
             loop: false,
             spaceBetween: 30,
+            pagination: false,
             breakpoints: {
                 768: {
                     slidesPerView: 1

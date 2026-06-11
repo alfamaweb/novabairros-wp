@@ -34,12 +34,12 @@ get_header(); ?>
                     </div>
                     <div class="col-span-12">
                         <div class="swiper contatos py-8!">
-                            <div class="swiper-wrapper">
+                            <div class="swiper-wrapper !items-stretch">
                                 <?php foreach ($contatos['unidades'] as $unidade):
                                     if (empty($unidade['cidade']) && empty($unidade['telefone'])) continue;
                                 ?>
-                                    <div class="swiper-slide">
-                                        <div class="card relative flex flex-col items-center gap-4 pt-8 pb-4">
+                                    <div class="swiper-slide !h-auto">
+                                        <div class="card relative flex flex-col items-center h-full gap-4 pt-8 pb-4">
                                             <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square w-10 h-10 bg-(--amarelo) content-center justify-items-center">
                                                 <img class="w-5! h-5!" src="<?= IMG_URI ?>location.svg" alt="">
                                             </div>
