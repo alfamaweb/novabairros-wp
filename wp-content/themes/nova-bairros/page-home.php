@@ -102,7 +102,7 @@ get_header(); ?>
                 endif;
                 ?>
             </div>
-            <div class="swiper-pagination !bottom-10 lg:!bottom-20"></div>
+            
         </div>
         <div class="swiper-prev-custom hidden lg:block"></div>
         <div class="swiper-next-custom hidden lg:block"></div>
