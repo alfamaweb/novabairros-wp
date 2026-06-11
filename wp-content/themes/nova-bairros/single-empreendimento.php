@@ -55,17 +55,17 @@ get_header(); ?>
                             sizes="100vw">
                     <?php endif; ?>
 
-                    <img class="w-full h-full object-cover object-center brightness-70 min-h-[300px] max-h-[680px]"
+                    <img class="w-full h-full object-cover object-center brightness-70 min-h-[200px] max-h-[320px] lg:min-h-[300px] lg:max-h-[680px]"
                         src="<?= esc_url($desktop_img['url'] ?? $mobile_img['url']); ?>"
                         srcset="<?= $desktop_id ? wp_get_attachment_image_srcset($desktop_id) : ''; ?>" sizes="100vw"
                         alt="<?= esc_attr(get_the_title()); ?>" loading="eager" fetchpriority="high">
                 </picture>
             </a>
             <div class="gradient"></div>
-            <div class="hero-content absolute top-1/2 transform -translate-y-1/2 left-0 w-full">
+            <div class="hero-content absolute top-1/4 lg:top-1/2 transform -translate-y-1/4 lg:-translate-y-1/2 left-0 w-full py-6 lg:py-0">
                 <div class="container">
                     <div class="outer-content grid grid-cols-12 gap-8">
-                        <div class="inner-content col-span-12 md:col-span-5 self-center">
+                        <div class="inner-content col-span-12 lg:col-span-5 self-center">
                             <div class="breadcrumb flex flex-row items-center gap-3">
                                 <a class="!text-white font-semibold !uppercase"
                                     href="<?= esc_url(home_url()); ?>/empreendimentos">empreendimentos</a>
@@ -74,8 +74,8 @@ get_header(); ?>
                             </div>
                             <h1 class="!text-white !text-start"><?= esc_html($hero['titulo'] ?? get_the_title()); ?></h1>
                         </div>
-                        <div class="col-start-9 col-span-4">
-                            <div class="form-container border border-(--verde) rounded-[10px] bg-white px-8 py-6">
+                        <div class="hidden lg:block col-span-12 lg:col-start-9 lg:col-span-4">
+                            <div class="form-container border border-(--verde) rounded-[10px] bg-white px-4 md:px-8 py-6">
                                 <h3 class="text-(--verde) mb-4">Deseja saber mais?</h3>
                                 <form action="" method="POST" class="flex flex-col gap-5 mt-8">
                                     <div class="form-group flex flex-col">
@@ -108,15 +108,45 @@ get_header(); ?>
             </div>
         </section>
     <?php endif; ?>
-
+    <div class="form-mobile relative -mt-30">
+        <div class="container">
+            <div class="form-container border border-(--verde) rounded-[10px] bg-white px-5 md:px-8 py-6 shadow-lg">
+                <h3 class="!text-(--verde) mb-4">Deseja saber mais?</h3>
+                <form action="" method="POST" class="flex flex-col gap-5 mt-8">
+                    <div class="form-group flex flex-col">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" name="nome" placeholder="Nome" required>
+                    </div>
+                    <div class="form-group flex flex-col flex-1">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" name="telefone" placeholder="(XX) XXXXX-XXXX" required>
+                    </div>
+                    <div class="form-group flex flex-col flex-1">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" placeholder="contato@gmail.com" required>
+                    </div>
+                    <div class="form-group flex flex-col flex-1">
+                        <label for="mensagem">Mensagem</label>
+                        <select name="mensagem" required>
+                            <option value="">Selecione</option>
+                            <option value="interessado">Estou interessado em investir</option>
+                            <option value="parceria">Quero ser parceiro</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="cta self-start">Enviar formulário</button>
+                </form>
+            </div>
+        </div>
+    </div>
     <?php
     $resumo = get_field('resumo');
     if (!empty($resumo) && (!empty($resumo['titulo']) || !empty($resumo['texto']))):
     ?>
         <section class="resumo">
             <div class="container">
-                <div class="flex flex-col lg:grid grid-cols-12 gap-8">
-                    <div class="col-span-7">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
+                    <div class="col-span-12 md:col-span-7">
                         <div class="flex flex-col items-start gap-6">
                             <?php if (!empty($resumo['logo'])): ?>
                                 <img src="<?= esc_url($resumo['logo']['url']); ?>"
@@ -132,7 +162,7 @@ get_header(); ?>
                             <?php endif; ?>
 
                             <?php if (!empty($resumo['itens_diferenciais'])): ?>
-                                <div class="itens-diferenciais flex items-center justify-between gap-7 w-full">
+                                <div class="itens-diferenciais flex flex-wrap items-center justify-between gap-4 md:gap-7 w-full">
                                     <?php foreach ($resumo['itens_diferenciais'] as $item):
                                         if (empty($item['icone']) && empty($item['label'])) continue;
                                     ?>
@@ -154,7 +184,7 @@ get_header(); ?>
                     </div>
 
                     <?php if (!empty($resumo['imagem'])): ?>
-                        <div class="col-span-5">
+                        <div class="col-span-12 md:col-span-5">
                             <img class="w-full h-full object-cover rounded-[10px]"
                                 src="<?= esc_url($resumo['imagem']['url']); ?>"
                                 alt="<?= esc_attr($resumo['imagem']['alt']); ?>">
@@ -171,9 +201,9 @@ get_header(); ?>
     ?>
         <section class="infraestrutura bg-[#FDB9331A] py-8 md:py-16">
             <div class="container">
-                <div class="flex flex-col lg:grid grid-cols-12 gap-8">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
                     <div class="col-span-12">
-                        <div class="flex flex-col items-center w-full gap-4">
+                        <div class="flex flex-col items-center w-full gap-4 text-center">
                             <?php if (!empty($infraestrutura['label'])): ?>
                                 <span><?= esc_html($infraestrutura['label']); ?></span>
                             <?php endif; ?>
@@ -217,7 +247,7 @@ get_header(); ?>
                     <div class="swiper-wrapper">
                         <?php foreach ($galeria as $img): ?>
                             <div class="swiper-slide">
-                                <img class="w-full object-cover !h-130" src="<?= esc_url($img['url']); ?>"
+                                <img class="w-full object-cover h-48 md:h-80 lg:!h-130" src="<?= esc_url($img['url']); ?>"
                                     alt="<?= esc_attr($img['alt']); ?>">
                             </div>
                         <?php endforeach; ?>
@@ -233,9 +263,9 @@ get_header(); ?>
     ?>
         <section class="obra">
             <div class="container">
-                <div class="flex flex-col lg:grid grid-cols-12 gap-8">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
                     <div class="col-span-12">
-                        <div class="flex flex-col items-center w-full gap-4">
+                        <div class="flex flex-col items-center w-full gap-4 text-center">
                             <?php if (!empty($obra['label'])): ?>
                                 <span><?= esc_html($obra['label']); ?></span>
                             <?php endif; ?>
@@ -252,7 +282,7 @@ get_header(); ?>
                                 <div class="swiper-wrapper">
                                     <?php foreach ($obra['fotos'] as $foto): ?>
                                         <div class="swiper-slide">
-                                            <img class="w-full object-cover h-100" src="<?= esc_url($foto['url']); ?>"
+                                            <img class="w-full object-cover h-48 md:h-72 lg:h-100" src="<?= esc_url($foto['url']); ?>"
                                                 alt="<?= esc_attr($foto['alt']); ?>">
                                         </div>
                                     <?php endforeach; ?>
@@ -300,12 +330,12 @@ get_header(); ?>
     ?>
         <section class="loc">
             <div class="container">
-                <div class="flex flex-row justify-between text-center items-stretch w-full bg-(--verde) lg:p-11 rounded-[10px]">
+                <div class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-[10px] gap-6 lg:gap-0">
                     <div class="flex flex-col items-center justify-center">
                         <img src="<?= IMG_URI ?>app.svg" alt="App Store">
                     </div>
-                    <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
-                    <div class="flex flex-col items-start text-white justify-center">
+                    <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
+                    <div class="flex flex-col items-center lg:items-start text-white justify-center">
                         <span>CONFIRA AGORA</span>
                         <?php if (!empty($localizacao['titulo'])): ?>
                             <h2><?= esc_html($localizacao['titulo']); ?></h2>
@@ -313,14 +343,14 @@ get_header(); ?>
                     </div>
 
                     <?php if (!empty($localizacao['texto'])): ?>
-                        <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
+                        <div class="border-r border-(--amarelo) border-[3px] h-auto w-full max-w-50"></div>
                         <div class="flex flex-col items-center justify-center max-w-120">
-                            <p><?= esc_html($localizacao['texto']); ?></p>
+                            <p class="!text-center lg:text-start"><?= esc_html($localizacao['texto']); ?></p>
                         </div>
                     <?php endif; ?>
 
                     <?php if (!empty($localizacao['google_maps']) || !empty($localizacao['waze'])): ?>
-                        <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
+                        <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
                         <?php if (!empty($localizacao['google_maps'])): ?>
                             <a href="<?= esc_url($localizacao['google_maps']); ?>" target="_blank" rel="noopener noreferrer"
                                 class="cta w-fit h-full lg:w-auto text-nowrap my-auto">
@@ -345,9 +375,9 @@ get_header(); ?>
     ?>
         <section class="mapa">
             <div class="container">
-                <div class="flex flex-col lg:grid grid-cols-12 gap-8">
+                <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
                     <div class="col-span-12">
-                        <div class="flex flex-col items-center w-full gap-4">
+                        <div class="flex flex-col items-center w-full gap-4 text-center">
                             <?php if (!empty($mapa['label'])): ?>
                                 <span><?= esc_html($mapa['label']); ?></span>
                             <?php endif; ?>
@@ -357,7 +387,7 @@ get_header(); ?>
                             <div class="border-b border-(--amarelo) border-[3px] w-full max-w-75"></div>
                         </div>
                     </div>
-                    <div class="col-span-10 lg:col-span-12 mt-10">
+                    <div class="col-span-12 mt-10">
                         <div class="swiper mapa">
                             <div class="swiper-wrapper">
                                 <?php foreach ($mapa['imagens'] as $img): ?>

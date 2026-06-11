@@ -219,8 +219,8 @@ get_header(); ?>
     ?>
     <section class="localizacoes">
         <div class="container">
-            <div class="flex flex-col lg:grid grid-cols-12 items-start lg:items-center">
-                <div class="col-span-12 lg:col-span-6">
+            <div class="flex flex-col md:grid md:grid-cols-12 items-start md:items-center">
+                <div class="col-span-12 md:col-span-6">
                     <div class="flex flex-col items-start w-fit gap-4">
                         <span>Localizações</span>
                         <h2>
@@ -272,7 +272,7 @@ get_header(); ?>
                         ?>
                     </div>
                 </div>
-                <div class="col-span-12 lg:col-span-6">
+                <div class="col-span-12 md:col-span-6">
                     <img src="<?= IMG_URI ?>map.png" alt="">
                 </div>
             </div>
@@ -313,8 +313,8 @@ get_header(); ?>
         ?>
         <section class="sobre">
             <div class="container">
-                <div class="grid grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
-                    <div class="col-span-12 lg:col-span-6">
+                <div class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
+                    <div class="col-span-12 md:col-span-6">
                         <div class="flex flex-col items-start w-fit gap-3">
                             <span>SOBRE NÓS</span>
                             <h2><?= $sobre['titulo']; ?></h2>
@@ -325,7 +325,7 @@ get_header(); ?>
                         </div>
                         <a href="#" class="cta">Saiba mais sobre nós</a>
                     </div>
-                    <div class="col-span-12 lg:col-span-6">
+                    <div class="col-span-12 md:col-span-6">
                         <img src="<?= $sobre['imagem']['url']; ?>" alt="<?= $sobre['imagem']['title']; ?>">
                     </div>
                 </div>
@@ -335,22 +335,22 @@ get_header(); ?>
     <section class="app">
         <div class="container">
             <div
-                class="flex flex-row justify-between w-fit text-center items-stretch w-full bg-(--verde) lg:p-11 rounded-[10px]">
+                class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-[10px] gap-6 lg:gap-0">
                 <div class="flex flex-col items-center justify-center">
                     <img src="<?= IMG_URI ?>app.svg" alt="App Store">
                 </div>
-                <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
-                <div class="flex flex-col items-start text-white justify-center">
+                <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
+                <div class="flex flex-col items-center lg:items-start text-white justify-center">
                     <span>CONFIRA AGORA</span>
                     <h2>Nosso aplicativo</h2>
                 </div>
-                <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
+                <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
                 <div class="flex flex-col items-center justify-center max-w-120">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et. Lorem ipsum dolor sit amet.</p>
                 </div>
-                <div class="border-r border-(--amarelo) border-[3px] h-auto"></div>
-                <a href="#" class="cta w-full h-full lg:w-auto text-nowrap my-auto">
+                <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
+                <a href="#" class="cta w-full lg:w-auto text-nowrap my-auto">
                     Acesse o aplicativo
                 </a>
             </div>

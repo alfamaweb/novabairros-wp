@@ -67,7 +67,7 @@ get_header(); ?>
             <div class="container">
                 <div class="flex md:grid grid-cols-12 gap-8">
                     <div class="col-span-12">
-                        <div class="flex flex-col items-center w-full gap-3">
+                        <div class="flex flex-col items-center w-full gap-3 text-center">
                             <span class="text-(--verde)">missão, visão e valores</span>
                             <h2><?= $sobre['titulo']; ?></h2>
                             <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
@@ -91,7 +91,7 @@ get_header(); ?>
     ?>
         <section class="diferenciais cards overflow-hidden">
             <div class="container">
-                <div class="flex flex-col items-center w-full gap-3">
+                <div class="flex flex-col items-center w-full gap-3 text-center">
                     <span class="text-(--verde)">diferenciais</span>
                     <h2><?= get_field('titulo_diferenciais'); ?></h2>
                     <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
@@ -156,7 +156,7 @@ get_header(); ?>
     ?>
         <section class="socios bg-[#FDB9331A] py-6 md:py-8">
             <div class="container">
-                <div class="flex flex-col items-center w-full gap-3">
+                <div class="flex flex-col items-center w-full gap-3 text-center">
                     <span class="text-(--verde)">ÁREA DO INVESTIDOR</span>
                     <h2><?= $socios['titulo']; ?></h2>
                     <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>

@@ -78,7 +78,7 @@
                     <a class="menu-item <?= is_singular('empreendimento') || is_page('empreendimentos') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/empreendimentos">Empreendimentos</a>
                     <a class="menu-item <?= is_home() || is_page('blog') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/blog">Blog</a>
                     <a class="menu-item <?= is_page('contato') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/contato">Fale Conosco</a>
-                    <a class="cta hidden lg:block" href="#">Área do Cliente</a>
+                    <a class="cta !hidden lg:!block" href="#">Área do Cliente</a>
                     <a class="block lg:hidden js-menu-toggle" href="#" aria-label="Abrir menu"><img src="<?= IMG_URI ?>menu.svg" alt="Menu"></a>
                 </nav>
             </div>

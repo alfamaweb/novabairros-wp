@@ -17,7 +17,7 @@ $mobile_id = $mobile_img['ID'] ?? null;
 
         <img src="<?= esc_url($desktop_img['url'] ?? $mobile_img['url']); ?>"
             srcset="<?= $desktop_id ? wp_get_attachment_image_srcset($desktop_id) : ''; ?>" sizes="100vw"
-            alt="hero image" class="w-full h-full object-cover object-center min-h-[300px] max-h-[400px]"
+            alt="hero image" class="w-full h-full object-cover object-center min-h-[180px] max-h-[220px] md:min-h-[260px] md:max-h-[400px]"
             loading="eager" fetchpriority="high">
     </picture>
     <div class="absolute -bottom-2/7 left-0 w-full h-auto">

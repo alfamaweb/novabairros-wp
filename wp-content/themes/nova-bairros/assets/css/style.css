@@ -48,7 +48,19 @@ html {
   pointer-events: none;
 }
 section {
-  margin-top: 96px;
+  margin-top: 64px;
+}
+
+@media (min-width: 768px) {
+  section {
+    margin-top: 80px;
+  }
+}
+
+@media (min-width: 992px) {
+  section {
+    margin-top: 96px;
+  }
 }
 
 header {
@@ -75,24 +87,36 @@ footer {
 section {
   h2 {
     font-weight: 600;
-    font-size: 36px;
+    font-size: 22px;
     line-height: 135%;
     color: var(--verde);
   }
   h3 {
     font-weight: 600;
-    font-size: 26px;
+    font-size: 18px;
     line-height: 135%;
     color: var(--verde);
   }
   span {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 13px;
     line-height: 135%;
     text-align: center;
     text-transform: uppercase;
     color: var(--verde);
   }
+}
+
+@media (min-width: 768px) {
+  section h2 { font-size: 30px; }
+  section h3 { font-size: 22px; }
+  section span { font-size: 16px; }
+}
+
+@media (min-width: 992px) {
+  section h2 { font-size: 36px; }
+  section h3 { font-size: 26px; }
+  section span { font-size: 20px; }
 }
 
 section.bg-\(--verde\) span,
@@ -107,9 +131,17 @@ footer {
 
 h1 {
   font-weight: 500;
-  font-size: 36px;
+  font-size: 24px;
   line-height: 135%;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  h1 { font-size: 30px; }
+}
+
+@media (min-width: 992px) {
+  h1 { font-size: 36px; }
 }
 
 a.cta,
@@ -179,14 +211,24 @@ button.cta {
 
 .thumbnail-holder {
   width: 100%;
-  height: 370px;
+  height: 220px;
   border-radius: 10px;
   clip-path: polygon(100% 0, 100% 65%, 70% 100%, 0% 100%, 0 49%, 0% 0%);
   overflow: hidden;
   &.thumbnail-holder--small {
-    height: 185px;
+    height: 130px;
     clip-path: polygon(100% 0, 100% 55%, 65% 100%, 0% 100%, 0 49%, 0% 0%);
   }
+}
+
+@media (min-width: 768px) {
+  .thumbnail-holder { height: 300px; }
+  .thumbnail-holder.thumbnail-holder--small { height: 160px; }
+}
+
+@media (min-width: 992px) {
+  .thumbnail-holder { height: 370px; }
+  .thumbnail-holder.thumbnail-holder--small { height: 185px; }
 }
 
 .card-outer:hover .thumbnail-holder img.thumbnail {
@@ -221,7 +263,7 @@ button.cta {
   width: 100%;
   label {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 20px;
     color: var(--verde);
   }
@@ -297,13 +339,22 @@ button.cta {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-menu__nav { gap: 2.5rem; }
+  .form-group label { font-size: 18px; }
+}
+
+@media (min-width: 992px) {
+  .form-group label { font-size: 20px; }
 }
 
 .mobile-menu__nav a {
   color: #ffffff;
-  font-size: 1.25rem;
-  letter-spacing: 0.15em;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
   font-weight: 400;
   opacity: 0;
   transform: translateY(12px);
