@@ -10,6 +10,11 @@
  * @since None Plate 1.0
  */
 
+$header_opts = get_field('header', 'option');
+$cta_cliente = $header_opts['cta_cliente'] ?? [];
+$cta_texto   = !empty($cta_cliente['texto']) ? $cta_cliente['texto'] : 'Área do Cliente';
+$cta_url     = !empty($cta_cliente['url'])   ? $cta_cliente['url']   : '#';
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
@@ -40,17 +45,11 @@
     <!-- jQuery -->
     <script type='text/javascript' src='<?php echo get_template_directory_uri(); ?>/assets/libs/jquery/jquery-1.11.1.min.js'></script>
 
-    <!-- Bootstrap -->
-    <!-- <link rel='stylesheet' type='text/css' href='<?php echo get_template_directory_uri(); ?>/assets/libs/bootstrap/bootstrap.min.css'> -->
-
     <!-- Fancybox -->
     <link rel='stylesheet' type='text/css' href='<?php echo get_template_directory_uri(); ?>/assets/libs/fancybox/fancybox.css'>
 
     <!-- Swiper -->
-    <!-- <link rel='stylesheet' type='text/css' href='<?php echo get_template_directory_uri(); ?>/assets/libs/swiper/swiper-bundle.min.css'> -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
     <!-- Main CSS -->
     <link rel='stylesheet' href='<?php echo get_template_directory_uri(); ?>/assets/css/style.css'>
@@ -69,16 +68,16 @@
 
     <header class="site-header">
         <div class="container mx-auto">
-            <div class="navbar flex flex-row items-center flex-nowrap !pt-6 !pb-5">
-                <a href="<?= home_url() ?>" aria-label="Home Kraft" class="navbar-brand">
+            <div class="navbar flex flex-row items-center flex-nowrap pt-6! pb-5!">
+                <a href="<?= home_url(); ?>" aria-label="Home" class="navbar-brand">
                     <img src="<?= IMG_URI ?>logo.svg" alt="">
                 </a>
                 <nav class="flex flex-row items-center gap-8 ms-auto">
-                    <a class="menu-item <?= is_page('sobre') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/sobre">Sobre</a>
-                    <a class="menu-item <?= is_singular('empreendimento') || is_page('empreendimentos') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/empreendimentos">Empreendimentos</a>
-                    <a class="menu-item <?= is_home() || is_page('blog') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/blog">Blog</a>
-                    <a class="menu-item <?= is_page('contato') ? 'active' : '' ?> hidden lg:block" href="<?= home_url() ?>/contato">Fale Conosco</a>
-                    <a class="cta !hidden lg:!block" href="#">Área do Cliente</a>
+                    <a class="menu-item <?= is_page('sobre') ? 'active' : ''; ?> hidden lg:block" href="<?= home_url(); ?>/sobre">Sobre</a>
+                    <a class="menu-item <?= is_singular('empreendimento') || is_page('empreendimentos') ? 'active' : ''; ?> hidden lg:block" href="<?= home_url(); ?>/empreendimentos">Empreendimentos</a>
+                    <a class="menu-item <?= is_home() || is_page('blog') ? 'active' : ''; ?> hidden lg:block" href="<?= home_url(); ?>/blog">Blog</a>
+                    <a class="menu-item <?= is_page('contato') ? 'active' : ''; ?> hidden lg:block" href="<?= home_url(); ?>/contato">Fale Conosco</a>
+                    <a class="cta hidden! lg:block!" href="<?= esc_url($cta_url); ?>"><?= esc_html($cta_texto); ?></a>
                     <a class="block lg:hidden js-menu-toggle" href="#" aria-label="Abrir menu"><img src="<?= IMG_URI ?>menu.svg" alt="Menu"></a>
                 </nav>
             </div>
@@ -91,10 +90,10 @@
             <span></span>
         </button>
         <nav class="mobile-menu__nav">
-            <a href="<?= home_url() ?>/sobre">Sobre</a>
-            <a href="<?= home_url() ?>/empreendimentos">Empreendimentos</a>
-            <a href="<?= home_url() ?>/blog">Blog</a>
-            <a href="<?= home_url() ?>/contato">Fale Conosco</a>
-            <a class="cta" href="#">Área do Cliente</a>
+            <a href="<?= home_url(); ?>/sobre">Sobre</a>
+            <a href="<?= home_url(); ?>/empreendimentos">Empreendimentos</a>
+            <a href="<?= home_url(); ?>/blog">Blog</a>
+            <a href="<?= home_url(); ?>/contato">Fale Conosco</a>
+            <a class="cta" href="<?= esc_url($cta_url); ?>"><?= esc_html($cta_texto); ?></a>
         </nav>
     </div>

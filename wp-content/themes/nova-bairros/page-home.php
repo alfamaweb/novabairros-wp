@@ -11,7 +11,7 @@
 get_header(); ?>
 
 <main>
-    <section class="hero relative !mt-0">
+    <section class="hero relative !mt-0 z-0">
         <div class="swiper hero">
             <div class="swiper-wrapper">
                 <?php
@@ -29,24 +29,24 @@ get_header(); ?>
                         $link_externo = get_sub_field('link_externo');
 
                         $is_first = ($index === 0);
-                        ?>
+                ?>
                         <div class="swiper-slide">
                             <a <?php
-                            $href = '';
-                            $target = '_self';
-                            $fancybox = '';
-                            $play = '';
-                            switch ($link_externo) {
-                                case 'externo':
-                                    $href = get_sub_field('url');
-                                    $target = '_blank';
-                                    $play = '';
-                                    break;
-                                case 'iframe':
-                                    $href = get_sub_field('iframe');
-                                    $target = '_self';
-                                    $fancybox = 'data-fancybox="banner" data-type="iframe" data-width="80%" data-height="80%"';
-                                    $play = '
+                                $href = '';
+                                $target = '_self';
+                                $fancybox = '';
+                                $play = '';
+                                switch ($link_externo) {
+                                    case 'externo':
+                                        $href = get_sub_field('url');
+                                        $target = '_blank';
+                                        $play = '';
+                                        break;
+                                    case 'iframe':
+                                        $href = get_sub_field('iframe');
+                                        $target = '_self';
+                                        $fancybox = 'data-fancybox="banner" data-type="iframe" data-width="80%" data-height="80%"';
+                                        $play = '
                                             <div class="absolute w-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 lg:w-24 lg:h-24 hover:opacity-70 transition-opacity duration-300 ease-in-out">
                                                 <img 
                                                     src="' . IMG_URI . 'play.svg" 
@@ -57,9 +57,9 @@ get_header(); ?>
                                                     loading="lazy"
                                                     decoding="async">
                                             </div>';
-                                    break;
-                            }
-                            ?> href="<?= $href ?? ''; ?>" target="<?= $target ?? ''; ?>" <?= $fancybox ?? ''; ?>
+                                        break;
+                                }
+                                ?> href="<?= $href ?? ''; ?>" target="<?= $target ?? ''; ?>" <?= $fancybox ?? ''; ?>
                                 class="relative w-full h-full" aria-label="<?= esc_attr($texto ?: 'Banner'); ?>">
                                 <?= $play ?? ''; ?>
                                 <picture>
@@ -80,25 +80,23 @@ get_header(); ?>
                                 </picture>
                             </a>
                             <div class="gradient"></div>
-                            <div class="hero-content absolute top-1/2 transform -translate-y-1/2 left-0 w-full">
+                            <div class="hero-content absolute top-[120%] md:top-1/2 transform -translate-y-[120%] md:-translate-y-1/2 left-0 w-full z-10">
                                 <div class="container">
                                     <div class="outer-content grid grid-cols-12">
                                         <div
-                                            class="inner-content col-span-12 md:col-span-4 bg-(--verde) p-5 md:p-7 rounded-[10px]">
-                                            <div class="slide-text">
+                                            class="inner-content flex flex-col items-center lg:items-start col-span-12 md:col-span-6 xl:col-span-4 bg-(--verde) p-5 md:p-7 rounded-[10px]">
+                                            <div class="slide-text text-center md:text-start">
                                                 <span><?= get_sub_field('texto_superior') ?></span>
-                                                <h2><?=
-                                                    get_sub_field('texto')
-                                                    ?></h2>
+                                                <h2><?= get_sub_field('texto') ?></h2>
                                             </div>
                                             <a href="/empreendimentos"
-                                                class="cta mt-10"><?= get_sub_field('texto_botao'); ?></a>
+                                                class="cta mt-6 xl:mt-10"><?= get_sub_field('texto_botao'); ?></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <?php
+                <?php
                         $index++;
                     endwhile;
                 endif;
@@ -131,26 +129,20 @@ get_header(); ?>
                     if ($the_query->have_posts()) {
                         while ($the_query->have_posts()) {
                             $the_query->the_post();
-                            ?>
+                    ?>
                             <div class="swiper-slide">
                                 <a class="card-outer relative" href="<?= get_permalink(); ?>">
                                     <div class="card">
                                         <h3><?= get_the_title(); ?></h3>
                                         <?php if (have_rows('diferenciais_card')): ?>
                                             <div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
-                                                <?php while (have_rows('diferenciais_card')):
+                                                <?php $i = 0; while (have_rows('diferenciais_card')):
                                                     the_row(); ?>
-                                                    <div class="inline-flex flex-[1_1_auto] items-center gap-2">
-                                                        <?php
-                                                        $icone = get_sub_field('icone');
-                                                        $svg_path = get_attached_file($icone['ID']);
-                                                        if ($svg_path && file_exists($svg_path)) {
-                                                            echo file_get_contents($svg_path);
-                                                        }
-                                                        ?>
+                                                    <div class="inline-flex flex-[1_1_auto] items-center dif-<?= $i; ?> gap-2">
+                                                        <img class="w-7 h-7 object-contain" src="<?= get_sub_field('icone')['url'] ?>" alt="icon">
                                                         <p class="mb-0"><?= get_sub_field('texto'); ?></p>
                                                     </div>
-                                                <?php endwhile; ?>
+                                                <?php $i++; endwhile; ?>
                                             </div>
                                         <?php endif; ?>
                                         <div class="thumbnail-holder">
@@ -158,13 +150,13 @@ get_header(); ?>
                                                 alt="<?= get_field('thumbnail')['title']; ?>">
                                         </div>
                                     </div>
-                                    <div class="w-15 h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
-                                        <img class="seta !w-12 !h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                    <div class="w-10 h-10 lg:w-15 lg:h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
+                                        <img class="seta !w-6 !h-6 lg:!w-12 lg:!h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                                             src="<?= IMG_URI ?>arrow-right.svg" alt="">
                                     </div>
                                 </a>
                             </div>
-                            <?php
+                    <?php
                         }
                     } else {
                     }
@@ -192,13 +184,13 @@ get_header(); ?>
             </div>
             <?php
             if (have_rows('cards')):
-                ?>
+            ?>
                 <div class='swiper infraestrutura'>
                     <div class='swiper-wrapper'>
                         <?php
                         while (have_rows('cards')):
                             the_row();
-                            ?>
+                        ?>
                             <div class='swiper-slide'>
                                 <div class="card">
                                     <img src="<?= get_sub_field('icone')['url']; ?>"
@@ -261,7 +253,7 @@ get_header(); ?>
                                         </div>
                                     </div>
                                     <div class="w-10 h-10 rounded-full bg-(--amarelo) absolute right-4 bottom-4">
-                                        <img class="seta !w-8 !h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                        <img class="seta !w-6 !h-6 lg:!w-8 lg:!h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                                             src="<?= IMG_URI ?>arrow-right.svg" alt="">
                                     </div>
                                 </a>
@@ -281,7 +273,7 @@ get_header(); ?>
 
     <?php
     if (have_rows('itens')):
-        ?>
+    ?>
         <section class="diferenciais bg-[#FDB9331A] py-8 md:py-16">
             <div class="container">
                 <div
@@ -289,7 +281,7 @@ get_header(); ?>
                     <?php
                     while (have_rows('itens')):
                         the_row();
-                        ?>
+                    ?>
                         <div class="w-full md:col-span-6 xl:col-span-3">
                             <div class="flex flex-col items-center gap-6">
                                 <span
@@ -306,11 +298,11 @@ get_header(); ?>
                 </div>
             </div>
         </section>
-        <?php
+    <?php
     endif;
     if (!empty(get_field('sobre_nos'))):
         $sobre = get_field('sobre_nos');
-        ?>
+    ?>
         <section class="sobre">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
@@ -378,7 +370,7 @@ get_header(); ?>
                     if ($the_query->have_posts()) {
                         while ($the_query->have_posts()) {
                             $the_query->the_post();
-                            ?>
+                    ?>
                             <div class="swiper-slide">
                                 <a class="card-outer relative" href="<?= get_permalink(); ?>">
                                     <div class="card">
@@ -390,13 +382,13 @@ get_header(); ?>
                                                 alt="<?= get_the_title(); ?>">
                                         </div>
                                     </div>
-                                    <div class="w-15 h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
-                                        <img class="seta !w-12 !h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                                    <div class="w-10 h-10 lg:w-15 lg:h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
+                                        <img class="seta !w-6 !h-6 lg:!w-12 lg:!h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                                             src="<?= IMG_URI ?>arrow-right.svg" alt="">
                                     </div>
                                 </a>
                             </div>
-                            <?php
+                    <?php
                         }
                     } else {
                     }
@@ -419,7 +411,7 @@ get_header(); ?>
 <?php get_footer(); ?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const swiper = new Swiper('.swiper.empreendimentos', {
             direction: 'horizontal',
             loop: false,

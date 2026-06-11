@@ -207,6 +207,12 @@ button.cta {
       transition: transform 0.4s ease-in-out;
     }
   }
+
+  @media (max-width: 640px) {
+    p {
+      font-size: 14px;
+    }
+  }
 }
 
 .thumbnail-holder {
@@ -251,6 +257,10 @@ button.cta {
   padding: 30px;
 }
 
+.swiper.hero {
+  overflow: visible;
+}
+
 .swiper-button-next,
 .swiper-button-prev {
   color: #252525;
@@ -277,6 +287,12 @@ button.cta {
       border-bottom: 1px solid var(--cinza);
       color: var(--verde);
     }
+  }
+}
+
+.dif-2 {
+  @media (max-width: 640px) {
+    display: none !important;
   }
 }
 
