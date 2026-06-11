@@ -1,1 +1,27 @@
 /* Estilo automático para o tipo de post: post */
+.breadcrumb {
+  a,
+  p {
+    color: var(--verde);
+  }
+  h1 {
+    font-size: 36px;
+    color: var(--verde);
+  }
+}
+.thumbnail {
+}
+.top {
+  p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: white;
+  }
+  span {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    color: var(--amarelo);
+  }
+}

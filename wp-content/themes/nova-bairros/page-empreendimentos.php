@@ -13,7 +13,7 @@ get_header(); ?>
 <main>
     <?php include 'hero-interna.php'; ?>
 
-    <section class="filter">
+    <!-- <section class="filter">
         <div class="container">
             <div class="flex lg:flex-row flex-col gap-6">
                 <div class="form-group flex flex-col flex-1">
@@ -44,7 +44,7 @@ get_header(); ?>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <section class="empreendimentos !mt-10">
         <div class="container">
