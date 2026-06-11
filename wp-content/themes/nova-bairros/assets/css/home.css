@@ -42,7 +42,7 @@ section.infraestrutura {
   span {
     color: white;
   }
-  .card-infra {
+  .card {
     background-color: white;
     justify-content: center;
     align-items: center;
@@ -70,7 +70,7 @@ section.infraestrutura {
     }
     &:hover {
       h3 {
-        color: var(--verde);
+        color: var(--verde) !important;
       }
     }
   }
