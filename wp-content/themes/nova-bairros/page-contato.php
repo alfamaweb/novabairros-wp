@@ -138,7 +138,7 @@ get_header(); ?>
                     0: { slidesPerView: 1.2 },
                     768: { slidesPerView: 2 },
                     1024: { slidesPerView: 4 },
-                    1400: { slidesPerView: 6 }
+                    1400: { slidesPerView: auto }
                 },
                 pagination: {
                     el: '.swiper-pagination',

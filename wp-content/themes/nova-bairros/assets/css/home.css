@@ -11,7 +11,7 @@ section.hero {
         font-size: 30px;
       }
       @media (min-width: 1200px) {
-        font-size: 40px;
+        font-size: 34px;
       }
     }
     span {
