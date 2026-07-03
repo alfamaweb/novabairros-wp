@@ -18,7 +18,7 @@ get_header(); ?>
     ?>
         <section class="sobre">
             <div class="container">
-                <div class="flex md:grid grid-cols-12">
+                <div class="flex flex-col md:grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-6">
                         <div class="flex flex-col items-start w-fit gap-3">
                             <span class="text-(--verde)">há mais de 14 anos no mercado</span>
@@ -65,7 +65,7 @@ get_header(); ?>
     ?>
         <section class="mvv">
             <div class="container">
-                <div class="flex md:grid grid-cols-12 gap-8">
+                <div class="flex flex-col md:grid grid-cols-12 gap-8">
                     <div class="col-span-12">
                         <div class="flex flex-col items-center w-full gap-3 text-center">
                             <span class="text-(--verde)">missão, visão e valores</span>
@@ -128,7 +128,7 @@ get_header(); ?>
                 $i = 0;
                 while (have_rows('blocos')): the_row();
                 ?>
-                    <div class="flex lg:grid grid-cols-12 gap-8 mb-8">
+                    <div class="flex flex-col lg:grid grid-cols-12 gap-8 mb-8">
                         <div class="bloco-texto col-span-12 lg:col-span-6 <?= $i % 2 !== 0 ? 'lg:order-last' : ''; ?>">
                             <div class="flex flex-col items-start w-fit gap-3">
                                 <?php if ($i === 0) : ?>
@@ -151,7 +151,7 @@ get_header(); ?>
         </section>
     <?php
     endif;
-    if (!empty(get_field('bloco_socios'))):
+    if (!empty(get_field('bloco_socios')['titulo'])):
         $socios = get_field('bloco_socios');
     ?>
         <section class="socios bg-[#FDB9331A] py-6 md:py-8">

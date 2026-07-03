@@ -102,7 +102,7 @@ get_header(); ?>
                 endif;
                 ?>
             </div>
-            
+
         </div>
         <div class="swiper-prev-custom hidden lg:block"></div>
         <div class="swiper-next-custom hidden lg:block"></div>
@@ -136,13 +136,15 @@ get_header(); ?>
                                         <h3><?= get_the_title(); ?></h3>
                                         <?php if (have_rows('diferenciais_card')): ?>
                                             <div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
-                                                <?php $i = 0; while (have_rows('diferenciais_card')):
+                                                <?php $i = 0;
+                                                while (have_rows('diferenciais_card')):
                                                     the_row(); ?>
                                                     <div class="inline-flex flex-[1_1_auto] items-center dif-<?= $i; ?> gap-2">
                                                         <img class="w-7 h-7 object-contain" src="<?= get_sub_field('icone')['url'] ?>" alt="icon">
                                                         <p class="mb-0"><?= get_sub_field('texto'); ?></p>
                                                     </div>
-                                                <?php $i++; endwhile; ?>
+                                                <?php $i++;
+                                                endwhile; ?>
                                             </div>
                                         <?php endif; ?>
                                         <div class="thumbnail-holder">
@@ -211,7 +213,7 @@ get_header(); ?>
     ?>
     <section class="localizacoes">
         <div class="container">
-            <div class="flex flex-col md:grid md:grid-cols-12 items-start md:items-center">
+            <div class="flex flex-col md:grid md:grid-cols-12 items-start md:items-center max-md:gap-6">
                 <div class="col-span-12 md:col-span-6">
                     <div class="flex flex-col items-start w-fit gap-4">
                         <span>Localizações</span>
@@ -230,7 +232,7 @@ get_header(); ?>
                             <span>MANAUS - AMAZONAS</span>
                         </div>
                     </div>
-                    <div class="grid grid-cols-6 gap-4 mt-10">
+                    <div class="flex flex-col lg:grid grid-cols-6 gap-4 mt-10">
                         <?php
                         $args_loc = array(
                             'post_type'      => 'empreendimento',
@@ -324,30 +326,34 @@ get_header(); ?>
             </div>
         </section>
     <?php endif; ?>
-    <section class="app">
-        <div class="container">
-            <div
-                class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-[10px] gap-6 lg:gap-0">
-                <div class="flex flex-col items-center justify-center">
-                    <img src="<?= IMG_URI ?>app.svg" alt="App Store">
+    <?php
+    $aplicativo = get_field('aplicativo');
+    if (!empty($aplicativo)):
+    ?>
+        <section class="app">
+            <div class="container">
+                <div
+                    class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-[10px] gap-6 lg:gap-0">
+                    <div class="flex flex-col items-center justify-center">
+                        <img src="<?= IMG_URI ?>app.svg" alt="App Store">
+                    </div>
+                    <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
+                    <div class="flex flex-col items-center lg:items-start text-white justify-center">
+                        <span>Baixe e confira</span>
+                        <h2><?= $aplicativo['titulo'] ?></h2>
+                    </div>
+                    <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
+                    <div class="flex flex-col items-center justify-center max-w-120">
+                        <p><?= $aplicativo['texto'] ?></p>
+                    </div>
+                    <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
+                    <a href="<?= $aplicativo['link'] ?>" target="_blank" class="cta w-full lg:w-auto text-nowrap my-auto">
+                        Acesse o aplicativo
+                    </a>
                 </div>
-                <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
-                <div class="flex flex-col items-center lg:items-start text-white justify-center">
-                    <span>CONFIRA AGORA</span>
-                    <h2>Nosso aplicativo</h2>
-                </div>
-                <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
-                <div class="flex flex-col items-center justify-center max-w-120">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et. Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
-                <a href="#" class="cta w-full lg:w-auto text-nowrap my-auto">
-                    Acesse o aplicativo
-                </a>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php endif; ?>
 
     <section class="empreendimentos">
         <div class="container">
@@ -438,7 +444,7 @@ get_header(); ?>
                 0: {
                     slidesPerView: 1.5,
                     centedredSlides: true,
-                    spaceBetween: 36
+                    spaceBetween: 24
                 },
                 768: {
                     slidesPerView: 2.5
