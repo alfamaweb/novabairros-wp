@@ -101,12 +101,12 @@ get_header(); ?>
                         <?php while (have_rows('cards')): the_row(); ?>
                             <div class="swiper-slide">
                                 <div class="card relative pt-[80px]">
-                                    <div class="holder absolute -top-[60px] inset-x-0">
+                                    <div class="holder absolute -top-[44px] inset-x-0">
                                         <div class="relative justify-items-center">
                                             <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square w-15 h-15 bg-(--amarelo) content-center justify-items-center">
                                                 <img src="<?= get_sub_field('icone')['url']; ?>" alt="">
                                             </div>
-                                            <h3 class="!text-white text-center bg-(--verde) px-14 pt-7 pb-3 rounded-[10px] w-fit"><?= get_sub_field('titulo'); ?></h3>
+                                            <h3 class="!text-white text-center bg-(--verde) px-8 md:px-10 xl:px-14 pt-7 pb-3 rounded-[10px] w-fit"><?= get_sub_field('titulo'); ?></h3>
                                         </div>
                                     </div>
                                     <p class="text-center"><?= get_sub_field('texto'); ?></p>

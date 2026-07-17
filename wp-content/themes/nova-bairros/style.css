@@ -279,6 +279,16 @@ tbody tr:nth-child(odd) {
   margin: 0 auto;
 }
 
+a.cta,
+button.cta {
+  transition: transform 0.3s ease-in-out;
+}
+
+a.cta:hover,
+button.cta:hover {
+  transform: translateY(-4px);
+}
+
 
 /* ==========================================================================
    4. Header - The top of every page

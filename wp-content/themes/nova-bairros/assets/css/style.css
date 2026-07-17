@@ -79,7 +79,10 @@ header {
 }
 
 footer {
-  p, h4, span, li {
+  p,
+  h4,
+  span,
+  li {
     color: white;
   }
 }
@@ -108,15 +111,27 @@ section {
 }
 
 @media (min-width: 768px) {
-  section h2 { font-size: 30px; }
-  section h3 { font-size: 22px; }
-  section span { font-size: 16px; }
+  section h2 {
+    font-size: 30px;
+  }
+  section h3 {
+    font-size: 22px;
+  }
+  section span {
+    font-size: 16px;
+  }
 }
 
 @media (min-width: 992px) {
-  section h2 { font-size: 36px; }
-  section h3 { font-size: 26px; }
-  section span { font-size: 20px; }
+  section h2 {
+    font-size: 36px;
+  }
+  section h3 {
+    font-size: 26px;
+  }
+  section span {
+    font-size: 20px;
+  }
 }
 
 section.bg-\(--verde\) span,
@@ -137,11 +152,15 @@ h1 {
 }
 
 @media (min-width: 768px) {
-  h1 { font-size: 30px; }
+  h1 {
+    font-size: 30px;
+  }
 }
 
 @media (min-width: 992px) {
-  h1 { font-size: 36px; }
+  h1 {
+    font-size: 36px;
+  }
 }
 
 a.cta,
@@ -154,6 +173,12 @@ button.cta {
   text-decoration: none;
   border-radius: 100px;
   transition: background-color 0.3s ease;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
   @media (max-width: 640px) {
     text-align: center;
   }
@@ -231,13 +256,21 @@ button.cta {
 }
 
 @media (min-width: 768px) {
-  .thumbnail-holder { height: 300px; }
-  .thumbnail-holder.thumbnail-holder--small { height: 160px; }
+  .thumbnail-holder {
+    height: 300px;
+  }
+  .thumbnail-holder.thumbnail-holder--small {
+    height: 160px;
+  }
 }
 
 @media (min-width: 992px) {
-  .thumbnail-holder { height: 370px; }
-  .thumbnail-holder.thumbnail-holder--small { height: 185px; }
+  .thumbnail-holder {
+    height: 370px;
+  }
+  .thumbnail-holder.thumbnail-holder--small {
+    height: 185px;
+  }
 }
 
 .card-outer:hover .thumbnail-holder img.thumbnail {
@@ -362,12 +395,18 @@ button.cta {
 }
 
 @media (min-width: 768px) {
-  .mobile-menu__nav { gap: 2.5rem; }
-  .form-group label { font-size: 18px; }
+  .mobile-menu__nav {
+    gap: 2.5rem;
+  }
+  .form-group label {
+    font-size: 18px;
+  }
 }
 
 @media (min-width: 992px) {
-  .form-group label { font-size: 20px; }
+  .form-group label {
+    font-size: 20px;
+  }
 }
 
 .mobile-menu__nav a {

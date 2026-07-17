@@ -17,3 +17,33 @@
     font-size: 14px;
   }
 }
+
+section.diferenciais {
+  h3 {
+    font-size: 18px;
+    @media (min-width: 640px) {
+      font-size: 20px;
+    }
+  }
+  .swiper-wrapper {
+    align-items: stretch !important;
+  }
+  .swiper-slide {
+    height: auto !important;
+  }
+  .card {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    p {
+      color: var(--titulos); 
+    }
+    &:hover {
+      background-color: inherit;
+      border: 1px solid var(--verde);
+      p {
+       color: var(--titulos); 
+      }
+    }
+  }
+}
