@@ -296,6 +296,48 @@ button.cta {
 
 .swiper.hero {
   overflow: visible;
+  height: 100%;
+
+  .swiper-slide a {
+    display: block;
+    overflow: hidden;
+    height: 100%;
+
+    picture {
+      display: block;
+      height: 100%;
+    }
+
+    img {
+      transition: transform 400ms ease-in-out;
+    }
+  }
+}
+
+section.hero:hover .swiper-slide a img {
+  transform: scale(1.05);
+}
+
+section.hero.interna {
+  height: 220px;
+
+  @media (min-width: 768px) {
+    height: 400px;
+  }
+}
+
+section.hero.interna picture {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+
+  img {
+    transition: transform 400ms ease-in-out;
+  }
+}
+
+section.hero.interna:hover picture img {
+  transform: scale(1.05);
 }
 
 .swiper-button-next,

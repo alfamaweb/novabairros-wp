@@ -104,8 +104,9 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
                         <?php foreach ($links_uteis['links'] as $link):
                             if (empty($link['texto'])) continue;
                         ?>
-                            <a href="<?= esc_url($link['url'] ?? '#'); ?>" class="cta text-sm!">
-                                <?= esc_html($link['texto']); ?>
+                            <a href="<?= esc_url($link['url'] ?? '#'); ?>" class="cta text-sm! !inline-flex items-center gap-2 hover:!text-white transition-colors">
+                                <img src="<?= esc_url($link['icone']['url'] ?? ''); ?>" alt="icone-util" class="w-5 h-5 brightness-0 invert">
+                            <?= esc_html($link['texto']); ?>
                             </a>
                         <?php endforeach; ?>
                     </div>

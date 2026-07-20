@@ -5,7 +5,7 @@ $mobile_img = $hero['mobile'] ?? null;
 $desktop_id = $desktop_img['ID'] ?? null;
 $mobile_id = $mobile_img['ID'] ?? null;
 ?>
-<section class="hero interna h-auto relative !mt-0 mb-30 md:mb-40">
+<section class="hero interna relative !mt-0 mb-30 md:mb-40">
     <picture>
         <?php if ($mobile_id): ?>
             <source media="(max-width: 1023px)" srcset="<?= wp_get_attachment_image_srcset($mobile_id); ?>" sizes="100vw">
@@ -17,7 +17,7 @@ $mobile_id = $mobile_img['ID'] ?? null;
 
         <img src="<?= esc_url($desktop_img['url'] ?? $mobile_img['url']); ?>"
             srcset="<?= $desktop_id ? wp_get_attachment_image_srcset($desktop_id) : ''; ?>" sizes="100vw"
-            alt="hero image" class="w-full h-full object-cover object-center min-h-[180px] max-h-[220px] md:min-h-[260px] md:max-h-[400px]"
+            alt="hero image" class="w-full h-full object-cover object-center"
             loading="eager" fetchpriority="high">
     </picture>
     <div class="absolute -bottom-2/7 left-0 w-full h-auto">
