@@ -11,7 +11,7 @@
 get_header(); ?>
 
 <main>
-    <section class="hero relative !mt-0 z-0">
+    <section class="hero relative !mt-0 z-0" id="hero">
         <div class="swiper hero">
             <div class="swiper-wrapper">
                 <?php
@@ -418,6 +418,23 @@ get_header(); ?>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const swiperHero = new Swiper('.swiper.hero', {
+            direction: 'horizontal',
+            loop: true,
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            slidesPerView: 1,
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-next-custom',
+                prevEl: '.swiper-prev-custom',
+            },
+        });
         const swiper = new Swiper('.swiper.empreendimentos', {
             direction: 'horizontal',
             loop: false,
