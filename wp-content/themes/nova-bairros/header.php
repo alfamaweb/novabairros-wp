@@ -66,7 +66,7 @@ $cta_url     = !empty($cta_cliente['url'])   ? $cta_cliente['url']   : '#';
         <span class="loader"></span>
     </div>
 
-    <header class="site-header">
+    <header class="site-header" id="topo">
         <div class="container mx-auto">
             <div class="navbar flex flex-row items-center flex-nowrap pt-6! pb-5!">
                 <a href="<?= home_url(); ?>" aria-label="Home" class="navbar-brand">
