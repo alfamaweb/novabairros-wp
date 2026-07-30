@@ -252,6 +252,8 @@ get_header(); ?>
                             </div>
                         <?php endforeach; ?>
                     </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
             </div>
         </section>
@@ -397,6 +399,8 @@ get_header(); ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
                         </div>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ get_header(); ?>
                             <div class="border-b border-(--amarelo) border-[3px] w-full"></div>
                         </div>
                     </div>
-                    <div class="col-span-12">
+                    <div class="col-span-12 contatos-swiper-wrap">
                         <div class="swiper contatos py-8!">
                             <div class="swiper-wrapper !items-stretch">
                                 <?php foreach ($contatos['unidades'] as $unidade):
@@ -64,10 +64,10 @@ get_header(); ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-prev"></div>
-                            <div class="swiper-button-next"></div>
+                            <!-- <div class="swiper-pagination"></div> -->
                         </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
                 </div>
             </div>
@@ -143,9 +143,9 @@ get_header(); ?>
                     1024: { slidesPerView: 4 },
                     1400: { slidesPerView: 5 }
                 },
-                pagination: {
-                    el: '.swiper-pagination',
-                },
+                // pagination: {
+                //     el: '.swiper-pagination',
+                // },
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',

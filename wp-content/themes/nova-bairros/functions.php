@@ -674,8 +674,8 @@ function carregar_estilos_dinamicos()
 	$css_dir = get_stylesheet_directory() . '/assets/css/';
 	$css_uri = get_stylesheet_directory_uri() . '/assets/css/';
 
-	wp_enqueue_style('estilo-global', $css_uri . 'style.css');
-	wp_enqueue_style('tailwind', $css_uri . 'tailwind.css');
+	wp_enqueue_style('estilo-global', $css_uri . 'style.css', [], filemtime($css_dir . 'style.css'));
+	wp_enqueue_style('tailwind', $css_uri . 'tailwind.css', [], filemtime($css_dir . 'tailwind.css'));
 
 	$estilos_enfileirados = [];
 
@@ -684,7 +684,7 @@ function carregar_estilos_dinamicos()
 		$slug = get_post_field('post_name', get_the_ID());
 		$slug_file = $css_dir . $slug . '.css';
 		if (file_exists($slug_file)) {
-			wp_enqueue_style('estilo-' . $slug, $css_uri . $slug . '.css');
+			wp_enqueue_style('estilo-' . $slug, $css_uri . $slug . '.css', [], filemtime($slug_file));
 			$estilos_enfileirados[] = $slug;
 		}
 	}
@@ -694,7 +694,7 @@ function carregar_estilos_dinamicos()
 		$post_type = get_post_type();
 		$type_file = $css_dir . $post_type . '.css';
 		if (file_exists($type_file)) {
-			wp_enqueue_style('estilo-' . $post_type, $css_uri . $post_type . '.css');
+			wp_enqueue_style('estilo-' . $post_type, $css_uri . $post_type . '.css', [], filemtime($type_file));
 			$estilos_enfileirados[] = $post_type;
 		}
 	}
@@ -703,26 +703,26 @@ function carregar_estilos_dinamicos()
 	if (is_front_page() || is_home()) {
 		$home_file = $css_dir . 'home.css';
 		if (file_exists($home_file)) {
-			wp_enqueue_style('estilo-home', $css_uri . 'home.css');
+			wp_enqueue_style('estilo-home', $css_uri . 'home.css', [], filemtime($home_file));
 			$estilos_enfileirados[] = 'home';
 		}
 	}
 
 	// Arquivo
 	if (is_archive() && file_exists($css_dir . 'archive.css')) {
-		wp_enqueue_style('estilo-archive', $css_uri . 'archive.css');
+		wp_enqueue_style('estilo-archive', $css_uri . 'archive.css', [], filemtime($css_dir . 'archive.css'));
 		$estilos_enfileirados[] = 'archive';
 	}
 
 	// Busca
 	if (is_search() && file_exists($css_dir . 'search.css')) {
-		wp_enqueue_style('estilo-search', $css_uri . 'search.css');
+		wp_enqueue_style('estilo-search', $css_uri . 'search.css', [], filemtime($css_dir . 'search.css'));
 		$estilos_enfileirados[] = 'search';
 	}
 
 	// 404
 	if (is_404() && file_exists($css_dir . '404.css')) {
-		wp_enqueue_style('estilo-404', $css_uri . '404.css');
+		wp_enqueue_style('estilo-404', $css_uri . '404.css', [], filemtime($css_dir . '404.css'));
 		$estilos_enfileirados[] = '404';
 	}
 
