@@ -193,6 +193,10 @@ button.cta {
     background-color 0.3s ease-in-out,
     color 0.3s ease-in-out,
     border-color 0.3s ease-in-out;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   svg path {
     transition: fill 0.3s ease-in-out;
