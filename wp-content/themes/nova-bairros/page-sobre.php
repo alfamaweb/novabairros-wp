@@ -21,7 +21,7 @@ get_header(); ?>
                 <div class="flex flex-col md:grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-6">
                         <div class="flex flex-col items-start w-fit gap-3">
-                            <span class="text-(--verde)">há mais de 14 anos no mercado</span>
+                            <span class="text-(--verde)"><?php echo get_field('titulo_sobre'); ?></span>
                             <h2><?= $sobre['titulo']; ?></h2>
                             <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
                         </div>
