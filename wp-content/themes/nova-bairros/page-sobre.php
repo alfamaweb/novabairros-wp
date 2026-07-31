@@ -266,6 +266,11 @@ get_header(); ?>
                 el: '.swiper-pagination',
                 clickable: true,
             },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
             breakpoints: {
                 0: {
                     slidesPerView: 1,
