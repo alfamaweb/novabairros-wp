@@ -179,7 +179,7 @@ get_header(); ?>
     <?php endif;
     if (!empty(get_field('negocios'))):
     $negocios = get_field('negocios'); ?>
-        <section class="negocios">
+        <section class="negocios bg-[#FDB9331A]">
             <div class="container">
                 <div class="flex flex-col lg:grid grid-cols-12 gap-8">
                     <div class="col-span-6">
