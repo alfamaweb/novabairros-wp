@@ -880,6 +880,162 @@ function get_acf_oembed_data($field_name, $post_id = null, $is_sub = false)
 	return $data;
 }
 
+/**
+ * Página Empreendimentos - listagem com paginação via AJAX
+ */
+function nb_empreendimentos_query($paged = 1, $posts_per_page = 10)
+{
+	return new WP_Query(array(
+		'post_type' => 'empreendimento',
+		'posts_per_page' => $posts_per_page,
+		'orderby' => 'date',
+		'order' => 'DESC',
+		'post_status' => 'publish',
+		'paged' => $paged,
+	));
+}
+
+function nb_render_empreendimentos_cards($the_query)
+{
+	ob_start();
+	if ($the_query->have_posts()):
+		while ($the_query->have_posts()):
+			$the_query->the_post();
+			?>
+			<a class="card-outer relative col-span-6" href="<?= get_permalink(); ?>">
+				<div class="card">
+					<h3>
+						<?= get_the_title(); ?>
+					</h3>
+					<?php
+					if (have_rows('diferenciais_card')):
+						?>
+						<div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
+							<?php
+							while (have_rows('diferenciais_card')):
+								the_row();
+								?>
+								<div class="inline-flex flex-[1_1_auto] items-center gap-2">
+									<?php
+									$icone = get_sub_field('icone');
+									$svg_path = get_attached_file($icone['ID']);
+									if ($svg_path && file_exists($svg_path)) {
+										echo file_get_contents($svg_path);
+									}
+									?>
+									<p class="mb-0">
+										<?= get_sub_field('texto'); ?>
+									</p>
+								</div>
+							<?php endwhile; ?>
+
+						</div>
+					<?php endif; ?>
+					<div class="thumbnail-holder">
+						<img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>"
+							alt="<?= get_field('thumbnail')['title']; ?>">
+					</div>
+				</div>
+				<div class="w-10 h-10 lg:w-15 lg:h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
+					<img class="seta !w-6 !h-6 lg:!w-12 lg:!h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+						src="<?= IMG_URI ?>arrow-right.svg" alt="">
+				</div>
+			</a>
+			<?php
+		endwhile;
+	endif;
+	wp_reset_postdata();
+	return ob_get_clean();
+}
+
+/**
+ * Monta a lista de páginas a exibir, com "..." para intervalos maiores.
+ *
+ * @return array<int|string>
+ */
+function nb_pagination_range($current, $total, $edge = 1, $around = 1)
+{
+	$range = array();
+	$show_items = ($edge * 2) + ($around * 2) + 1;
+
+	if ($total <= $show_items + 2) {
+		for ($i = 1; $i <= $total; $i++) {
+			$range[] = $i;
+		}
+		return $range;
+	}
+
+	for ($i = 1; $i <= $total; $i++) {
+		if ($i === 1 || $i === $total || ($i >= $current - $around && $i <= $current + $around)) {
+			$range[] = $i;
+		} elseif (empty($range) || end($range) !== '...') {
+			$range[] = '...';
+		}
+	}
+
+	return $range;
+}
+
+function nb_render_empreendimentos_pagination($paged, $max_pages)
+{
+	if ($max_pages <= 1) {
+		return '';
+	}
+
+	ob_start();
+	?>
+	<nav class="empreendimentos-pagination" aria-label="Paginação de empreendimentos">
+		<?php foreach (nb_pagination_range($paged, $max_pages) as $item): ?>
+			<?php if ('...' === $item): ?>
+				<span class="empreendimentos-pagination__dots">&hellip;</span>
+			<?php else: ?>
+				<button
+					type="button"
+					class="empreendimentos-pagination__item<?= $item === $paged ? ' is-active' : ''; ?>"
+					data-page="<?= esc_attr($item); ?>"
+					<?= $item === $paged ? 'aria-current="page"' : ''; ?>
+				>
+					<?= $item; ?>
+				</button>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</nav>
+	<?php
+	return ob_get_clean();
+}
+
+function nb_ajax_load_empreendimentos()
+{
+	check_ajax_referer('nb_empreendimentos_nonce', 'nonce');
+
+	$max_pages = 1;
+	$paged = isset($_POST['paged']) ? max(1, intval($_POST['paged'])) : 1;
+	$the_query = nb_empreendimentos_query($paged, 10);
+	$max_pages = max(1, (int) $the_query->max_num_pages);
+	$paged = min($paged, $max_pages);
+
+	wp_send_json_success(array(
+		'cards' => nb_render_empreendimentos_cards($the_query),
+		'pagination' => nb_render_empreendimentos_pagination($paged, $max_pages),
+	));
+}
+add_action('wp_ajax_nb_load_empreendimentos', 'nb_ajax_load_empreendimentos');
+add_action('wp_ajax_nopriv_nb_load_empreendimentos', 'nb_ajax_load_empreendimentos');
+
+function nb_empreendimentos_scripts()
+{
+	if (!is_page('empreendimentos')) {
+		return;
+	}
+
+	wp_enqueue_script('nb-empreendimentos', JS_URI . 'empreendimentos.js', array('jquery'), '1.0', true);
+	wp_localize_script('nb-empreendimentos', 'nbEmpreendimentos', array(
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+		'nonce' => wp_create_nonce('nb_empreendimentos_nonce'),
+	));
+}
+add_action('wp_enqueue_scripts', 'nb_empreendimentos_scripts');
+
 function get_oembed_data_from_url($iframe)
 {
 	if (!$iframe) return false;

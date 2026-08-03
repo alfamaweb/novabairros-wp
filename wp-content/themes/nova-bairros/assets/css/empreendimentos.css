@@ -1,1 +1,62 @@
 /* Estilo automático para a página: empreendimentos */
+
+.empreendimentos.is-loading #empreendimentos-cards {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.empreendimentos-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.empreendimentos-pagination__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background-color: #ececec;
+  color: var(--titulos);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #dcdcdc;
+  }
+
+  &.is-active {
+    background-color: var(--amarelo);
+    color: #252525;
+  }
+}
+
+.empreendimentos-pagination__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--cinza);
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .empreendimentos-pagination__item,
+  .empreendimentos-pagination__dots {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+}
