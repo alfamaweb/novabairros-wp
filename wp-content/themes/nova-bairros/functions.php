@@ -1033,7 +1033,7 @@ function nb_render_empreendimentos_pagination($paged, $max_pages)
 			<?php endif; ?>
 		<?php endforeach; ?>
 	</nav>
-<?php
+	<?php
 	return ob_get_clean();
 }
 
@@ -1117,49 +1117,162 @@ function get_oembed_data_from_url($iframe)
 // AJAX para filtrar empreendimentos por estado
 add_action('wp_ajax_filter_empreendimentos', 'filter_empreendimentos_ajax');
 add_action('wp_ajax_nopriv_filter_empreendimentos', 'filter_empreendimentos_ajax');
-function filter_empreendimentos_ajax() {
-    $estado = isset($_POST['estado']) ? sanitize_text_field($_POST['estado']) : '';
-    
-    $args_loc = array(
-        'post_type'      => 'empreendimento',
-        'posts_per_page' => -1,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
-        'post_status'    => 'publish',
-    );
-    
-    if (!empty($estado)) {
-        $args_loc['tax_query'] = array(
-            array(
-                'taxonomy' => 'estado',
-                'field'    => 'name',
-                'terms'    => $estado,
-            )
-        );
-    }
-    
-    $query_loc = new WP_Query($args_loc);
-    
-    if ($query_loc->have_posts()):
-        while ($query_loc->have_posts()): $query_loc->the_post();
-            $estado_terms = get_the_terms(get_the_ID(), 'estado');
-            $estado_sigla = !empty($estado_terms) ? $estado_terms[0]->name : '';
-            ?>
-            <a class="card-outer relative swiper-slide" data-estado="<?= esc_attr($estado_sigla); ?>" href="<?= get_permalink(); ?>">
-                <div class="card card-small">
-                    <h3><?= get_the_title(); ?></h3>
-                    <div class="thumbnail-holder thumbnail-holder--small">
-                        <img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>" alt="<?= esc_attr(get_field('thumbnail')['title']); ?>">
-                    </div>
-                </div>
-                <div class="w-10 h-10 rounded-full bg-(--amarelo) absolute right-4 bottom-4">
-                    <img class="seta !w-6 !h-6 lg:!w-8 lg:!h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="<?= IMG_URI ?>arrow-right.svg" alt="">
-                </div>
-            </a>
-            <?php
-        endwhile;
-        wp_reset_postdata();
-    endif;
-    
-    wp_die();
+function filter_empreendimentos_ajax()
+{
+	$estado = isset($_POST['estado']) ? sanitize_text_field($_POST['estado']) : '';
+
+	$args_loc = array(
+		'post_type'      => 'empreendimento',
+		'posts_per_page' => -1,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'post_status'    => 'publish',
+	);
+
+	if (!empty($estado)) {
+		$args_loc['tax_query'] = array(
+			array(
+				'taxonomy' => 'estado',
+				'field'    => 'name',
+				'terms'    => $estado,
+			)
+		);
+	}
+
+	$query_loc = new WP_Query($args_loc);
+
+	if ($query_loc->have_posts()):
+		while ($query_loc->have_posts()): $query_loc->the_post();
+			$estado_terms = get_the_terms(get_the_ID(), 'estado');
+			$estado_sigla = !empty($estado_terms) ? $estado_terms[0]->name : '';
+	?>
+			<a class="card-outer relative swiper-slide" data-estado="<?= esc_attr($estado_sigla); ?>" href="<?= get_permalink(); ?>">
+				<div class="card card-small">
+					<h3><?= get_the_title(); ?></h3>
+					<div class="thumbnail-holder thumbnail-holder--small">
+						<img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>" alt="<?= esc_attr(get_field('thumbnail')['title']); ?>">
+					</div>
+				</div>
+				<div class="w-10 h-10 rounded-full bg-(--amarelo) absolute right-4 bottom-4">
+					<img class="seta !w-6 !h-6 lg:!w-8 lg:!h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="<?= IMG_URI ?>arrow-right.svg" alt="">
+				</div>
+			</a>
+<?php
+		endwhile;
+		wp_reset_postdata();
+	endif;
+
+	wp_die();
+}
+
+
+add_action('phpmailer_init', 'custom_phpmailer_init');
+function custom_phpmailer_init($phpmailer)
+{
+
+	$phpmailer->isSMTP();
+	$phpmailer->Host = 'smtp.gmail.com';
+	$phpmailer->Port = 465;
+	$phpmailer->Username = 'pleasedontreplyauto@gmail.com';
+	$phpmailer->Password =  'ebdi gekv azav jamv';
+	$phpmailer->SMTPAuth = true;
+	$phpmailer->SMTPSecure = 'ssl';
+	$phpmailer->From       = 'pleasedontreplyauto@gmail.com';
+	$phpmailer->FromName   = 'Nova Bairros Planejados';
+}
+
+add_action('wp_ajax_send_contact_form', 'send_contact_form_ajax');
+add_action('wp_ajax_nopriv_send_contact_form', 'send_contact_form_ajax');
+
+function send_contact_form_ajax()
+{
+	check_ajax_referer('send_contact_form_nonce', 'nonce');
+
+	$form_type = isset($_POST['form_type']) ? sanitize_text_field($_POST['form_type']) : '';
+
+	$attachments = [];
+	if (!empty($_FILES['anexo']['tmp_name'])) {
+		$attachments[] = $_FILES['anexo']['tmp_name'];
+	}
+
+	$headers = ['Content-Type: text/html; charset=UTF-8'];
+	$reply_to = '';
+
+	if ($form_type === 'canal_denuncia') {
+		$to = ['gabrielasilveira@novabairrosplanejados.com.br', 'rodrigooliveira@novabairrosplanejados.com.br'];
+		$subject = 'Canal de Denúncia - Nova Bairros';
+
+		$identificar = sanitize_text_field($_POST['identificar']);
+		$nome = sanitize_text_field($_POST['nome']);
+		$email = sanitize_email($_POST['email']);
+		$tipo_relato = sanitize_text_field($_POST['tipo_relato']);
+		$local_relato = sanitize_text_field($_POST['local_relato']);
+		$descricao = sanitize_textarea_field($_POST['descricao']);
+
+		if ($email) {
+			$reply_to = $email;
+		}
+
+		$body = "<h2>Novo Relato - Canal de Denúncia</h2>";
+		if ($identificar === 'sim') {
+			$body .= "<p><strong>Nome:</strong> {$nome}</p>";
+			$body .= "<p><strong>E-mail:</strong> {$email}</p>";
+		} else {
+			$body .= "<p><strong>Identificação:</strong> Anônimo</p>";
+		}
+		$body .= "<p><strong>Tipo de Relato:</strong> {$tipo_relato}</p>";
+		$body .= "<p><strong>Local do Relato:</strong> {$local_relato}</p>";
+		$body .= "<p><strong>Descrição:</strong><br/>" . nl2br($descricao) . "</p>";
+	} elseif ($form_type === 'sobre') {
+		// $to = ['josejunior@novabairrosplanejados.com.br', 'rodrigodiniz@novabairrosplanejados.com.br'];
+		$to = ['edujoseph@gmail.com'];
+		$subject = 'Novos Negócios - Nova Bairros';
+
+		$nome = sanitize_text_field($_POST['nome']);
+		$telefone = sanitize_text_field($_POST['telefone']);
+		$email = sanitize_email($_POST['email']);
+		$estado = sanitize_text_field($_POST['estado']);
+		$cidade = sanitize_text_field($_POST['cidade']);
+
+		if ($email) {
+			$reply_to = $email;
+		}
+
+		$body = "<h2>Contato - Novos Negócios</h2>";
+		$body .= "<p><strong>Nome:</strong> {$nome}</p>";
+		$body .= "<p><strong>Telefone:</strong> {$telefone}</p>";
+		$body .= "<p><strong>E-mail:</strong> {$email}</p>";
+		$body .= "<p><strong>Estado:</strong> {$estado}</p>";
+		$body .= "<p><strong>Cidade:</strong> {$cidade}</p>";
+	} elseif ($form_type === 'contato') {
+		$to = 'sac@novabairrosplanejados.com.br';
+		$subject = 'Fale Conosco - Nova Bairros';
+
+		$nome = sanitize_text_field($_POST['nome']);
+		$email = sanitize_email($_POST['email']);
+		$mensagem = sanitize_textarea_field($_POST['mensagem']);
+
+		if ($email) {
+			$reply_to = $email;
+		}
+
+		$body = "<h2>Fale Conosco</h2>";
+		$body .= "<p><strong>Nome:</strong> {$nome}</p>";
+		$body .= "<p><strong>E-mail:</strong> {$email}</p>";
+		$body .= "<p><strong>Mensagem:</strong><br/>" . nl2br($mensagem) . "</p>";
+	} else {
+		wp_send_json_error(['message' => 'Tipo de formulário inválido.']);
+	}
+
+	if (!empty($reply_to)) {
+		$headers[] = "Reply-To: {$reply_to}";
+	}
+
+	$sent = wp_mail($to, $subject, $body, $headers, $attachments);
+
+	if ($sent) {
+		wp_send_json_success(['message' => 'Sua mensagem foi enviada com sucesso! Obrigado pelo contato.']);
+	} else {
+		wp_send_json_error(['message' => 'Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde.']);
+	}
 }

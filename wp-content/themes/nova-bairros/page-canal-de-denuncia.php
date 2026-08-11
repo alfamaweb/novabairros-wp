@@ -8,41 +8,6 @@
  * @since None Plate 1.0
  */
 
-$form_sent  = false;
-$form_error = false;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['canal_denuncia_nonce'])) {
-    if (!wp_verify_nonce($_POST['canal_denuncia_nonce'], 'canal_denuncia_submit')) {
-        $form_error = true;
-    } else {
-        $identificar  = sanitize_text_field($_POST['identificar'] ?? 'nao');
-        $nome         = sanitize_text_field($_POST['nome'] ?? '');
-        $email        = sanitize_email($_POST['email'] ?? '');
-        $tipo_relato  = sanitize_text_field($_POST['tipo_relato'] ?? '');
-        $local_relato = sanitize_text_field($_POST['local_relato'] ?? '');
-        $descricao    = sanitize_textarea_field($_POST['descricao'] ?? '');
-
-        $to      = get_option('admin_email');
-        $subject = 'Canal de Denúncia – ' . ($identificar === 'sim' ? $nome : 'Anônimo');
-
-        $body  = "Identificação: " . ($identificar === 'sim' ? "Sim\nRelator: {$nome}\nE-mail: {$email}" : 'Anônimo') . "\n\n";
-        $body .= "Tipo de Relato: {$tipo_relato}\n";
-        $body .= "Local do Relato: {$local_relato}\n";
-        $body .= "\nDescrição:\n{$descricao}\n";
-
-        $headers = ['Content-Type: text/plain; charset=UTF-8'];
-
-        $attachments = [];
-        if (!empty($_FILES['anexo']['tmp_name'])) {
-            $attachments[] = $_FILES['anexo']['tmp_name'];
-        }
-
-        $form_sent = wp_mail($to, $subject, $body, $headers, $attachments);
-        if (!$form_sent) {
-            $form_error = true;
-        }
-    }
-}
 
 get_header(); ?>
 
@@ -73,16 +38,11 @@ get_header(); ?>
                     <div class="col-span-6">
                         <div class="form-container border border-(--verde) bg-white rounded-[10px] shadow-[0_4px_8px_0_#003C2233] px-8 py-6">
                             <h3 class="text-(--verde) mb-4">Realize o seu relato</h3>
-                            <?php if ($form_sent): ?>
-                                <p class="text-green-600 font-medium mt-6">Relato enviado com sucesso. Obrigado pelo contato.</p>
-                            <?php else: ?>
-                                <?php if ($form_error): ?>
-                                    <p class="text-red-600 font-medium mt-4">Ocorreu um erro ao enviar. Por favor, tente novamente.</p>
-                                <?php endif; ?>
-                                <form action="" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5 mt-8">
-                                    <?php wp_nonce_field('canal_denuncia_submit', 'canal_denuncia_nonce'); ?>
+                            <form id="ajax-contact-form" action="" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5 mt-8">
+                                <input type="hidden" name="form_type" value="canal_denuncia">
+                                <?php wp_nonce_field('send_contact_form_nonce', 'nonce'); ?>
 
-                                    <div class="form-group flex flex-col gap-2">
+                                <div class="form-group flex flex-col gap-2">
                                         <label class="label">Deseja se identificar?</label>
                                         <div class="flex flex-row gap-6" id="radio">
                                             <label class="flex items-center gap-2 cursor-pointer">
@@ -143,8 +103,7 @@ get_header(); ?>
 
                                     <button type="submit" class="cta self-start">Enviar</button>
                                 </form>
-                            <?php endif; ?>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -181,6 +140,54 @@ get_header(); ?>
         if (anexoInput && anexoLabel) {
             anexoInput.addEventListener('change', function() {
                 anexoLabel.textContent = this.files.length ? this.files[0].name : 'Anexos e Documentação (Word / PDF / JPEG / PNG)';
+            });
+        }
+
+        const form = document.getElementById('ajax-contact-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.innerText = 'Enviando...';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+                
+                const existingMsg = form.querySelector('.form-message');
+                if (existingMsg) existingMsg.remove();
+                
+                const formData = new FormData(form);
+                formData.append('action', 'send_contact_form');
+                
+                fetch('<?= admin_url('admin-ajax.php') ?>', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(res => {
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'form-message mt-4 p-3 rounded font-medium ' + (res.success ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300');
+                    msgDiv.innerText = res.data.message || 'Erro ao enviar.';
+                    form.insertBefore(msgDiv, form.firstChild);
+                    
+                    if (res.success) {
+                        form.reset();
+                        if (anexoLabel) anexoLabel.textContent = 'Anexos e Documentação (Word / PDF / JPEG / PNG)';
+                        toggleIdentificacao();
+                    }
+                })
+                .catch(err => {
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'form-message mt-4 p-3 rounded font-medium bg-red-100 text-red-800 border border-red-300';
+                    msgDiv.innerText = 'Ocorreu um erro inesperado.';
+                    form.insertBefore(msgDiv, form.firstChild);
+                })
+                .finally(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
             });
         }
     });

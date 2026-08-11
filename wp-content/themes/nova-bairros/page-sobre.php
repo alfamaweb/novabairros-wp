@@ -209,7 +209,9 @@ get_header(); ?>
                         <div class="form-container border border-(--verde) !bg-white rounded-[10px] px-8 py-6">
                             <h3 class="text-(--verde) mb-4">Entre em contato</h3>
                             <p>Para mais informações sobre novas oportunidades </p>
-                            <form action="" method="POST" class="flex flex-col gap-5 mt-8">
+                            <form id="ajax-contact-form" action="" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5 mt-8">
+                                <input type="hidden" name="form_type" value="sobre">
+                                <?php wp_nonce_field('send_contact_form_nonce', 'nonce'); ?>
                                 <div class="form-group flex flex-col">
                                     <label for="nome">Nome Completo</label>
                                     <input type="text" name="nome" placeholder="Nome" required>
@@ -299,6 +301,53 @@ get_header(); ?>
         if (anexoInput && anexoLabel) {
             anexoInput.addEventListener('change', function() {
                 anexoLabel.textContent = this.files.length ? this.files[0].name : 'Anexos e Documentação (Word / PDF / JPEG / PNG )';
+            });
+        }
+
+        const form = document.getElementById('ajax-contact-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.innerText = 'Enviando...';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+                
+                const existingMsg = form.querySelector('.form-message');
+                if (existingMsg) existingMsg.remove();
+                
+                const formData = new FormData(form);
+                formData.append('action', 'send_contact_form');
+                
+                fetch('<?= admin_url('admin-ajax.php') ?>', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(res => {
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'form-message mt-4 p-3 rounded font-medium ' + (res.success ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300');
+                    msgDiv.innerText = res.data.message || 'Erro ao enviar.';
+                    form.insertBefore(msgDiv, form.firstChild);
+                    
+                    if (res.success) {
+                        form.reset();
+                        if (anexoLabel) anexoLabel.textContent = 'Anexos e Documentação (Word / PDF / JPEG / PNG)';
+                    }
+                })
+                .catch(err => {
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'form-message mt-4 p-3 rounded font-medium bg-red-100 text-red-800 border border-red-300';
+                    msgDiv.innerText = 'Ocorreu um erro inesperado.';
+                    form.insertBefore(msgDiv, form.firstChild);
+                })
+                .finally(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
             });
         }
 
