@@ -1149,7 +1149,7 @@ function filter_empreendimentos_ajax()
 			<a class="card-outer relative swiper-slide" data-estado="<?= esc_attr($estado_sigla); ?>" href="<?= get_permalink(); ?>">
 				<div class="card card-small">
 					<h3><?= get_the_title(); ?></h3>
-					<div class="flex justify-arround flex-wrap">
+					<div class="flex justify-around flex-wrap">
 						<?php if (get_field('cidade')): ?>
 							<div class="itm">
 								<svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
