@@ -1191,8 +1191,14 @@ function send_contact_form_ajax()
 	$form_type = isset($_POST['form_type']) ? sanitize_text_field($_POST['form_type']) : '';
 
 	$attachments = [];
+	$temp_file = '';
 	if (!empty($_FILES['anexo']['tmp_name'])) {
-		$attachments[] = $_FILES['anexo']['tmp_name'];
+		$upload_dir = wp_upload_dir();
+		$file_name = sanitize_file_name($_FILES['anexo']['name']);
+		$temp_file = trailingslashit($upload_dir['basedir']) . 'temp_anexo_' . time() . '_' . $file_name;
+		if (move_uploaded_file($_FILES['anexo']['tmp_name'], $temp_file)) {
+			$attachments[] = $temp_file;
+		}
 	}
 
 	$headers = ['Content-Type: text/html; charset=UTF-8'];
@@ -1269,6 +1275,10 @@ function send_contact_form_ajax()
 	}
 
 	$sent = wp_mail($to, $subject, $body, $headers, $attachments);
+
+	if (!empty($temp_file) && file_exists($temp_file)) {
+		unlink($temp_file);
+	}
 
 	if ($sent) {
 		wp_send_json_success(['message' => 'Sua mensagem foi enviada com sucesso! Obrigado pelo contato.']);

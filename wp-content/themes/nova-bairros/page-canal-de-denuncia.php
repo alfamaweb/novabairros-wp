@@ -145,6 +145,30 @@ get_header(); ?>
 
         const form = document.getElementById('ajax-contact-form');
         if (form) {
+            function showFormPopupMessage(message, isSuccess) {
+                const existingMsg = document.getElementById('form-popup-message');
+                if (existingMsg) existingMsg.remove();
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.id = 'form-popup-message';
+                msgDiv.className = 'fixed bottom-5 right-5 z-[9999] px-6 py-4 rounded-lg shadow-xl font-medium transition-all duration-500 transform translate-y-10 opacity-0 ' + 
+                                   (isSuccess ? 'bg-green-100 text-green-800 border-l-4 border-green-500' : 'bg-red-100 text-red-800 border-l-4 border-red-500');
+                msgDiv.innerText = message;
+                
+                document.body.appendChild(msgDiv);
+                
+                setTimeout(() => {
+                    msgDiv.classList.remove('translate-y-10', 'opacity-0');
+                    msgDiv.classList.add('translate-y-0', 'opacity-100');
+                }, 10);
+                
+                setTimeout(() => {
+                    msgDiv.classList.remove('translate-y-0', 'opacity-100');
+                    msgDiv.classList.add('translate-y-10', 'opacity-0');
+                    setTimeout(() => msgDiv.remove(), 500);
+                }, 5000);
+            }
+
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -153,9 +177,6 @@ get_header(); ?>
                 btn.innerText = 'Enviando...';
                 btn.disabled = true;
                 btn.style.opacity = '0.7';
-                
-                const existingMsg = form.querySelector('.form-message');
-                if (existingMsg) existingMsg.remove();
                 
                 const formData = new FormData(form);
                 formData.append('action', 'send_contact_form');
@@ -166,10 +187,7 @@ get_header(); ?>
                 })
                 .then(res => res.json())
                 .then(res => {
-                    const msgDiv = document.createElement('div');
-                    msgDiv.className = 'form-message mt-4 p-3 rounded font-medium ' + (res.success ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300');
-                    msgDiv.innerText = res.data.message || 'Erro ao enviar.';
-                    form.insertBefore(msgDiv, form.firstChild);
+                    showFormPopupMessage(res.data.message || 'Erro ao enviar.', res.success);
                     
                     if (res.success) {
                         form.reset();
@@ -178,10 +196,7 @@ get_header(); ?>
                     }
                 })
                 .catch(err => {
-                    const msgDiv = document.createElement('div');
-                    msgDiv.className = 'form-message mt-4 p-3 rounded font-medium bg-red-100 text-red-800 border border-red-300';
-                    msgDiv.innerText = 'Ocorreu um erro inesperado.';
-                    form.insertBefore(msgDiv, form.firstChild);
+                    showFormPopupMessage('Ocorreu um erro inesperado.', false);
                 })
                 .finally(() => {
                     btn.innerText = originalText;
