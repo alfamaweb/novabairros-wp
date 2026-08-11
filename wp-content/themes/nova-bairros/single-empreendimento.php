@@ -430,7 +430,7 @@ get_header(); ?>
 <?php get_footer(); ?>
 
 <style>
-    body:has(.cta-emp) .footer {
+    body:has(.cta-emp) footer {
         margin-top: 0 !important;
     }
 </style>
