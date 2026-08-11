@@ -1230,8 +1230,8 @@ function send_contact_form_ajax()
 		$body .= "<p><strong>Local do Relato:</strong> {$local_relato}</p>";
 		$body .= "<p><strong>Descrição:</strong><br/>" . nl2br($descricao) . "</p>";
 	} elseif ($form_type === 'sobre') {
-		// $to = ['josejunior@novabairrosplanejados.com.br', 'rodrigodiniz@novabairrosplanejados.com.br'];
-		$to = ['edujoseph@gmail.com'];
+		$to = ['josejunior@novabairrosplanejados.com.br', 'rodrigodiniz@novabairrosplanejados.com.br'];
+		// $to = ['edujoseph@gmail.com'];
 		$subject = 'Novos Negócios - Nova Bairros';
 
 		$nome = sanitize_text_field($_POST['nome']);
