@@ -429,6 +429,12 @@ get_header(); ?>
 
 <?php get_footer(); ?>
 
+<style>
+    body:has(.cta-emp) .footer {
+        margin-top: 0 !important;
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         if (document.querySelector('.swiper.galeria')) {
