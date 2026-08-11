@@ -146,49 +146,81 @@ get_header(); ?>
         const form = document.getElementById('ajax-contact-form');
         if (form) {
             function showFormPopupMessage(message, isSuccess) {
-                const existingMsg = document.getElementById('form-popup-message');
+                const existingMsg = document.getElementById('form-popup-overlay');
                 if (existingMsg) existingMsg.remove();
                 
+                const overlayDiv = document.createElement('div');
+                overlayDiv.id = 'form-popup-overlay';
+                overlayDiv.style.position = 'fixed';
+                overlayDiv.style.top = '0';
+                overlayDiv.style.left = '0';
+                overlayDiv.style.width = '100vw';
+                overlayDiv.style.height = '100vh';
+                overlayDiv.style.backgroundColor = 'rgba(0,0,0,0.6)';
+                overlayDiv.style.zIndex = '99999';
+                overlayDiv.style.display = 'flex';
+                overlayDiv.style.alignItems = 'center';
+                overlayDiv.style.justifyContent = 'center';
+                overlayDiv.style.opacity = '0';
+                overlayDiv.style.transition = 'opacity 0.3s ease-in-out';
+                
                 const msgDiv = document.createElement('div');
-                msgDiv.id = 'form-popup-message';
-                
-                msgDiv.style.position = 'fixed';
-                msgDiv.style.bottom = '20px';
-                msgDiv.style.right = '20px';
-                msgDiv.style.zIndex = '9999';
-                msgDiv.style.padding = '16px 24px';
-                msgDiv.style.borderRadius = '8px';
-                msgDiv.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                msgDiv.style.backgroundColor = isSuccess ? '#00663B' : '#fee2e2';
+                msgDiv.style.color = isSuccess ? '#ffffff' : '#991b1b';
+                msgDiv.style.padding = '40px 30px';
+                msgDiv.style.borderRadius = '12px';
+                msgDiv.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
                 msgDiv.style.fontWeight = '500';
-                msgDiv.style.transition = 'all 0.5s ease-in-out';
-                msgDiv.style.transform = 'translateY(40px)';
-                msgDiv.style.opacity = '0';
                 msgDiv.style.fontFamily = 'inherit';
-                msgDiv.style.borderLeft = '4px solid';
+                msgDiv.style.textAlign = 'center';
+                msgDiv.style.maxWidth = '90%';
+                msgDiv.style.width = '400px';
+                msgDiv.style.position = 'relative';
+                msgDiv.style.transform = 'scale(0.9)';
+                msgDiv.style.transition = 'transform 0.3s ease-in-out';
+                if (!isSuccess) msgDiv.style.border = '2px solid #ef4444';
                 
-                if (isSuccess) {
-                    msgDiv.style.backgroundColor = '#dcfce7'; 
-                    msgDiv.style.color = '#166534'; 
-                    msgDiv.style.borderColor = '#22c55e'; 
-                } else {
-                    msgDiv.style.backgroundColor = '#fee2e2'; 
-                    msgDiv.style.color = '#991b1b'; 
-                    msgDiv.style.borderColor = '#ef4444'; 
-                }
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '&times;';
+                closeBtn.style.position = 'absolute';
+                closeBtn.style.top = '10px';
+                closeBtn.style.right = '15px';
+                closeBtn.style.background = 'transparent';
+                closeBtn.style.border = 'none';
+                closeBtn.style.color = isSuccess ? '#ffffff' : '#991b1b';
+                closeBtn.style.fontSize = '24px';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.lineHeight = '1';
+                closeBtn.style.padding = '0';
                 
-                msgDiv.innerText = message;
-                document.body.appendChild(msgDiv);
+                const textNode = document.createElement('p');
+                textNode.innerText = message;
+                textNode.style.margin = '0';
+                textNode.style.fontSize = '18px';
+                
+                msgDiv.appendChild(closeBtn);
+                msgDiv.appendChild(textNode);
+                overlayDiv.appendChild(msgDiv);
+                document.body.appendChild(overlayDiv);
+                
+                document.body.style.overflow = 'hidden';
                 
                 setTimeout(() => {
-                    msgDiv.style.transform = 'translateY(0)';
-                    msgDiv.style.opacity = '1';
+                    overlayDiv.style.opacity = '1';
+                    msgDiv.style.transform = 'scale(1)';
                 }, 10);
                 
-                setTimeout(() => {
-                    msgDiv.style.transform = 'translateY(40px)';
-                    msgDiv.style.opacity = '0';
-                    setTimeout(() => msgDiv.remove(), 500);
-                }, 5000);
+                function closeModal() {
+                    overlayDiv.style.opacity = '0';
+                    msgDiv.style.transform = 'scale(0.9)';
+                    document.body.style.overflow = '';
+                    setTimeout(() => overlayDiv.remove(), 300);
+                }
+                
+                closeBtn.addEventListener('click', closeModal);
+                overlayDiv.addEventListener('click', function(e) {
+                    if (e.target === overlayDiv) closeModal();
+                });
             }
 
             form.addEventListener('submit', function(e) {
