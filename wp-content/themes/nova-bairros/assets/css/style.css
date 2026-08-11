@@ -129,6 +129,21 @@ a[data-estado] text {
   position: relative;
 }
 
+.itm {
+  color: #5d5d5d;
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 135%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 a[data-estado].show path {
   fill: #fdb933;
   transition: 300ms all ease-in-out;
