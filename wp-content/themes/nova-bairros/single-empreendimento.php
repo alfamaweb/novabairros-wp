@@ -345,7 +345,7 @@ get_header(); ?>
                     </div>
                     <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
                     <div class="flex flex-col items-center lg:items-start text-white justify-center">
-                        <span>CONFIRA AGORA</span>
+                        <!-- <span>CONFIRA AGORA</span> -->
                         <?php if (!empty($localizacao['titulo'])): ?>
                             <h2><?= esc_html($localizacao['titulo']); ?></h2>
                         <?php endif; ?>

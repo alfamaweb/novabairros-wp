@@ -280,7 +280,7 @@ get_header(); ?>
                                 endif;
                                 ?>
                             </div>
-                            <div class="mt-6 relative">
+                            <div class="mt-10 relative">
                                 <div class='map-pagination swiper-pagination '></div>
                             </div>
                         </div>

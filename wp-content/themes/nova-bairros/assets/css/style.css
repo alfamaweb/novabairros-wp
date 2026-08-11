@@ -131,6 +131,10 @@ a[data-estado] text {
 
 a[data-estado].show path {
   fill: #fdb933;
+  transition: 300ms all ease-in-out;
+  &:hover {
+    fill: #daa02e;
+  }
 }
 
 body.page-id-6 {
