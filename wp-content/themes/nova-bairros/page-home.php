@@ -333,7 +333,11 @@ get_header(); ?>
                     </script>
                     <!-- <img src="<?= IMG_URI ?>map.png" alt=""> -->
                     <svg style="max-height: 80vh;padding: 40px 0; width:100%;max-width:700px;" viewBox="0 0 450 460" class="svg-map svg-map-sobre" id="svg-map">
-
+                        <a data-estado="TO">
+                            <path stroke="#FFF" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round" class="" d="M289.558 235.641c16.104.575 44.973-31.647 44.835-45.259-.136-13.612-17.227-58.446-22.349-66.088-5.122-7.628-37.905 2.506-37.905 2.506s-39.287 106.895 15.419 108.841z"></path>
+                            <image href="<?php echo get_template_directory_uri(); ?>/assets/img/pin.png" x="283.01" y="156.32" width="30" height="34"></image>
+                            <text transform="translate(287.014 203.32)" fill="#FFF">TO</text>
+                        </a>
                         <a data-estado="BA">
                             <path class="" stroke="#FFF" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round" d="M313.276 197.775c2.084-2.739 3.506-7.012 6.464-8.764 1.641-.973 3.232-4.684 4.271-5.163 2.304-1.014 12.161-25.143 20.706-22.513 1.095.342 29.881 3.478 32.153 7.532 2.246-.506 17.582-8.804 25.829-4.999 9.172 4.246 11.225 20.679 11.2 20.843.107.328-.823 5.765-.985 5.929-1.15 1-5.258-.807-4.22 2.138 1.317 3.751 5.094 10.583 9.97 6.613-3.669 6.574-6.846 16.022-13.966 17.747-5.808 1.411-4.605 13.421-5.178 18.037-.465 3.75.192 8.448 1.014 12.117 1.148 4.959-.821 8.6-1.808 13.42-.822 4.162-.219 8.299-.987 12.297-.271 1.286-4.407 5.723-5.559 7.148-1.616-1.426-63.952-37.248-73.1-36.265 1.149-3.738 2.438-9.559-.741-12.723-8.625-8.572-.135-19.335-.162-19.432-.546-1.725-5.396-6.079-.026-7.175-3.175.959-1.944-4.027.875-3.012-2.3-.817-4.982-1.023-5.75-3.775z">
                             </path>
@@ -382,13 +386,7 @@ get_header(); ?>
                             <image href="<?php echo get_template_directory_uri(); ?>/assets/img/pin.png" x="317.28" y="77.7" width="30" height="34"></image>
                             <text transform="translate(318.275 126.704)" fill="#FFF">MA</text>
 
-                        </a>
-                        <a data-estado="TO">
-                            <path stroke="#FFF" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round" class="" d="M289.558 235.641c16.104.575 44.973-31.647 44.835-45.259-.136-13.612-17.227-58.446-22.349-66.088-5.122-7.628-37.905 2.506-37.905 2.506s-39.287 106.895 15.419 108.841z"></path>
-                            <image href="<?php echo get_template_directory_uri(); ?>/assets/img/pin.png" x="286.01" y="139.32" width="30" height="34"></image>
-                            <text transform="translate(287.014 188.32)" fill="#FFF">TO</text>
-                        </a>
-                        <a data-estado="AP">
+                        </a><a data-estado="AP">
                             <path class="" stroke="#FFF" stroke-width="1.04" stroke-linecap="round" stroke-linejoin="round" d="M225.198 39.089c3.274 1.165 3.985-1.315 6.572-1.74 3.616-.603 5.683 2.725 9.037 2.067 4.055-.78 7.093-8.025 7.314-11.598 4.492-3.534 5.503-11.258 9.42-14.68 6.055 4.258 6.11 15.788 7.589 22.485-.164.083 6.57 7.998 7.944 8.682 3.396 1.657 3.366 6.203.078 9.34-3.777 3.587-7.449 34.275-7.449 34.275h-46.489s.932-50.366 0-51.449c2.6-.013 4.12 1.946 5.984 2.618z"></path>
                             <image href="<?php echo get_template_directory_uri(); ?>/assets/img/pin.png" x="244.9" y="3.61" width="30" height="34"></image>
                             <text transform="translate(245.902 52.61)" fill="#FFF">AP</text>
