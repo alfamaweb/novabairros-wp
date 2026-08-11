@@ -64,15 +64,19 @@ get_header(); ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                            <!-- <div class="swiper-pagination"></div> -->
+                            <!-- <div class="swiper-pagination contato-pagination"></div> -->
                         </div>
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
                     </div>
                 </div>
+                <div class="flex justify-center mt-4">
+                    <div class='swiper-pagination contato-pagination'></div>
+                </div>
             </div>
         </section>
     <?php endif; ?>
+
 
     <?php
     $fale_conosco = get_field('fale_conosco');
@@ -82,7 +86,7 @@ get_header(); ?>
             <div class="container">
                 <div class="flex flex-col lg:grid grid-cols-12 gap-8">
                     <div class="col-span-6">
-                        <div class="flex flex-col justify-start gap-3 w-fit items-start">
+                        <div class="flex flex-col justify-start gap-3 w-fit items-start w-full">
                             <?php if (!empty($fale_conosco['label'])): ?>
                                 <span><?= esc_html($fale_conosco['label']); ?></span>
                             <?php endif; ?>
@@ -138,14 +142,22 @@ get_header(); ?>
                 loop: true,
                 spaceBetween: 30,
                 breakpoints: {
-                    0: { slidesPerView: 1.2 },
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 4 },
-                    1400: { slidesPerView: 5 }
+                    0: {
+                        slidesPerView: 1.2
+                    },
+                    768: {
+                        slidesPerView: 2
+                    },
+                    1024: {
+                        slidesPerView: 4
+                    },
+                    1400: {
+                        slidesPerView: 5
+                    }
                 },
-                // pagination: {
-                //     el: '.swiper-pagination',
-                // },
+                pagination: {
+                    el: '.contato-pagination',
+                },
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',

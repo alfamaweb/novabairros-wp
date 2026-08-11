@@ -588,7 +588,7 @@ add_action('wp_footer', function () {
 			}
 		})
 	</script>
-<?php
+	<?php
 });
 
 function criar_arquivos_dinamicos_ao_publicar($new_status, $old_status, $post)
@@ -883,16 +883,50 @@ function get_acf_oembed_data($field_name, $post_id = null, $is_sub = false)
 /**
  * Página Empreendimentos - listagem com paginação via AJAX
  */
-function nb_empreendimentos_query($paged = 1, $posts_per_page = 10)
+function nb_empreendimentos_query($paged = 1, $posts_per_page = 10, $filters = array())
 {
-	return new WP_Query(array(
+	$args = array(
 		'post_type' => 'empreendimento',
 		'posts_per_page' => $posts_per_page,
 		'orderby' => 'date',
 		'order' => 'DESC',
 		'post_status' => 'publish',
 		'paged' => $paged,
-	));
+	);
+
+	if (!empty($filters)) {
+		$tax_query = array('relation' => 'AND');
+
+		if (!empty($filters['estado'])) {
+			$tax_query[] = array(
+				'taxonomy' => 'estado',
+				'field'    => 'slug',
+				'terms'    => $filters['estado'],
+			);
+		}
+
+		if (!empty($filters['tipo'])) {
+			$tax_query[] = array(
+				'taxonomy' => 'tipo',
+				'field'    => 'slug',
+				'terms'    => $filters['tipo'],
+			);
+		}
+
+		if (!empty($filters['status'])) {
+			$tax_query[] = array(
+				'taxonomy' => 'stt',
+				'field'    => 'slug',
+				'terms'    => $filters['status'],
+			);
+		}
+
+		if (count($tax_query) > 1) {
+			$args['tax_query'] = $tax_query;
+		}
+	}
+
+	return new WP_Query($args);
 }
 
 function nb_render_empreendimentos_cards($the_query)
@@ -901,7 +935,7 @@ function nb_render_empreendimentos_cards($the_query)
 	if ($the_query->have_posts()):
 		while ($the_query->have_posts()):
 			$the_query->the_post();
-			?>
+	?>
 			<a class="card-outer relative col-span-6" href="<?= get_permalink(); ?>">
 				<div class="card">
 					<h3>
@@ -909,12 +943,12 @@ function nb_render_empreendimentos_cards($the_query)
 					</h3>
 					<?php
 					if (have_rows('diferenciais_card')):
-						?>
-						<div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
+					?>
+						<div class="flex flex-row flex-wrap justify-between items-center w-full my-6 gap-3">
 							<?php
 							while (have_rows('diferenciais_card')):
 								the_row();
-								?>
+							?>
 								<div class="inline-flex flex-[1_1_auto] items-center gap-2">
 									<?php
 									$icone = get_sub_field('icone');
@@ -941,7 +975,7 @@ function nb_render_empreendimentos_cards($the_query)
 						src="<?= IMG_URI ?>arrow-right.svg" alt="">
 				</div>
 			</a>
-			<?php
+	<?php
 		endwhile;
 	endif;
 	wp_reset_postdata();
@@ -993,14 +1027,13 @@ function nb_render_empreendimentos_pagination($paged, $max_pages)
 					type="button"
 					class="empreendimentos-pagination__item<?= $item === $paged ? ' is-active' : ''; ?>"
 					data-page="<?= esc_attr($item); ?>"
-					<?= $item === $paged ? 'aria-current="page"' : ''; ?>
-				>
+					<?= $item === $paged ? 'aria-current="page"' : ''; ?>>
 					<?= $item; ?>
 				</button>
 			<?php endif; ?>
 		<?php endforeach; ?>
 	</nav>
-	<?php
+<?php
 	return ob_get_clean();
 }
 
@@ -1010,7 +1043,8 @@ function nb_ajax_load_empreendimentos()
 
 	$max_pages = 1;
 	$paged = isset($_POST['paged']) ? max(1, intval($_POST['paged'])) : 1;
-	$the_query = nb_empreendimentos_query($paged, 10);
+	$filters = isset($_POST['filters']) ? $_POST['filters'] : array();
+	$the_query = nb_empreendimentos_query($paged, 10, $filters);
 	$max_pages = max(1, (int) $the_query->max_num_pages);
 	$paged = min($paged, $max_pages);
 
@@ -1078,4 +1112,54 @@ function get_oembed_data_from_url($iframe)
 	}
 
 	return $data;
+}
+
+// AJAX para filtrar empreendimentos por estado
+add_action('wp_ajax_filter_empreendimentos', 'filter_empreendimentos_ajax');
+add_action('wp_ajax_nopriv_filter_empreendimentos', 'filter_empreendimentos_ajax');
+function filter_empreendimentos_ajax() {
+    $estado = isset($_POST['estado']) ? sanitize_text_field($_POST['estado']) : '';
+    
+    $args_loc = array(
+        'post_type'      => 'empreendimento',
+        'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'post_status'    => 'publish',
+    );
+    
+    if (!empty($estado)) {
+        $args_loc['tax_query'] = array(
+            array(
+                'taxonomy' => 'estado',
+                'field'    => 'name',
+                'terms'    => $estado,
+            )
+        );
+    }
+    
+    $query_loc = new WP_Query($args_loc);
+    
+    if ($query_loc->have_posts()):
+        while ($query_loc->have_posts()): $query_loc->the_post();
+            $estado_terms = get_the_terms(get_the_ID(), 'estado');
+            $estado_sigla = !empty($estado_terms) ? $estado_terms[0]->name : '';
+            ?>
+            <a class="card-outer relative swiper-slide" data-estado="<?= esc_attr($estado_sigla); ?>" href="<?= get_permalink(); ?>">
+                <div class="card card-small">
+                    <h3><?= get_the_title(); ?></h3>
+                    <div class="thumbnail-holder thumbnail-holder--small">
+                        <img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>" alt="<?= esc_attr(get_field('thumbnail')['title']); ?>">
+                    </div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-(--amarelo) absolute right-4 bottom-4">
+                    <img class="seta !w-6 !h-6 lg:!w-8 lg:!h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="<?= IMG_URI ?>arrow-right.svg" alt="">
+                </div>
+            </a>
+            <?php
+        endwhile;
+        wp_reset_postdata();
+    endif;
+    
+    wp_die();
 }

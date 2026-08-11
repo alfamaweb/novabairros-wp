@@ -11,7 +11,6 @@ Tags:
 Text Domain: noneplate
 */
 
-
 /* ==========================================================================
    Table of Contents
    ========================================================================== */
@@ -67,7 +66,7 @@ h6 {
   text-rendering: optimizeLegibility;
   line-height: 1;
   margin: 0;
-  color: #5A5A5A;
+  color: #5a5a5a;
   font-weight: 400;
 
   span {
@@ -135,7 +134,7 @@ textarea {
     height: 48px;
     border-radius: 50%;
     position: relative;
-    animation: rotate 1s linear infinite
+    animation: rotate 1s linear infinite;
   }
 
   .loader::before,
@@ -151,32 +150,32 @@ textarea {
 
   .loader::after {
     transform: rotate3d(90, 90, 0, 180deg);
-    border-color: #FF3D00;
+    border-color: #ff3d00;
   }
 }
 
 @keyframes rotate {
   0% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 
   100% {
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
 }
 
 @keyframes prixClipFix {
   0% {
-    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
   }
 
   50% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
   }
 
   75%,
   100% {
-    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
   }
 }
 
@@ -253,12 +252,12 @@ tbody tr:nth-child(odd) {
   display: none;
 }
 
-.the-content>* {
+.the-content > * {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.the-content>*+* {
+.the-content > * + * {
   margin-top: 1.5rem;
   margin-bottom: 0;
 }
@@ -288,7 +287,6 @@ a.cta:hover,
 button.cta:hover {
   transform: translateY(-4px);
 }
-
 
 /* ==========================================================================
    4. Header - The top of every page
@@ -374,7 +372,7 @@ button.cta:hover {
 }
 
 .page-404 {
-  height: 100vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -391,7 +389,7 @@ button.cta:hover {
   margin-bottom: 30px;
 }
 
-.the-content p+p {
+.the-content p + p {
   margin-top: 15px;
 }
 
@@ -403,7 +401,26 @@ button.cta:hover {
   display: inline-block;
 }
 
-.the-categories li+li:before {
+.emp-prev,
+.emp-next,
+.blog-next,
+.blog-prev {
+  position: relative !important;
+  width: 20px;
+  height: 30px;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAxMyAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wLjQ4Nzk1IDkuNDI4MzhMOS45MTYyOCA0LjY3MzM5ZS0wNUwxMi4yNzI5IDIuMzU2NzFMNC4wMjI5NSAxMC42MDY3TDEyLjI3MjkgMTguODU2N0w5LjkxNjI4IDIxLjIxMzRMMC40ODc5NSAxMS43ODVDMC4xNzU0OTggMTEuNDcyNSAtMi43NTMzN2UtMDUgMTEuMDQ4NyAtMi43NTcyM2UtMDUgMTAuNjA2N0MtMi43NjExZS0wNSAxMC4xNjQ4IDAuMTc1NDk4IDkuNzQwOTMgMC40ODc5NSA5LjQyODM4WiIgZmlsbD0iIzVENUQ1RCIvPgo8L3N2Zz4K);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.emp-next,
+.blog-next {
+  rotate: 180deg;
+}
+
+.the-categories li + li:before {
   content: ",";
   position: relative;
   display: inline-block;
@@ -414,7 +431,6 @@ button.cta:hover {
 .share-this li {
   display: inline-block;
 }
-
 
 input[type="submit"] {
   outline: none;
@@ -469,9 +485,8 @@ input[type="text"].file-archive {
    8. Media Queries -
    ========================================================================== */
 @media (max-width: 992px) {
-
   /* PAGE & SINGLE - TEMPLATE SHIT */
-  .post+.post {
+  .post + .post {
     margin-top: 30px;
   }
 
@@ -504,7 +519,6 @@ input[type="text"].file-archive {
 }
 
 @media (max-width: 768px) {
-
   /* MENU - TEMPLATE SHIT */
   #menu {
     padding: 0;

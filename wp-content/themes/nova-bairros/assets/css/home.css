@@ -129,4 +129,15 @@ section.app {
     color: white;
     text-align: start;
   }
+  @media (max-width: 1400px) {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    p {
+      text-align: center;
+    }
+  }
 }

@@ -152,3 +152,23 @@ foreach ($categories as $category) {
 </div>
 
 <?php get_footer(); ?>
+
+<script>
+	const swiperBlog = new Swiper('.swiper.blog', {
+		direction: 'horizontal',
+		loop: false,
+		spaceBetween: 30,
+		breakpoints: {
+			768: {
+				slidesPerView: 1
+			},
+			1024: {
+				slidesPerView: 2,
+			},
+		},
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+	});
+</script>

@@ -41,26 +41,26 @@ get_header(); ?>
         }
     ?>
         <section class="hero relative !mt-0">
-            <a href="<?= esc_url($href); ?>" target="<?= esc_attr($target); ?>" <?= $fancybox; ?> class="relative w-full h-full"
+            <picture>
+                <?php if ($mobile_id): ?>
+                    <source media="(max-width: 1023px)" srcset="<?= wp_get_attachment_image_srcset($mobile_id); ?>"
+                        sizes="100vw">
+                <?php endif; ?>
+
+                <?php if ($desktop_id): ?>
+                    <source media="(min-width: 1024px)" srcset="<?= wp_get_attachment_image_srcset($desktop_id); ?>"
+                        sizes="100vw">
+                <?php endif; ?>
+
+                <img class="w-full h-full object-cover object-center brightness-70 min-h-[320px] max-h-[420px] lg:min-h-[320px] lg:max-h-[680px]"
+                    src="<?= esc_url($desktop_img['url'] ?? $mobile_img['url']); ?>"
+                    srcset="<?= $desktop_id ? wp_get_attachment_image_srcset($desktop_id) : ''; ?>" sizes="100vw"
+                    alt="<?= esc_attr(get_the_title()); ?>" loading="eager" fetchpriority="high">
+            </picture>
+            <!-- <a href="<?= esc_url($href); ?>" target="<?= esc_attr($target); ?>" <?= $fancybox; ?> class="relative w-full h-full"
                 aria-label="<?= esc_attr($texto ?: get_the_title()); ?>">
                 <?= $play; ?>
-                <picture>
-                    <?php if ($mobile_id): ?>
-                        <source media="(max-width: 1023px)" srcset="<?= wp_get_attachment_image_srcset($mobile_id); ?>"
-                            sizes="100vw">
-                    <?php endif; ?>
-
-                    <?php if ($desktop_id): ?>
-                        <source media="(min-width: 1024px)" srcset="<?= wp_get_attachment_image_srcset($desktop_id); ?>"
-                            sizes="100vw">
-                    <?php endif; ?>
-
-                    <img class="w-full h-full object-cover object-center brightness-70 min-h-[200px] max-h-[320px] lg:min-h-[300px] lg:max-h-[680px]"
-                        src="<?= esc_url($desktop_img['url'] ?? $mobile_img['url']); ?>"
-                        srcset="<?= $desktop_id ? wp_get_attachment_image_srcset($desktop_id) : ''; ?>" sizes="100vw"
-                        alt="<?= esc_attr(get_the_title()); ?>" loading="eager" fetchpriority="high">
-                </picture>
-            </a>
+            </a> -->
             <div class="gradient"></div>
             <div class="hero-content absolute top-1/4 lg:top-1/2 transform -translate-y-1/4 lg:-translate-y-1/2 left-0 w-full py-6 lg:py-0">
                 <div class="container">
@@ -146,7 +146,7 @@ get_header(); ?>
         <section class="resumo">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
-                    <div class="col-span-12 md:col-span-7">
+                    <div class="col-span-12 lg:col-span-7">
                         <div class="flex flex-col items-start gap-6">
                             <?php if (!empty($resumo['logo'])): ?>
                                 <img src="<?= esc_url($resumo['logo']['url']); ?>"
@@ -184,7 +184,7 @@ get_header(); ?>
                     </div>
 
                     <?php if (!empty($resumo['imagem'])): ?>
-                        <div class="col-span-12 md:col-span-5">
+                        <div class="col-span-12 lg:col-span-5">
                             <img class="w-full h-full object-cover rounded-[10px]"
                                 src="<?= esc_url($resumo['imagem']['url']); ?>"
                                 alt="<?= esc_attr($resumo['imagem']['alt']); ?>">
@@ -214,22 +214,27 @@ get_header(); ?>
                         </div>
                     </div>
                     <div class="col-span-12 mt-10">
-                        <div class="grid grid-cols-4 lg:grid-cols-12 gap-8">
-                            <?php foreach ($infraestrutura['itens'] as $item):
-                                if (empty($item['icone']) && empty($item['label'])) continue;
-                            ?>
-                                <div class="infra-item flex flex-col items-center col-span-2 gap-3">
-                                    <?php if (!empty($item['icone'])): ?>
-                                        <div class="rounded-full aspect-square w-15 h-15 relative bg-(--verde) content-center justify-items-center">
-                                            <img src="<?= esc_url($item['icone']['url']); ?>"
-                                                alt="<?= esc_attr($item['icone']['alt']); ?>" class="icon">
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if (!empty($item['label'])): ?>
-                                        <p><?= esc_html($item['label']); ?></p>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endforeach; ?>
+                        <!-- Slider main container -->
+                        <div class='swiper infra'>
+                            <!-- Additional required wrapper -->
+                            <div class='swiper-wrapper'>
+                                <!-- Slides -->
+                                <?php foreach ($infraestrutura['itens'] as $item):
+                                    if (empty($item['icone']) && empty($item['label'])) continue;
+                                ?>
+                                    <div class="swiper-slide infra-item !flex justify-center flex-col gap-3 items-center">
+                                        <?php if (!empty($item['icone'])): ?>
+                                            <div class="rounded-full aspect-square w-15 h-15 relative bg-(--verde) content-center justify-items-center">
+                                                <img src="<?= esc_url($item['icone']['url']); ?>"
+                                                    alt="<?= esc_attr($item['icone']['alt']); ?>" class="icon">
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($item['label'])): ?>
+                                            <p><?= esc_html($item['label']); ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,8 +252,10 @@ get_header(); ?>
                     <div class="swiper-wrapper">
                         <?php foreach ($galeria as $img): ?>
                             <div class="swiper-slide">
-                                <img class="w-full object-cover h-48 md:h-80 lg:!h-130" src="<?= esc_url($img['url']); ?>"
-                                    alt="<?= esc_attr($img['alt']); ?>">
+                                <a href="<?= esc_url($img['url']); ?>" data-fancybox data-caption="Single image">
+                                    <img class="w-full object-cover h-48 md:h-80 lg:!h-130" src="<?= esc_url($img['url']); ?>"
+                                        alt="<?= esc_attr($img['alt']); ?>">
+                                </a>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -407,6 +414,14 @@ get_header(); ?>
             </div>
         </section>
     <?php endif; ?>
+    <?php if (get_field('cta') && get_field('cta')['titulo']): ?>
+        <section class="cta-emp" style="background-image:url(<?php echo get_field('cta')['background']['url'] ?>)">
+            <h3 class="ctae-subtitle"><?php echo get_field('cta')['subtitulo'] ?></h3>
+            <h2 class="ctae-title"><?php echo get_field('cta')['titulo'] ?></h2>
+            <div class="ctae-line mt-3"></div>
+            <a class="cta mt-8" href="<?php echo get_field('cta')['link_do_botao'] ?>"><?php echo get_field('cta')['texto_do_botao'] ?></a>
+        </section>
+    <?php endif; ?>
 </main>
 
 <?php get_footer(); ?>
@@ -457,5 +472,44 @@ get_header(); ?>
                 },
             });
         }
+    });
+
+    const swiper = new Swiper('.infra', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+        autoplay: {
+            delay: 3000,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 1
+            },
+            768: {
+                slidesPerView: 3
+            },
+            992: {
+                slidesPerView: 4
+            },
+            1200: {
+                slidesPerView: 5
+            },
+            1320: {
+                slidesPerView: 6
+            }
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // And if we need scrollbar
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
     });
 </script>

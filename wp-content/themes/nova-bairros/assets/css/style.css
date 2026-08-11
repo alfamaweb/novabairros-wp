@@ -29,6 +29,24 @@ a {
   color: inherit;
 }
 
+a[data-estado].show {
+  cursor: pointer;
+}
+
+a[data-estado] path {
+  fill: #1c503a;
+}
+
+a[data-estado] text {
+  fill: #007141;
+  font-weight: bold;
+  position: relative;
+}
+
+a[data-estado].show path {
+  fill: #fdb933;
+}
+
 body.page-id-6 {
   height: 100dvh;
   overflow: hidden;
@@ -79,6 +97,74 @@ header {
   }
 }
 
+section.cta-emp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 68px;
+  background-size: cover;
+  background-position: center;
+  flex-direction: column;
+}
+
+h3.ctae-subtitle {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 20px;
+  leading-trim: NONE;
+  line-height: 135%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+  color: white;
+}
+
+.ctae-line {
+  width: 100%;
+  max-width: 300px;
+  height: 3px;
+  background: #fdb933;
+}
+
+.page-404 header.page-header {
+  background: transparent;
+  margin-bottom: 0;
+  h1 {
+    color: var(--verde) !important;
+  }
+}
+
+.contato-pagination .swiper-pagination-bullet-active {
+  background-color: var(--titulos);
+}
+
+.container-swiper .float-prev {
+  top: 50%;
+  position: absolute !important;
+  left: -40px;
+}
+
+.container-swiper .float-next {
+  top: 50%;
+  position: absolute !important;
+  right: -40px;
+}
+
+h2.ctae-title {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 36px;
+  leading-trim: NONE;
+  line-height: 135%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+}
+
 footer {
   p,
   h4,
@@ -108,6 +194,12 @@ section {
     text-align: center;
     text-transform: uppercase;
     color: var(--verde);
+  }
+}
+
+.blog {
+  .swiper-slide {
+    height: auto;
   }
 }
 
@@ -166,8 +258,10 @@ h1 {
 
 a.cta,
 button.cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: 12px 24px;
+  gap: 5px;
   background-color: var(--amarelo);
   color: #252525;
   font-weight: 600;
@@ -201,6 +295,9 @@ button.cta {
   svg path {
     transition: fill 0.3s ease-in-out;
   }
+  img.object-contain {
+    transition: 50ms all ease-in-out;
+  }
 
   &:hover {
     background-color: var(--verde);
@@ -208,6 +305,9 @@ button.cta {
     border-color: transparent;
     h3 {
       color: white;
+    }
+    img.object-contain {
+      filter: hue-rotate(276deg) saturate(2000%);
     }
     svg {
       path {
@@ -453,6 +553,10 @@ section.hero.interna:hover picture img {
 @media (min-width: 992px) {
   .form-group label {
     font-size: 20px;
+  }
+  .contato-pagination,
+  .dif-pagination {
+    display: none;
   }
 }
 

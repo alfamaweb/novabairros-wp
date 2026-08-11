@@ -15,10 +15,17 @@ jQuery(function ($) {
 
         $section.addClass('is-loading');
 
+        var filters = {
+            estado: $('select[name="estado"]').val(),
+            tipo: $('select[name="tipo"]').val(),
+            status: $('select[name="status"]').val(),
+        };
+
         $.post(nbEmpreendimentos.ajaxUrl, {
             action: 'nb_load_empreendimentos',
             nonce: nbEmpreendimentos.nonce,
             paged: page,
+            filters: filters
         })
             .done(function (response) {
                 if (response && response.success) {
@@ -46,5 +53,9 @@ jQuery(function ($) {
         }
 
         loadPage(page);
+    });
+
+    $('select[name="estado"], select[name="tipo"], select[name="status"]').on('change', function () {
+        loadPage(1);
     });
 });
