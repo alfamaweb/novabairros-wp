@@ -122,7 +122,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
                 <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div>
                 <!-- <a class="!text-white/60 font-medium !underline" href="#">Política de Privacidade</a>
                 <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div> -->
-                <a class="!text-white/60" href="#">Desenvolvido por <span class="font-medium underline">AlfamaWeb em parceria com LZ MKT e Negócios</span></a>
+                <a class="!text-white/60" target="_blank" href="https://alfamaweb.com.br">Desenvolvido por <span class="font-medium underline">AlfamaWeb em parceria com LZ MKT e Negócios</span></a>
             </div>
         </div>
     </div>
