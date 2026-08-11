@@ -312,20 +312,42 @@ get_header(); ?>
                 
                 const msgDiv = document.createElement('div');
                 msgDiv.id = 'form-popup-message';
-                msgDiv.className = 'fixed bottom-5 right-5 z-[9999] px-6 py-4 rounded-lg shadow-xl font-medium transition-all duration-500 transform translate-y-10 opacity-0 ' + 
-                                   (isSuccess ? 'bg-green-100 text-green-800 border-l-4 border-green-500' : 'bg-red-100 text-red-800 border-l-4 border-red-500');
-                msgDiv.innerText = message;
                 
+                msgDiv.style.position = 'fixed';
+                msgDiv.style.bottom = '20px';
+                msgDiv.style.right = '20px';
+                msgDiv.style.zIndex = '9999';
+                msgDiv.style.padding = '16px 24px';
+                msgDiv.style.borderRadius = '8px';
+                msgDiv.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                msgDiv.style.fontWeight = '500';
+                msgDiv.style.transition = 'all 0.5s ease-in-out';
+                msgDiv.style.transform = 'translateY(40px)';
+                msgDiv.style.opacity = '0';
+                msgDiv.style.fontFamily = 'inherit';
+                msgDiv.style.borderLeft = '4px solid';
+                
+                if (isSuccess) {
+                    msgDiv.style.backgroundColor = '#dcfce7'; 
+                    msgDiv.style.color = '#166534'; 
+                    msgDiv.style.borderColor = '#22c55e'; 
+                } else {
+                    msgDiv.style.backgroundColor = '#fee2e2'; 
+                    msgDiv.style.color = '#991b1b'; 
+                    msgDiv.style.borderColor = '#ef4444'; 
+                }
+                
+                msgDiv.innerText = message;
                 document.body.appendChild(msgDiv);
                 
                 setTimeout(() => {
-                    msgDiv.classList.remove('translate-y-10', 'opacity-0');
-                    msgDiv.classList.add('translate-y-0', 'opacity-100');
+                    msgDiv.style.transform = 'translateY(0)';
+                    msgDiv.style.opacity = '1';
                 }, 10);
                 
                 setTimeout(() => {
-                    msgDiv.classList.remove('translate-y-0', 'opacity-100');
-                    msgDiv.classList.add('translate-y-10', 'opacity-0');
+                    msgDiv.style.transform = 'translateY(40px)';
+                    msgDiv.style.opacity = '0';
                     setTimeout(() => msgDiv.remove(), 500);
                 }, 5000);
             }
