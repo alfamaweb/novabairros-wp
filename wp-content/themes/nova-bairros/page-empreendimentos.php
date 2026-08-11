@@ -13,7 +13,7 @@ get_header(); ?>
 <main>
     <?php include 'hero-interna.php'; ?>
 
-    <section class="filter">
+    <section class="filter wow fadeInUp">
         <div class="container">
             <div class="flex lg:flex-row flex-col gap-6">
                 <div class="form-group flex flex-col flex-1">
@@ -74,14 +74,14 @@ get_header(); ?>
 
     <section class="empreendimentos !mt-10">
         <div class="container">
-            <div id="empreendimentos-cards" class="flex flex-col xl:grid grid-cols-12 gap-8">
+            <div id="empreendimentos-cards" class="flex flex-col xl:grid grid-cols-12 gap-8 ">
                 <?php
                 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
                 $filters = array();
                 if (isset($_GET['estado']) && !empty($_GET['estado'])) {
                     $filters['estado'] = strtolower(sanitize_text_field($_GET['estado']));
                 }
-                
+
                 $the_query = nb_empreendimentos_query($paged, 10, $filters);
                 echo nb_render_empreendimentos_cards($the_query);
                 $max_pages = (int) $the_query->max_num_pages;

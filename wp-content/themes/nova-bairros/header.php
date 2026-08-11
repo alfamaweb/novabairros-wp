@@ -48,6 +48,8 @@ $cta_url     = !empty($cta_cliente['url'])   ? $cta_cliente['url']   : '#';
     <!-- Fancybox -->
     <link rel='stylesheet' type='text/css' href='<?php echo get_template_directory_uri(); ?>/assets/libs/fancybox/fancybox.css'>
 
+    <link rel='stylesheet' type='text/css' href='<?php echo get_template_directory_uri(); ?>/assets/libs/wow/animate.min.css'>
+
     <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
 
@@ -65,7 +67,7 @@ $cta_url     = !empty($cta_cliente['url'])   ? $cta_cliente['url']   : '#';
 
     <header class="site-header" id="topo">
         <div class="container mx-auto">
-            <div class="navbar flex flex-row items-center flex-nowrap pt-6! pb-5!">
+            <div class="navbar flex flex-row items-center flex-nowrap pt-6! pb-5! wow fadeInDown" data-wow-delay="0.2s">
                 <a href="<?= home_url(); ?>" aria-label="Home" class="navbar-brand">
                     <img src="<?= IMG_URI ?>logo.svg" alt="">
                 </a>

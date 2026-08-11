@@ -27,7 +27,7 @@ foreach ($categories as $category) {
 <meta property='og:image' content='<?php echo $post_thumbnail_url; ?>' />
 
 <div id="content" class="reading reading-single">
-	<div class="breadcrumb mt-15">
+	<div class="breadcrumb mt-15 wow fadeInDown">
 		<div class="container">
 			<div class="flex flex-row justify-center items-center gap-3">
 				<a class="font-semibold" href="<?= home_url(); ?>">INÍCIO</a>
@@ -39,7 +39,7 @@ foreach ($categories as $category) {
 	</div>
 	<main>
 		<div class="container">
-			<section class="thumbnail rounded-[10px] overflow-hidden">
+			<section class="thumbnail rounded-[10px] overflow-hidden wow fadeIn">
 				<div class="top bg-(--verde) hidden md:block py-7">
 					<div class="flex flex-col md:flex-row w-full justify-center items-center gap-2">
 						<p>Publicado em <?= get_the_date('F \d\e Y') ?></p>
@@ -67,7 +67,7 @@ foreach ($categories as $category) {
 				</div>
 				<img class="w-full h-full max-h-140 object-cover" src="<?= get_the_post_thumbnail_url(get_the_id(), 'large') ?>" alt="thumbnail">
 			</section>
-			<div class="top bg-(--verde) md:hidden px-4 py-7 mt-5 rounded-[10px]">
+			<div class="top bg-(--verde) md:hidden px-4 py-7 mt-5 rounded-[10px] wow fadeIn">
 				<div class="flex flex-col md:flex-row w-full gap-2">
 					<p>Publicado em <?= get_the_date('F \d\e Y') ?></p>
 					<div class="bg-(--amarelo) h-1 w-full"></div>
@@ -92,10 +92,10 @@ foreach ($categories as $category) {
 					</div>
 				</div>
 			</div>
-			<section class="content border-b pb-6 border-[#9C9C9C40]">
+			<section class="content border-b pb-6 border-[#9C9C9C40] wow fadeIn">
 				<?= get_the_content() ?>
 			</section>
-			<section class="empreendimentos">
+			<section class="empreendimentos wow fadeInUp">
 				<div class="container">
 					<div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
 						<span>outras notícias</span>

@@ -20,7 +20,7 @@ $mobile_id = $mobile_img['ID'] ?? null;
             alt="hero image" class="w-full h-full object-cover object-center"
             loading="eager" fetchpriority="high">
     </picture>
-    <div class="absolute -bottom-2/7 left-0 w-full h-auto">
+    <div class="absolute -bottom-2/7 left-0 w-full h-auto wow fadeInUp">
         <div class="container">
             <div
                 class="inner-content w-full h-full flex flex-col items-center justify-center bg-(--verde) rounded-[10px] max-w-[1125px] mx-auto gap-5 pt-6 pb-10 px-4">

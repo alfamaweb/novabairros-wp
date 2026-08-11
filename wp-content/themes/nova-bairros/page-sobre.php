@@ -16,7 +16,7 @@ get_header(); ?>
     if (!empty(get_field('sobre_nos'))):
         $sobre = get_field('sobre_nos');
     ?>
-        <section class="sobre">
+        <section class="sobre wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col md:grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-6">
@@ -39,7 +39,7 @@ get_header(); ?>
     endif;
     if (have_rows('itens')) :
     ?>
-        <section class="diferenciais bg-[#FDB9331A] py-8 md:py-16">
+        <section class="diferenciais bg-[#FDB9331A] py-8 md:py-16 wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
                     <?php
@@ -68,20 +68,22 @@ get_header(); ?>
                 <div class="flex flex-col md:grid grid-cols-12 gap-8">
                     <div class="col-span-12">
                         <div class="flex flex-col items-center w-full gap-3 text-center">
-                            <span class="text-(--verde)">missão, visão e valores</span>
-                            <h2><?= $sobre['titulo']; ?></h2>
-                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
+                            <span class="text-(--verde) wow fadeIn">missão, visão e valores</span>
+                            <h2 class="wow fadeIn" data-wow-delay="0.2s"><?= $sobre['titulo']; ?></h2>
+                            <div data-wow-delay="0.2s" class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px] wow fadeIn"></div>
                         </div>
                     </div>
-                    <?php while (have_rows('mvv')): the_row(); ?>
-                        <div class="col-span-12 lg:col-span-4">
+                    <?php $i = 0;
+                    while (have_rows('mvv')): the_row(); ?>
+                        <div class="col-span-12 lg:col-span-4 wow fadeIn <?= $i == 0 ? 'fadeInLeft' : '' ?> <?= $i == 2 ? 'fadeInRight' : '' ?>">
                             <div class="flex flex-col items-center rounded-[10px] bg-(--verde) h-full gap-3 p-8">
                                 <img src="<?= get_sub_field('icone')['url']; ?>" alt="">
                                 <h3 class="!text-white text-center"><?= get_sub_field('titulo'); ?></h3>
                                 <p class="text-white text-center"><?= get_sub_field('texto'); ?></p>
                             </div>
                         </div>
-                    <?php endwhile; ?>
+                    <?php $i++;
+                    endwhile; ?>
                 </div>
             </div>
         </section>
@@ -92,11 +94,11 @@ get_header(); ?>
         <section class="diferenciais cards overflow-hidden">
             <div class="container">
                 <div class="flex flex-col items-center w-full gap-3 text-center">
-                    <span class="text-(--verde)">diferenciais</span>
-                    <h2><?= get_field('titulo_diferenciais'); ?></h2>
-                    <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
+                    <span class="text-(--verde) wow fadeIn">diferenciais</span>
+                    <h2 class="wow fadeIn" data-wow-delay="0.2s"><?= get_field('titulo_diferenciais'); ?></h2>
+                    <div data-wow-delay="0.2s" class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px] wow fadeIn"></div>
                 </div>
-                <div class="relative swiper-container">
+                <div class="relative swiper-container wow fadeInUp" data-wow-delay="0.3s">
                     <div class="swiper cards-diferenciais !overflow-visible mt-10 !pt-20">
                         <div class="swiper-wrapper">
                             <?php while (have_rows('cards')): the_row(); ?>
@@ -134,7 +136,7 @@ get_header(); ?>
                 $i = 0;
                 while (have_rows('blocos')): the_row();
                 ?>
-                    <div class="flex flex-col lg:grid grid-cols-12 gap-8 mb-8">
+                    <div class="flex flex-col lg:grid grid-cols-12 gap-8 mb-8 <?= $i % 2 !== 0 ? 'wow fadeInLeft' : 'wow fadeInRight'; ?>">
                         <div class="bloco-texto col-span-12 lg:col-span-6 <?= $i % 2 !== 0 ? 'lg:order-last' : ''; ?>">
                             <div class="flex flex-col items-start w-fit gap-3">
                                 <?php if ($i === 0) : ?>
@@ -160,7 +162,7 @@ get_header(); ?>
     if (!empty(get_field('bloco_socios')['titulo'])):
         $socios = get_field('bloco_socios');
     ?>
-        <section class="socios bg-[#FDB9331A] py-6 md:py-8">
+        <section class="socios bg-[#FDB9331A] py-6 md:py-8 wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col items-center w-full gap-3 text-center">
                     <span class="text-(--verde)">ÁREA DO INVESTIDOR</span>
@@ -185,16 +187,16 @@ get_header(); ?>
     <?php endif;
     if (!empty(get_field('negocios'))):
         $negocios = get_field('negocios'); ?>
-        <section class="negocios bg-[#FDB9331A] py-8 md:py-16">
+        <section class="negocios bg-[#00663B] py-8 md:py-16 wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col lg:grid grid-cols-12 gap-8">
                     <div class="col-span-6">
                         <div class="flex flex-col items-start w-fit gap-3">
-                            <span class="text-(--verde)">novos negócios</span>
-                            <h2><?= $negocios['titulo']; ?></h2>
-                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
+                            <span class="!text-white">novos negócios</span>
+                            <h2 class="!text-white"><?= $negocios['titulo']; ?></h2>
+                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px] !text-white"></div>
                         </div>
-                        <div class="content mt-8">
+                        <div class="content mt-8 !text-white">
                             <?= nl2br($negocios['texto']); ?>
                         </div>
                         <a href="<?php echo get_field('negocios')['whatsapp'] ?>" class="cta mt-6 d-inline-flex" target="_blank">
@@ -204,7 +206,7 @@ get_header(); ?>
                             Fale conosco pelo Whatsapp</a>
                     </div>
                     <div class="col-span-6">
-                        <div class="form-container border border-(--verde) rounded-[10px] px-8 py-6">
+                        <div class="form-container border border-(--verde) !bg-white rounded-[10px] px-8 py-6">
                             <h3 class="text-(--verde) mb-4">Entre em contato</h3>
                             <p>Para mais informações sobre novas oportunidades </p>
                             <form action="" method="POST" class="flex flex-col gap-5 mt-8">

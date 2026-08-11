@@ -74,7 +74,7 @@ get_header(); ?>
                             </div>
                             <h1 class="!text-white !text-start"><?= esc_html($hero['titulo'] ?? get_the_title()); ?></h1>
                         </div>
-                        <div class="hidden lg:block col-span-12 lg:col-start-9 lg:col-span-4">
+                        <div class="hidden lg:block col-span-12 lg:col-start-9 lg:col-span-4 wow fadeInUp">
                             <div class="form-container border border-(--verde) rounded-[10px] bg-white px-4 md:px-8 py-6">
                                 <h3 class="text-(--verde) mb-4">Deseja saber mais?</h3>
                                 <form action="" method="POST" class="flex flex-col gap-5 mt-8">
@@ -146,7 +146,7 @@ get_header(); ?>
         <section class="resumo">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
-                    <div class="col-span-12 lg:col-span-7">
+                    <div class="col-span-12 lg:col-span-7 wow fadeInLeft">
                         <div class="flex flex-col items-start gap-6">
                             <?php if (!empty($resumo['logo'])): ?>
                                 <img src="<?= esc_url($resumo['logo']['url']); ?>"
@@ -184,7 +184,7 @@ get_header(); ?>
                     </div>
 
                     <?php if (!empty($resumo['imagem'])): ?>
-                        <div class="col-span-12 lg:col-span-5">
+                        <div class="col-span-12 lg:col-span-5 wow fadeInRight">
                             <img class="w-full h-full object-cover rounded-[10px]"
                                 src="<?= esc_url($resumo['imagem']['url']); ?>"
                                 alt="<?= esc_attr($resumo['imagem']['alt']); ?>">
@@ -205,15 +205,15 @@ get_header(); ?>
                     <div class="col-span-12">
                         <div class="flex flex-col items-center w-full gap-4 text-center">
                             <?php if (!empty($infraestrutura['label'])): ?>
-                                <span><?= esc_html($infraestrutura['label']); ?></span>
+                                <span class="wow fadeIn"><?= esc_html($infraestrutura['label']); ?></span>
                             <?php endif; ?>
                             <?php if (!empty($infraestrutura['titulo'])): ?>
-                                <h2><?= esc_html($infraestrutura['titulo']); ?></h2>
+                                <h2 class="wow fadeIn" data-wow-delay=".2s"><?= esc_html($infraestrutura['titulo']); ?></h2>
                             <?php endif; ?>
-                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-75"></div>
+                            <div data-wow-delay=".4s" class="wow fadeIn border-b border-(--amarelo) border-[3px] w-full max-w-75"></div>
                         </div>
                     </div>
-                    <div class="col-span-12 mt-10">
+                    <div class="col-span-12 mt-10 wow fadeInUp" data-wow-delay=".2s">
                         <!-- Slider main container -->
                         <div class='swiper infra'>
                             <!-- Additional required wrapper -->
@@ -246,7 +246,7 @@ get_header(); ?>
     $galeria = get_field('galeria');
     if (!empty($galeria)):
     ?>
-        <section class="galeria">
+        <section class="galeria wow fadeInUp">
             <div class="container">
                 <div class="swiper galeria">
                     <div class="swiper-wrapper">
@@ -270,7 +270,7 @@ get_header(); ?>
     $obra = get_field('obra');
     if (!empty($obra) && (!empty($obra['fotos']) || !empty($obra['etapas']))):
     ?>
-        <section class="obra">
+        <section class="obra wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
                     <div class="col-span-12">
@@ -337,9 +337,9 @@ get_header(); ?>
     $localizacao = get_field('localizacao');
     if (!empty($localizacao) && (!empty($localizacao['titulo']) || !empty($localizacao['google_maps']) || !empty($localizacao['waze']))):
     ?>
-        <section class="loc">
+        <section class="loc wow fadeInUp">
             <div class="container">
-                <div class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-[10px] gap-6 lg:gap-0">
+                <div class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-t-[10px] gap-6 lg:gap-0">
                     <div class="flex flex-col items-center justify-center">
                         <img src="<?= IMG_URI ?>app.svg" alt="App Store">
                     </div>
@@ -374,6 +374,9 @@ get_header(); ?>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
+                <div class="iframe-maps">
+                    <?= $localizacao['iframe_do_maps'] ?>
+                </div>
             </div>
         </section>
     <?php endif; ?>
@@ -382,7 +385,7 @@ get_header(); ?>
     $mapa = get_field('mapa');
     if (!empty($mapa) && !empty($mapa['imagens'])):
     ?>
-        <section class="mapa">
+        <section class="mapa wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
                     <div class="col-span-12">
@@ -415,7 +418,7 @@ get_header(); ?>
         </section>
     <?php endif; ?>
     <?php if (get_field('cta') && get_field('cta')['titulo']): ?>
-        <section class="cta-emp" style="background-image:url(<?php echo get_field('cta')['background']['url'] ?>)">
+        <section class="cta-emp wow fadeInUp" style="background-image:url(<?php echo get_field('cta')['background']['url'] ?>)">
             <h3 class="ctae-subtitle"><?php echo get_field('cta')['subtitulo'] ?></h3>
             <h2 class="ctae-title"><?php echo get_field('cta')['titulo'] ?></h2>
             <div class="ctae-line mt-3"></div>

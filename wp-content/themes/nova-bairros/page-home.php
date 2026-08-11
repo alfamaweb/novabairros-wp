@@ -11,7 +11,7 @@
 get_header(); ?>
 
 <main>
-    <section class="hero relative !mt-0 z-0" id="hero">
+    <section class="hero relative !mt-0 z-0 wow fadeIn" id="hero">
         <div class="swiper hero">
             <div class="swiper-wrapper">
                 <?php
@@ -111,11 +111,11 @@ get_header(); ?>
     <section class="empreendimentos">
         <div class="container">
             <div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
-                <span>Nossos Emprendimentos</span>
-                <h2>Escolha a opção ideal</h2>
-                <div class="border-b border-(--amarelo) border-[3px] w-full"></div>
+                <span class="wow fadeIn">Nossos Emprendimentos</span>
+                <h2 class="wow fadeIn" data-wow-delay="0.2s">Escolha a opção ideal</h2>
+                <div class="border-b border-(--amarelo) border-[3px] w-full wow fadeIn" data-wow-delay="0.4s"></div>
             </div>
-            <div class="relative container-swiper">
+            <div class="relative container-swiper wow fadeInUp">
                 <div class='swiper empreendimentos'>
                     <div class='swiper-wrapper'>
                         <?php
@@ -187,14 +187,14 @@ get_header(); ?>
     <section class="infraestrutura bg-(--verde) py-11">
         <div class="container">
             <div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
-                <span>INFRAESTRUTURA COMPLETA</span>
-                <h2>Qualidade de vida que você merece</h2>
-                <div class="border-b border-(--amarelo) border-[3px] w-full"></div>
+                <span class="wow fadeIn">INFRAESTRUTURA COMPLETA</span>
+                <h2 class="wow fadeIn" data-wow-delay="0.2s">Qualidade de vida que você merece</h2>
+                <div class="border-b border-(--amarelo) border-[3px] w-full wow fadeIn" data-wow-delay="0.4s"></div>
             </div>
             <?php
             if (have_rows('cards')):
             ?>
-                <div class='swiper infraestrutura'>
+                <div class='swiper infraestrutura wow fadeInUp' data-wow-delay="0.2s">
                     <div class='swiper-wrapper'>
                         <?php
                         while (have_rows('cards')):
@@ -221,7 +221,7 @@ get_header(); ?>
     <section class="localizacoes">
         <div class="container">
             <div class="flex flex-col lg:grid lg:grid-cols-12 items-start lg:items-center">
-                <div class="col-span-12 lg:col-span-6 order-1 lg:order-0 min-w-0 w-full">
+                <div class="col-span-12 lg:col-span-6 order-1 lg:order-0 min-w-0 w-full wow fadeIn" data-wow-delay="0.2s">
                     <div class="hidden lg:flex flex-col items-start w-fit gap-2">
                         <span>Localizações</span>
                         <h2>
@@ -241,7 +241,7 @@ get_header(); ?>
                             <span>MANAUS - AMAZONAS</span>
                         </div>
                     </div>
-                    <div class="swiper-wrapper-container flex-col items-start flex gap-4 mt-10 gap-3 w-full min-w-0 hidden">
+                    <div class="swiper-wrapper-container flex-col items-start flex gap-4 mt-10 gap-3 w-full min-w-0 hidden wow fadeInUp" data-wow-delay="0.2s">
                         <!-- Slider main container -->
                         <div class='swiper swiper-map w-full min-w-0 overflow-hidden'>
                             <!-- Additional required wrapper -->
@@ -504,10 +504,11 @@ get_header(); ?>
                 <div
                     class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
                     <?php
+
                     while (have_rows('itens')):
                         the_row();
                     ?>
-                        <div class="w-full md:col-span-6 xl:col-span-3">
+                        <div class="w-full md:col-span-6 xl:col-span-3 wow fadeInUp">
                             <div class="flex flex-col items-center gap-6">
                                 <span
                                     class="w-full text-center !text-white py-2 bg-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
@@ -519,7 +520,8 @@ get_header(); ?>
                                 <p><?= get_sub_field('texto'); ?></p>
                             </div>
                         </div>
-                    <?php endwhile; ?>
+                    <?php
+                    endwhile; ?>
                 </div>
             </div>
         </section>
@@ -531,7 +533,7 @@ get_header(); ?>
         <section class="sobre">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
-                    <div class="col-span-12 md:col-span-6">
+                    <div class="col-span-12 md:col-span-6 wow fadeInLeft">
                         <div class="flex flex-col items-start w-fit gap-3">
                             <span>SOBRE NÓS</span>
                             <h2><?= $sobre['titulo']; ?></h2>
@@ -542,7 +544,7 @@ get_header(); ?>
                         </div>
                         <a href="<?php echo esc_url(home_url('/sobre')); ?>" class="cta">Saiba mais sobre nós</a>
                     </div>
-                    <div class="col-span-12 md:col-span-6">
+                    <div class="col-span-12 md:col-span-6 wow fadeInRight">
                         <img src="<?= $sobre['imagem']['url']; ?>" alt="<?= $sobre['imagem']['title']; ?>">
                     </div>
                 </div>
@@ -553,7 +555,7 @@ get_header(); ?>
     $aplicativo = get_field('aplicativo');
     if (!empty($aplicativo)):
     ?>
-        <section class="app">
+        <section class="app wow fadeInUp" data-wow-delay="0.2s">
             <div class="container">
                 <div
                     class="flex flex-col xl:flex-row xl:justify-between text-center items-center xl:items-stretch w-full bg-(--verde) p-6 xl:p-11 rounded-[10px] gap-6 xl:gap-0">
@@ -581,11 +583,11 @@ get_header(); ?>
     <section class="empreendimentos">
         <div class="container">
             <div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
-                <span>BLOG DE NOTÍCIAS</span>
-                <h2>Fique por dentro das novidades</h2>
-                <div class="border-b border-(--amarelo) border-[3px] w-full"></div>
+                <span class="wow fadeInUp" data-wow-delay="0.2s">BLOG DE NOTÍCIAS</span>
+                <h2 class="wow fadeInUp" data-wow-delay="0.2s">Fique por dentro das novidades</h2>
+                <div class="border-b border-(--amarelo) border-[3px] w-full wow fadeInUp" data-wow-delay="0.2s"></div>
             </div>
-            <div class="relative container-swiper">
+            <div class="relative container-swiper wow fadeInUp" data-wow-delay="0.2s">
                 <div class='swiper blog'>
                     <div class='swiper-wrapper'>
                         <?php
@@ -849,5 +851,55 @@ get_header(); ?>
                 swiperMap = initSwiperMap();
             }
         });
+    });
+
+    // Animação dos contadores da seção diferenciais
+    document.addEventListener('DOMContentLoaded', function() {
+        const section = document.querySelector('.diferenciais');
+        if (!section) return;
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('h3');
+                    counters.forEach(counter => {
+                        const text = counter.innerText;
+                        const match = text.match(/^(.*?)([\d\.]+)(.*)$/);
+                        if (match) {
+                            const prefix = match[1];
+                            const target = parseInt(match[2].replace(/\./g, ''), 10);
+                            const suffix = match[3];
+
+                            if (isNaN(target)) return;
+
+                            let startTimestamp = null;
+                            const duration = 2000;
+
+                            const step = (timestamp) => {
+                                if (!startTimestamp) startTimestamp = timestamp;
+                                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+
+                                const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+                                const current = Math.floor(easeOutQuad * target);
+
+                                counter.innerText = prefix + current.toLocaleString('pt-BR') + suffix;
+
+                                if (progress < 1) {
+                                    window.requestAnimationFrame(step);
+                                } else {
+                                    counter.innerText = prefix + target.toLocaleString('pt-BR') + suffix;
+                                }
+                            };
+                            window.requestAnimationFrame(step);
+                        }
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        observer.observe(section);
     });
 </script>

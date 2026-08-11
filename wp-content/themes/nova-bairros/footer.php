@@ -28,7 +28,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
         <div class="flex flex-col md:grid md:grid-cols-12 gap-8 py-12">
 
             <!-- Logo + tagline + redes sociais -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6">
+            <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-6 wow fadeIn">
                 <a href="<?= home_url(); ?>" aria-label="Home" class="navbar-brand w-fit">
                     <img src="<?= IMG_URI ?>logo.svg" alt="Logo">
                 </a>
@@ -58,7 +58,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
             </div>
 
             <!-- Links Rápidos -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-5">
+            <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-5 wow fadeIn" data-wow-delay="0.2s">
                 <h4 class="text-white! border-b border-white/20 pb-3">
                     <?= esc_html($links_rapidos['titulo'] ?? 'Links Rápidos'); ?>
                 </h4>
@@ -73,7 +73,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
 
             <!-- Principais Contatos -->
             <?php if (!empty($contatos_footer)): ?>
-                <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-5">
+                <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-5 wow fadeIn" data-wow-delay="0.4s">
                     <h4 class="text-white! border-b border-white/20 pb-3">Principais Contatos</h4>
                     <div class="flex flex-col gap-4">
                         <?php foreach ($contatos_footer as $contato):
@@ -96,7 +96,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
 
             <!-- Links Úteis -->
             <?php if (!empty($links_uteis) && !empty($links_uteis['links'])): ?>
-                <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-5">
+                <div class="col-span-12 md:col-span-6 lg:col-span-3 flex flex-col gap-5 wow fadeIn" data-wow-delay="0.6s">
                     <h4 class="text-white! border-b border-white/20 pb-3">
                         <?= esc_html($links_uteis['titulo'] ?? 'Links Úteis'); ?>
                     </h4>
@@ -116,7 +116,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
         </div>
 
         <!-- Barra de copyright -->
-        <div class="border-t border-white/20 flex justify-center items-center py-6">
+        <div class="border-t border-white/20 flex justify-center items-center py-6 wow fadeIn" data-wow-delay="0.2s">
             <div class="flex flex-col md:flex-row text-center text-sm items-center gap-5">
                 <p class="!text-white/60">Copyright <?= date('Y'); ?> - Todos os direitos reservados.</p>
                 <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div>
@@ -152,11 +152,16 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
 <!-- Main JS -->
 <script type='text/javascript' src='<?php echo get_template_directory_uri(); ?>/assets/js/app.js'></script>
 
+<script type='text/javascript' src='<?php echo get_template_directory_uri(); ?>/assets/libs/wow/wow.min.js'></script>
+
 <!-- Footer Tags -->
 <?php wp_footer(); ?>
 </body>
 
 <script>
+    new WOW().init();
+
+
     Fancybox.bind("[data-fancybox]", {
         groupAll: false,
         infinite: false,
