@@ -29,6 +29,7 @@ $cta_url     = !empty($cta_cliente['url'])   ? $cta_cliente['url']   : '#';
 
     <!-- Favicon -->
     <!-- INSERIR AQUI CONFORME CHECKLIST -->
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/assets/img/favicon.png">
 
     <meta name="theme-color" content="#ffffff">
 
