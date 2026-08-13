@@ -132,7 +132,7 @@ get_header(); ?>
                                 $the_query->the_post();
                         ?>
                                 <div class="swiper-slide">
-                                    <a class="card-outer relative block" href="<?= get_permalink(); ?>">
+                                    <a class="card-outer relative block h-auto" href="<?= get_permalink(); ?>">
                                         <div class="card">
                                             <h3><?= get_the_title(); ?></h3>
                                             <?php if (have_rows('diferenciais_card')): ?>
@@ -313,7 +313,7 @@ get_header(); ?>
                                 ?>
                             </div>
                             <div class="mt-10 relative">
-                                <div class='map-pagination swiper-pagination '></div>
+                                <div class='map-pagination flex justify-center lg:justify-start  swiper-pagination '></div>
                             </div>
                         </div>
                         <a href="#" class="cta inline-flex btn-readmore">Ver mais empreendimentos em Goiás</a>
@@ -607,7 +607,7 @@ get_header(); ?>
                         <p><?= $aplicativo['texto'] ?></p>
                     </div>
                     <div class="hidden xl:block border-r border-(--amarelo) border-[3px] h-auto"></div>
-                    <a href="<?= $aplicativo['link'] ?>" target="_blank" class="cta w-full md:w-auto text-nowrap my-auto">
+                    <a href="<?= $aplicativo['link'] ?>" target="_blank" class="text-center lg:text-start cta w-full md:w-auto text-nowrap my-auto">
                         Acesse o aplicativo
                     </a>
                 </div>
@@ -639,7 +639,7 @@ get_header(); ?>
                                 $the_query->the_post();
                         ?>
                                 <div class="swiper-slide">
-                                    <a class="card-outer relative block" href="<?= get_permalink(); ?>">
+                                    <a class="card-outer relative block h-auto" href="<?= get_permalink(); ?>">
                                         <div class="card">
                                             <h3><?= get_the_title(); ?></h3>
                                             <p class="!my-4"><?= get_the_excerpt(); ?></p>
@@ -683,6 +683,10 @@ get_header(); ?>
 <style>
     .svg-map .circle {
         display: none;
+    }
+
+    .swiper-slide {
+        display: flex;
     }
 </style>
 
@@ -863,6 +867,10 @@ get_header(); ?>
         $('.svg-map a[data-estado]').removeClass('active-map-state');
         $(this).addClass('active-map-state');
 
+        ativarEstado(estado)
+    });
+
+    function ativarEstado(estado) {
         // Update the state text and CTA button
         if (stateNames[estado]) {
             $('.map-estado span').text(stateNames[estado]);
@@ -893,7 +901,7 @@ get_header(); ?>
                 swiperMap = initSwiperMap();
             }
         });
-    });
+    }
 
     // Animação dos contadores da seção diferenciais
     document.addEventListener('DOMContentLoaded', function() {
@@ -941,7 +949,11 @@ get_header(); ?>
         }, {
             threshold: 0.5
         });
+        ativarEstado('AM')
 
-        observer.observe(section);
+        // observer.observe(section);
+        // setTimeout(function() {
+        //     ativarEstado('AM')
+        // }, 1000);
     });
 </script>

@@ -44,7 +44,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
                                 target="_blank" rel="noopener noreferrer"
                                 aria-label="<?= esc_attr($rede['aria_label'] ?? ''); ?>"
                                 class="dif-item flex flex-row items-center gap-3">
-                                <div class="icon-social rounded-full w-10 h-10 relative bg-(--amarelo) content-center justify-items-center hover:bg-(--amarelo) transition-colors duration-300">
+                                <div class="icon-social rounded-full w-10 h-10 relative bg-(--amarelo) content-center justify-center items-center flex hover:bg-(--amarelo) transition-colors duration-300">
                                     <?php if (!empty($rede['icone'])): ?>
                                         <img src="<?= esc_url($rede['icone']['url']); ?>"
                                             alt="<?= esc_attr($rede['aria_label'] ?? ''); ?>"
