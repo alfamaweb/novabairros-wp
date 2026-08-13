@@ -81,7 +81,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
                         ?>
                             <a href="<?= esc_attr($contato['url'] ?? '#'); ?>" target="_blank"
                                 class="dif-item flex flex-row items-center gap-3">
-                                <div class="rounded-full w-10 h-10 shrink-0 relative bg-white/20 content-center justify-items-center">
+                                <div class="rounded-full w-10 h-10 shrink-0 relative bg-white/20 items-center justify-center flex">
                                     <?php if (!empty($contato['icone'])): ?>
                                         <img src="<?= esc_url($contato['icone']['url']); ?>"
                                             alt="" class="w-5 h-5 brightness-0 invert">
