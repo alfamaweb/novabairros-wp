@@ -132,7 +132,7 @@ get_header(); ?>
                                 $the_query->the_post();
                         ?>
                                 <div class="swiper-slide">
-                                    <a class="card-outer relative" href="<?= get_permalink(); ?>">
+                                    <a class="card-outer relative block" href="<?= get_permalink(); ?>">
                                         <div class="card">
                                             <h3><?= get_the_title(); ?></h3>
                                             <?php if (have_rows('diferenciais_card')): ?>
@@ -186,10 +186,24 @@ get_header(); ?>
 
     <section class="infraestrutura bg-(--verde) py-11">
         <div class="container">
-            <div class="flex flex-col justify-center gap-3 w-fit mx-auto text-center items-center mb-10">
-                <span class="wow fadeIn">INFRAESTRUTURA COMPLETA</span>
-                <h2 class="wow fadeIn" data-wow-delay="0.2s">Qualidade de vida que você merece</h2>
-                <div class="border-b border-(--amarelo) border-[3px] w-full wow fadeIn" data-wow-delay="0.4s"></div>
+            <div class="flex gap-3 flex-row items-center justify-between">
+                <div class="flex text-center lg:text-start flex-col mx-auto lg:mx-0 items-center lg:items-start gap-3 w-fit lg:justify-center mb-10">
+                    <span class="wow fadeIn">INFRAESTRUTURA COMPLETA</span>
+                    <h2 class="wow fadeIn" data-wow-delay="0.2s">Qualidade de vida que você merece</h2>
+                    <div class="border-b border-(--amarelo) border-[3px] w-full wow fadeIn" data-wow-delay="0.4s"></div>
+                </div>
+                <div class="gap-3 items-center hidden lg:flex">
+                    <div class="swiper-prev-custom infra-prev">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 9.75L18.5 9.75M9.75 18.5L1 9.75L9.75 0.999999" stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="swiper-next-custom infra-next">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.5 9.75L1 9.75M9.75 1L18.5 9.75L9.75 18.5" stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
             </div>
             <?php
             if (have_rows('cards')):
@@ -529,15 +543,16 @@ get_header(); ?>
                         the_row();
                     ?>
                         <div class="w-full md:col-span-6 xl:col-span-3 wow fadeInUp">
-                            <div class="flex flex-col items-center gap-6">
-                                <span
-                                    class="w-full text-center !text-white py-2 bg-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
-                                <div class="flex flex-row items-center gap-2">
+                            <div class="flex flex-col items-center">
+
+                                <div class="flex flex-col items-center gap-2">
                                     <img src="<?= get_sub_field('icone')['url']; ?>"
                                         alt="<?= get_sub_field('icone')['title']; ?>">
-                                    <h3><?= get_sub_field('titulo'); ?></h3>
+                                    <h3 class="number-title"><?= get_sub_field('titulo'); ?></h3>
                                 </div>
                                 <p><?= get_sub_field('texto'); ?></p>
+                                <span
+                                    class="w-full mt-6 text-center !text-(--verde) py-2 border border-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
                             </div>
                         </div>
                     <?php
@@ -624,7 +639,7 @@ get_header(); ?>
                                 $the_query->the_post();
                         ?>
                                 <div class="swiper-slide">
-                                    <a class="card-outer relative" href="<?= get_permalink(); ?>">
+                                    <a class="card-outer relative block" href="<?= get_permalink(); ?>">
                                         <div class="card">
                                             <h3><?= get_the_title(); ?></h3>
                                             <p class="!my-4"><?= get_the_excerpt(); ?></p>
@@ -725,15 +740,21 @@ get_header(); ?>
             loop: true,
             breakpoints: {
                 0: {
-                    slidesPerView: 1.5,
-                    centedredSlides: true,
+                    slidesPerView: 1.4,
+                    centeredSlides: true,
                     spaceBetween: 24
                 },
                 768: {
-                    slidesPerView: 2.5
+                    slidesPerView: 1.2,
+                    centeredSlides: true,
+                    spaceBetween: 24
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 24
                 },
                 1200: {
-                    slidesPerView: 6,
+                    slidesPerView: 4,
                     spaceBetween: 30
                 },
             },
@@ -849,20 +870,21 @@ get_header(); ?>
             $('.btn-readmore').attr('href', 'empreendimentos/?estado=' + estado);
         }
 
+        // Show the elements and loading state
+        $('.map-estado').removeClass('hidden');
+        $('.swiper-wrapper-container').removeClass('hidden');
+
+        if (swiperMap) {
+            swiperMap.destroy(true, true);
+        }
+        $('.swiper-map .swiper-wrapper').html('<div class="w-full flex justify-center items-center py-10 min-h-[200px]"><div class="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent border-(--amarelo)"></div></div>');
+
         // AJAX Request
         $.post(ajaxurl, {
             action: 'filter_empreendimentos',
             estado: estado
         }, function(response) {
             if (response.trim().length > 0) {
-                // Show the elements
-                $('.map-estado').removeClass('hidden');
-                $('.swiper-wrapper-container').removeClass('hidden');
-
-                // Destroy existing swiper completely
-                if (swiperMap) {
-                    swiperMap.destroy(true, true);
-                }
 
                 // Replace HTML directly
                 $('.swiper-map .swiper-wrapper').html(response);

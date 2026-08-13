@@ -245,6 +245,16 @@ get_header(); ?>
     <?php
     $galeria = get_field('galeria');
     if (!empty($galeria)):
+        // Duplicar slides se houver poucos para garantir que o loop do Swiper 12 funcione corretamente com slides fracionados e centralizados
+        $min_items = 8;
+        if (count($galeria) > 0 && count($galeria) < $min_items) {
+            $multiplicador = ceil($min_items / count($galeria));
+            $nova_galeria = [];
+            for ($i = 0; $i < $multiplicador; $i++) {
+                $nova_galeria = array_merge($nova_galeria, $galeria);
+            }
+            $galeria = $nova_galeria;
+        }
     ?>
         <section class="galeria wow fadeInUp">
             <div class="container">
@@ -441,12 +451,12 @@ get_header(); ?>
             new Swiper('.swiper.galeria', {
                 loop: true,
                 centeredSlides: true,
-                initialSlide: 1,
-                slidesPerView: 1.15,
+                watchSlidesProgress: true,
+                slidesPerView: 1.2,
                 spaceBetween: 24,
                 breakpoints: {
                     1024: {
-                        slidesPerView: 1,
+                        slidesPerView: 1.2,
                         spaceBetween: 30,
                     },
                 },

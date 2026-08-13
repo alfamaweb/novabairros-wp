@@ -144,6 +144,46 @@ a[data-estado] text {
   gap: 8px;
 }
 
+.icon-social {
+  transition: 300ms all ease-in-out;
+}
+
+.icon-social:hover {
+  margin-top: -5px;
+}
+
+.map-pagination {
+  display: flex;
+}
+
+.infra-prev,
+.infra-next {
+  background: #fdb933;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.number-title {
+  font-family: Montserrat;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 40px;
+  leading-trim: NONE;
+  line-height: 135%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+a[data-estado] image {
+  pointer-events: none;
+}
+
 a[data-estado].show path {
   fill: #fdb933;
   transition: 300ms all ease-in-out;
@@ -646,6 +686,11 @@ section.hero.interna:hover picture img {
   gap: 1.5rem;
 }
 
+@media (max-width: 768px) {
+  section.empreendimentos {
+    margin: 80px 0 !important;
+  }
+}
 @media (min-width: 768px) {
   .mobile-menu__nav {
     gap: 2.5rem;
