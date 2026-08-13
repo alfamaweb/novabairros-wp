@@ -40,7 +40,7 @@ get_header(); ?>
                                 ?>
                                     <div class="swiper-slide !h-auto">
                                         <div class="card relative flex flex-col items-center h-full gap-4 pt-8 pb-4">
-                                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square w-10 h-10 bg-(--amarelo) content-center justify-items-center">
+                                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square w-10 h-10 bg-(--amarelo) items-center justify-center flex">
                                                 <img class="w-5! h-5!" src="<?= IMG_URI ?>location.svg" alt="">
                                             </div>
                                             <div class="text-center">
@@ -227,7 +227,7 @@ get_header(); ?>
             function showFormPopupMessage(message, isSuccess) {
                 const existingMsg = document.getElementById('form-popup-overlay');
                 if (existingMsg) existingMsg.remove();
-                
+
                 const overlayDiv = document.createElement('div');
                 overlayDiv.id = 'form-popup-overlay';
                 overlayDiv.style.position = 'fixed';
@@ -242,7 +242,7 @@ get_header(); ?>
                 overlayDiv.style.justifyContent = 'center';
                 overlayDiv.style.opacity = '0';
                 overlayDiv.style.transition = 'opacity 0.3s ease-in-out';
-                
+
                 const msgDiv = document.createElement('div');
                 msgDiv.style.backgroundColor = isSuccess ? '#00663B' : '#fee2e2';
                 msgDiv.style.color = isSuccess ? '#ffffff' : '#991b1b';
@@ -258,7 +258,7 @@ get_header(); ?>
                 msgDiv.style.transform = 'scale(0.9)';
                 msgDiv.style.transition = 'transform 0.3s ease-in-out';
                 if (!isSuccess) msgDiv.style.border = '2px solid #ef4444';
-                
+
                 const closeBtn = document.createElement('button');
                 closeBtn.innerHTML = '&times;';
                 closeBtn.style.position = 'absolute';
@@ -271,31 +271,31 @@ get_header(); ?>
                 closeBtn.style.cursor = 'pointer';
                 closeBtn.style.lineHeight = '1';
                 closeBtn.style.padding = '0';
-                
+
                 const textNode = document.createElement('p');
                 textNode.innerText = message;
                 textNode.style.margin = '0';
                 textNode.style.fontSize = '18px';
-                
+
                 msgDiv.appendChild(closeBtn);
                 msgDiv.appendChild(textNode);
                 overlayDiv.appendChild(msgDiv);
                 document.body.appendChild(overlayDiv);
-                
+
                 document.body.style.overflow = 'hidden';
-                
+
                 setTimeout(() => {
                     overlayDiv.style.opacity = '1';
                     msgDiv.style.transform = 'scale(1)';
                 }, 10);
-                
+
                 function closeModal() {
                     overlayDiv.style.opacity = '0';
                     msgDiv.style.transform = 'scale(0.9)';
                     document.body.style.overflow = '';
                     setTimeout(() => overlayDiv.remove(), 300);
                 }
-                
+
                 closeBtn.addEventListener('click', closeModal);
                 overlayDiv.addEventListener('click', function(e) {
                     if (e.target === overlayDiv) closeModal();
@@ -304,36 +304,36 @@ get_header(); ?>
 
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
                 const btn = form.querySelector('button[type="submit"]');
                 const originalText = btn.innerText;
                 btn.innerText = 'Enviando...';
                 btn.disabled = true;
                 btn.style.opacity = '0.7';
-                
+
                 const formData = new FormData(form);
                 formData.append('action', 'send_contact_form');
-                
+
                 fetch('<?= admin_url('admin-ajax.php') ?>', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(res => {
-                    showFormPopupMessage(res.data.message || 'Erro ao enviar.', res.success);
-                    
-                    if (res.success) {
-                        form.reset();
-                    }
-                })
-                .catch(err => {
-                    showFormPopupMessage('Ocorreu um erro inesperado.', false);
-                })
-                .finally(() => {
-                    btn.innerText = originalText;
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                });
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(res => {
+                        showFormPopupMessage(res.data.message || 'Erro ao enviar.', res.success);
+
+                        if (res.success) {
+                            form.reset();
+                        }
+                    })
+                    .catch(err => {
+                        showFormPopupMessage('Ocorreu um erro inesperado.', false);
+                    })
+                    .finally(() => {
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                        btn.style.opacity = '1';
+                    });
             });
         }
 
