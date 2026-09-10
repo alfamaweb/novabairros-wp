@@ -296,7 +296,7 @@ get_header(); ?>
                     </div>
 
                     <?php if (!empty($obra['fotos'])): ?>
-                        <div class="col-span-12 lg:col-span-12 mt-10">
+                        <div class="col-span-12 lg:col-span-6 mt-10">
                             <div class="swiper obras">
                                 <div class="swiper-wrapper">
                                     <?php foreach ($obra['fotos'] as $foto): ?>
