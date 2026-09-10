@@ -436,7 +436,7 @@ get_header(); ?>
             <h3 class="ctae-subtitle"><?php echo get_field('cta')['subtitulo'] ?></h3>
             <h2 class="ctae-title"><?php echo get_field('cta')['titulo'] ?></h2>
             <div class="ctae-line mt-3"></div>
-            <a class="cta mt-8" href="<?php echo get_field('cta')['link_do_botao'] ?>"><?php echo get_field('cta')['texto_do_botao'] ?></a>
+            <a class="cta mt-8" href="<?php echo get_field('cta')['link_do_botao'] ?>" target="_blank"><?php echo get_field('cta')['texto_do_botao'] ?></a>
         </section>
     <?php endif; ?>
 </main>
