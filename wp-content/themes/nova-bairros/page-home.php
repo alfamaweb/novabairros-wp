@@ -750,7 +750,7 @@ get_header(); ?>
                     spaceBetween: 24
                 },
                 768: {
-                    slidesPerView: 1,
+                    slidesPerView: 2,
                     centeredSlides: true,
                     spaceBetween: 24
                 },

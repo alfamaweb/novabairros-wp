@@ -172,3 +172,12 @@ section.app {
     }
   }
 }
+
+section.infraestrutura {
+    .swiper-wrapper {
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
