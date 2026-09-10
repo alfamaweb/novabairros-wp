@@ -104,7 +104,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
                         <?php foreach ($links_uteis['links'] as $link):
                             if (empty($link['texto'])) continue;
                         ?>
-                            <a href="<?= esc_url($link['url'] ?? '#'); ?>" target="_blank" <?= esc_html($link['texto']) == 'Política de Privacidade' || esc_html($link['texto']) == 'Cartilha de Compliance' ? '' : 'target="_blank"' ?> class="cta text-sm! !inline-flex items-center gap-2 transition-colors">
+                            <a href="<?= esc_url($link['url'] ?? '#'); ?>" <?= esc_html($link['texto']) == 'Política de Privacidade' || esc_html($link['texto']) == 'Cartilha de Compliance' ? '' : 'target="_blank"' ?> class="cta text-sm! !inline-flex items-center gap-2 transition-colors">
                                 <img src="<?= esc_url($link['icone']['url'] ?? ''); ?>" alt="icone-util" class="w-5 h-5">
                                 <?= esc_html($link['texto']); ?>
                             </a>
