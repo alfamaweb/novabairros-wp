@@ -110,3 +110,12 @@ section.loc {
     text-align: start;
   }
 }
+
+.itens-diferenciais{
+  p{
+    color: var(--verde, #007141);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 140%;
+  }
+}
