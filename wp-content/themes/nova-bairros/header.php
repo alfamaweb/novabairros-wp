@@ -94,6 +94,7 @@ $cta_url     = !empty($cta_cliente['url'])   ? $cta_cliente['url']   : '#';
             <a href="<?= home_url(); ?>/empreendimentos">Empreendimentos</a>
             <a href="<?= home_url(); ?>/blog">Blog</a>
             <a href="<?= home_url(); ?>/contato">Fale Conosco</a>
+            <a href="<?= esc_url($cta_url); ?>" target="_blank">Área do cliente</a>
             <a class="cta" target="_blank" href="<?= esc_url($cta_url); ?>"><?= esc_html($cta_texto); ?></a>
         </nav>
     </div>

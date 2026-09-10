@@ -232,7 +232,7 @@ get_header(); ?>
     <?php
     $textos = get_field('textos');
     ?>
-    
+
     <section class="localizacoes">
         <div class="container">
             <div class="flex flex-col lg:grid lg:grid-cols-12 items-start lg:items-center">
@@ -729,6 +729,7 @@ get_header(); ?>
             breakpoints: {
                 768: {
                     slidesPerView: 1
+                    spaceBetween: 0
                 },
                 1024: {
                     slidesPerView: 2,
