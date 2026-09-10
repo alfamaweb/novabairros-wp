@@ -269,8 +269,10 @@ get_header(); ?>
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="passadores-galeria">
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -419,8 +421,10 @@ get_header(); ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                            <div class="swiper-button-prev"></div>
-                            <div class="swiper-button-next"></div>
+                            <div class="passadores-mapa">
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -464,8 +468,8 @@ get_header(); ?>
                     el: '.swiper-pagination',
                 },
                 navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: '.passadores-galeria .swiper-button-next',
+                    prevEl: '.passadores-galeria .swiper-button-prev',
                 },
             });
         }
@@ -486,8 +490,8 @@ get_header(); ?>
                 loop: true,
                 slidesPerView: 1,
                 navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: '.passadores-mapa .swiper-button-next',
+                    prevEl: '.passadores-mapa .swiper-button-prev',
                 },
             });
         }

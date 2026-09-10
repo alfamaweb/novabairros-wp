@@ -119,3 +119,12 @@ section.loc {
     line-height: 140%;
   }
 }
+
+.infra-item{
+  p{
+    color: var(--verde, #007141);
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
