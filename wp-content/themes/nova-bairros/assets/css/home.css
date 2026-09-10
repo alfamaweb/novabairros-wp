@@ -167,7 +167,7 @@ section.app {
       font-weight: 600;
       line-height: 135%;
     }
-    &:hover{
+    &:hover p{
       color: var(--cor-texto, #fff);
     }
   }
