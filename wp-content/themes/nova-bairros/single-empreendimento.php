@@ -478,10 +478,6 @@ get_header(); ?>
             new Swiper('.swiper.obras', {
                 loop: true,
                 slidesPerView: 1,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
             });
         }
 
@@ -520,19 +516,6 @@ get_header(); ?>
             1320: {
                 slidesPerView: 6
             }
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        // And if we need scrollbar
-        scrollbar: {
-            el: '.swiper-scrollbar',
         },
     });
 </script>
