@@ -446,7 +446,7 @@ get_header(); ?>
                     spaceBetween: 33,
                 },
                 1200: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                     spaceBetween: 33,
                 },
             },
