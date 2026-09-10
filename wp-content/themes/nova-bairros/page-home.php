@@ -609,7 +609,10 @@ get_header(); ?>
                     </div>
                     <div class="hidden xl:block border-r border-(--amarelo) border-[3px] h-auto"></div>
                     <a href="<?= $aplicativo['link'] ?>" target="_blank" class="text-center lg:text-start cta w-full md:w-auto text-nowrap my-auto">
-                        Acesse o aplicativo
+                        Acesse o Google Store
+                    </a>
+                    <a href="<?= $aplicativo['link_apple_stores'] ?>" target="_blank" class="text-center lg:text-start cta w-full md:w-auto text-nowrap my-auto">
+                        Acesse o Apple Store
                     </a>
                 </div>
             </div>
