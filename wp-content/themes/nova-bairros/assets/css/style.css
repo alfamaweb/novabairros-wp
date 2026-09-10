@@ -457,6 +457,9 @@ button.cta {
         fill: var(--amarelo);
       }
     }
+    .itm {
+      color: #fff;
+    }
   }
 
   &.card.card-small {
@@ -464,6 +467,7 @@ button.cta {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
 
     h3 {
       font-size: 20px;

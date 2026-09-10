@@ -35,6 +35,7 @@ section.diferenciais {
     display: flex;
     height: 100%;
     align-items: center;
+    justify-content: center;
     p {
       color: var(--titulos); 
     }
