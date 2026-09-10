@@ -189,11 +189,9 @@ section.infraestrutura {
  
  .localizacoes{
    .thumbnail-holder {
-       .thumbnail-holder--small {
-           height: 250px !important;
-           clip-path: polygon(100% 0, 100% 55%, 65% 100%, 0% 100%, 0 49%, 0% 0%);
-       }
-   }
+        height: 250px !important;
+        clip-path: polygon(100% 0, 100% 55%, 65% 100%, 0% 100%, 0 49%, 0% 0%);
+    }
  }
 }
 
@@ -201,10 +199,8 @@ section.infraestrutura {
 @media all and (max-width: 767px) { 
  .localizacoes{
    .thumbnail-holder {
-       .thumbnail-holder--small {
-           height: 250px !important;
-           clip-path: polygon(100% 0, 100% 55%, 65% 100%, 0% 100%, 0 49%, 0% 0%);
-       }
-   }
+        height: 250px !important;
+        clip-path: polygon(100% 0, 100% 55%, 65% 100%, 0% 100%, 0 49%, 0% 0%);
+    }
  }
 }
