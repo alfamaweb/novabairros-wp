@@ -728,7 +728,7 @@ get_header(); ?>
             pagination: false,
             breakpoints: {
                 768: {
-                    slidesPerView: 1
+                    slidesPerView: 1,
                     spaceBetween: 0
                 },
                 1024: {
