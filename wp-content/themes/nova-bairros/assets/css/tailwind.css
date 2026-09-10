@@ -980,6 +980,11 @@
       grid-column: span 6 / span 6;
     }
   }
+  .md\:col-span-12 {
+    @media (width >= 768px) {
+      grid-column: span 12 / span 12;
+    }
+  }
   .md\:mt-28 {
     @media (width >= 768px) {
       margin-top: calc(var(--spacing) * 28);

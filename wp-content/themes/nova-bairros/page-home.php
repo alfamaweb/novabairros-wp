@@ -580,7 +580,7 @@ get_header(); ?>
                         </div>
                         <a href="<?php echo esc_url(home_url('/sobre')); ?>" class="cta">Saiba mais sobre nós</a>
                     </div>
-                    <div class="col-span-12 md:col-span-6 wow fadeInRight">
+                    <div class="col-span-12 md:col-span-12 wow fadeInRight">
                         <img src="<?= $sobre['imagem']['url']; ?>" alt="<?= $sobre['imagem']['title']; ?>">
                     </div>
                 </div>
