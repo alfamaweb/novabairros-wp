@@ -128,3 +128,17 @@ section.loc {
     font-weight: 600;
   }
 }
+
+
+
+
+/* MOBILE */
+@media all and (max-width: 767px) { 
+  section.galeria {
+    .swiper-slide {
+      img {
+          height: 200px;
+      }
+    }
+  }
+}
