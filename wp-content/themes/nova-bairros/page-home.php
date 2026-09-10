@@ -569,7 +569,7 @@ get_header(); ?>
         <section class="sobre">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
-                    <div class="col-span-12 md:col-span-12 wow fadeInLeft">
+                    <div class="col-span-12 md:col-span-12 lg:col-span-6 wow fadeInLeft">
                         <div class="flex flex-col items-start w-fit gap-3">
                             <span>SOBRE NÓS</span>
                             <h2><?= $sobre['titulo']; ?></h2>
@@ -580,7 +580,7 @@ get_header(); ?>
                         </div>
                         <a href="<?php echo esc_url(home_url('/sobre')); ?>" class="cta">Saiba mais sobre nós</a>
                     </div>
-                    <div class="col-span-12 md:col-span-12 wow fadeInRight">
+                    <div class="col-span-12 md:col-span-12 lg:col-span-6 wow fadeInRight">
                         <img src="<?= $sobre['imagem']['url']; ?>" alt="<?= $sobre['imagem']['title']; ?>">
                     </div>
                 </div>
