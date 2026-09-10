@@ -422,7 +422,7 @@ get_header(); ?>
 
         const swiper = new Swiper('.cards-diferenciais', {
             // centeredSlides: true,
-            loop: true,
+            loop: false,
             initialSlide: 1,
             pagination: {
                 el: '.swiper-pagination',
