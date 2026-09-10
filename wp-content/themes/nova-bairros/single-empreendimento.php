@@ -317,7 +317,7 @@ get_header(); ?>
                                     if (empty($etapa['label'])) continue;
                                     $pct = intval($etapa['porcentagem'] ?? 0);
                                 ?>
-                                    <div class="item-obra col-span-3">
+                                    <div class="item-obra col-span-6 md:col-span-3">
                                         <div class="flex items-baseline justify-between w-full">
                                             <div class="icon flex flex-row gap-2">
                                                 <?php if (!empty($etapa['icone'])): ?>
