@@ -68,4 +68,12 @@
       height: 23px;
       object-fit: contain;
   }
+
+  .card {
+      &:hover {
+          img.object-contain {
+              filter: hue-rotate(276deg) saturate(2000%);
+          }
+      }
+  }
 }
