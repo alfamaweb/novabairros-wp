@@ -26,7 +26,9 @@ get_header(); ?>
                             <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
                         </div>
                         <div class="content mt-8">
-                            <?= nl2br($sobre['texto']); ?>
+                            <p>
+                                <?= nl2br($sobre['texto']); ?>
+                            </p>
                         </div>
                     </div>
                     <div class="col-span-12 lg:col-span-6">
@@ -146,7 +148,9 @@ get_header(); ?>
                                 <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
                             </div>
                             <div class="content mt-8">
-                                <?= nl2br(get_sub_field('texto')); ?>
+                                <p>
+                                    <?= nl2br(get_sub_field('texto')); ?>
+                                </p>
                             </div>
                         </div>
                         <div class="bloco-img col-span-12 lg:col-span-6 <?= $i % 2 !== 0 ? 'lg:order-first' : ''; ?>">
@@ -197,7 +201,9 @@ get_header(); ?>
                             <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px] !text-white"></div>
                         </div>
                         <div class="content mt-8 !text-white">
-                            <?= nl2br($negocios['texto']); ?>
+                            <p>
+                                <?= nl2br($negocios['texto']); ?>
+                            </p>
                         </div>
                         <a href="<?php echo get_field('negocios')['whatsapp'] ?>" class="cta mt-6 d-inline-flex" target="_blank">
                             <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">

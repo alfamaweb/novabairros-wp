@@ -79,6 +79,7 @@ ul,
 ol {
   margin: 0;
   padding: 0;
+  text-align: justify;
 }
 
 ol ol,
