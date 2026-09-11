@@ -60,3 +60,12 @@
     font-size: 18px;
   }
 }
+
+
+.empreendimentos {
+  .items-center svg {
+      width: 23px;
+      height: 23px;
+      object-fit: contain;
+  }
+}
