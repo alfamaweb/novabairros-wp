@@ -950,13 +950,7 @@ function nb_render_empreendimentos_cards($the_query)
 								the_row();
 							?>
 								<div class="inline-flex flex-[1_1_auto] items-center gap-2">
-									<?php
-									$icone = get_sub_field('icone');
-									$svg_path = get_attached_file($icone['ID']);
-									if ($svg_path && file_exists($svg_path)) {
-										echo file_get_contents($svg_path);
-									}
-									?>
+									<img class="w-7 h-7 object-contain" src="<?= get_sub_field('icone')['url'] ?>" alt="icon">
 									<p class="mb-0">
 										<?= get_sub_field('texto'); ?>
 									</p>
