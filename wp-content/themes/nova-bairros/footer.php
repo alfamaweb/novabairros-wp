@@ -171,4 +171,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
     });
 </script>
 
+<!-- SCRIPT INTEGRAÇÃO RD -->
+<script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/1a5ab772-c897-40a0-a505-89b20e59081a-loader.js" ></script>
+
 </html>
