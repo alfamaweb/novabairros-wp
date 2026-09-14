@@ -27,7 +27,7 @@ get_header(); ?>
                         <div class="the-content">
                             <p>Opa! A página não pode ser encontrada!</p>
                         </div>
-                        <a href="<?php echo esc_url(home_url('/')); ?>">Voltar à página inicial</a>
+                        <a href="<?php echo esc_url(home_url('/')); ?>" class="cta">Voltar à página inicial</a>
                     </div>
                 </div>
             </div>

@@ -13,33 +13,59 @@ get_header(); ?>
 <main>
     <?php include 'hero-interna.php'; ?>
 
-    <section class="filter">
+    <section class="filter wow fadeInUp">
         <div class="container">
             <div class="flex lg:flex-row flex-col gap-6">
                 <div class="form-group flex flex-col flex-1">
-                    <label for="telefone">Região ou Estado</label>
-                    <select type="tel" name="telefone" placeholder="Telefone" required>
-                        <option value="">Selecione</option>
-                        <option value="whatsapp">WhatsApp</option>
-                        <option value="telefone">Telefone Fixo</option>
+                    <label for="estado">Região ou Estado</label>
+                    <select name="estado" placeholder="Estado" required>
+                        <option value="">Todos</option>
+                        <?php
+                        $estado_param = isset($_GET['estado']) ? strtolower(sanitize_text_field($_GET['estado'])) : '';
+                        $terms = get_terms(array(
+                            'taxonomy' => 'estado',
+                            'hide_empty' => false,
+                        ));
+                        foreach ($terms as $term) {
+                        ?>
+                            <option value="<?= esc_attr($term->slug); ?>" <?= ($estado_param === $term->slug) ? 'selected' : ''; ?>><?= esc_html($term->name); ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group flex flex-col flex-1">
-                    <label for="mensagem">Tipo de Empreendimento</label>
-                    <select type="email" name="email" placeholder="E-mail" required>
-                        <option value="">Selecione</option>
-                        <option value="interessado">Estou interessado em investir</option>
-                        <option value="parceria">Quero ser parceiro</option>
-                        <option value="outros">Outros</option>
+                    <label for="tipo">Tipo de Empreendimento</label>
+                    <select name="tipo" placeholder="Tipo de Empreendimento" required>
+                        <option value="">Todos</option>
+                        <?php
+                        $terms = get_terms(array(
+                            'taxonomy' => 'tipo',
+                            'hide_empty' => false,
+                        ));
+                        foreach ($terms as $term) {
+                        ?>
+                            <option value="<?= $term->slug; ?>"><?= $term->name; ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group flex flex-col flex-1">
-                    <label for="mensagem">Status da Obra</label>
-                    <select type="email" name="email" placeholder="E-mail" required>
-                        <option value="">Selecione</option>
-                        <option value="interessado">Estou interessado em investir</option>
-                        <option value="parceria">Quero ser parceiro</option>
-                        <option value="outros">Outros</option>
+                    <label for="status">Status da Obra</label>
+                    <select name="status" placeholder="Status da Obra" required>
+                        <option value="">Todos</option>
+                        <?php
+                        $terms = get_terms(array(
+                            'taxonomy' => 'stt',
+                            'hide_empty' => false,
+                        ));
+                        foreach ($terms as $term) {
+                        ?>
+                            <option value="<?= $term->slug; ?>"><?= $term->name; ?></option>
+                        <?php
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
@@ -48,65 +74,21 @@ get_header(); ?>
 
     <section class="empreendimentos !mt-10">
         <div class="container">
-            <div class="flex flex-col lg:grid grid-cols-12 gap-8">
+            <div id="empreendimentos-cards" class="flex flex-col xl:grid grid-cols-12 gap-8 ">
                 <?php
-                $args = array(
-                    'post_type' => 'empreendimento',
-                    'posts_per_page' => 10,
-                    'orderby' => 'date',
-                    'order' => 'DESC',
-                    'post_status' => 'publish'
-                );
-                $the_query = new WP_Query($args);
-                if ($the_query->have_posts()) {
-                    while ($the_query->have_posts()) {
-                        $the_query->the_post();
-                        ?>
-                        <a class="card-outer relative col-span-6" href="<?= get_permalink(); ?>">
-                            <div class="card">
-                                <h3>
-                                    <?= get_the_title(); ?>
-                                </h3>
-                                <?php
-                                if (have_rows('diferenciais_card')):
-                                    ?>
-                                    <div class="flex flex-row flex-nowrap justify-between items-center w-full my-6">
-                                        <?php
-                                        while (have_rows('diferenciais_card')):
-                                            the_row();
-                                            ?>
-                                            <div class="inline-flex flex-[1_1_auto] items-center gap-2">
-                                                <?php
-                                                $icone = get_sub_field('icone');
-                                                $svg_path = get_attached_file($icone['ID']);
-                                                if ($svg_path && file_exists($svg_path)) {
-                                                    echo file_get_contents($svg_path);
-                                                }
-                                                ?>
-                                                <p class="mb-0">
-                                                    <?= get_sub_field('texto'); ?>
-                                                </p>
-                                            </div>
-                                        <?php endwhile; ?>
-
-                                    </div>
-                                <?php endif; ?>
-                                <div class="thumbnail-holder">
-                                    <img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>"
-                                        alt="<?= get_field('thumbnail')['title']; ?>">
-                                </div>
-                            </div>
-                            <div class="w-15 h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
-                                <img class="seta !w-12 !h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                                    src="<?= IMG_URI ?>arrow-right.svg" alt="">
-                            </div>
-                        </a>
-                        <?php
-                    }
-                } else {
+                $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+                $filters = array();
+                if (isset($_GET['estado']) && !empty($_GET['estado'])) {
+                    $filters['estado'] = strtolower(sanitize_text_field($_GET['estado']));
                 }
-                wp_reset_postdata();
+
+                $the_query = nb_empreendimentos_query($paged, 10, $filters);
+                echo nb_render_empreendimentos_cards($the_query);
+                $max_pages = (int) $the_query->max_num_pages;
                 ?>
+            </div>
+            <div id="empreendimentos-pagination-wrapper">
+                <?php echo nb_render_empreendimentos_pagination($paged, $max_pages); ?>
             </div>
         </div>
     </section>

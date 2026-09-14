@@ -588,7 +588,7 @@ add_action('wp_footer', function () {
 			}
 		})
 	</script>
-<?php
+	<?php
 });
 
 function criar_arquivos_dinamicos_ao_publicar($new_status, $old_status, $post)
@@ -674,8 +674,8 @@ function carregar_estilos_dinamicos()
 	$css_dir = get_stylesheet_directory() . '/assets/css/';
 	$css_uri = get_stylesheet_directory_uri() . '/assets/css/';
 
-	wp_enqueue_style('estilo-global', $css_uri . 'style.css');
-	wp_enqueue_style('tailwind', $css_uri . 'tailwind.css');
+	wp_enqueue_style('estilo-global', $css_uri . 'style.css', [], filemtime($css_dir . 'style.css'));
+	wp_enqueue_style('tailwind', $css_uri . 'tailwind.css', [], filemtime($css_dir . 'tailwind.css'));
 
 	$estilos_enfileirados = [];
 
@@ -684,7 +684,7 @@ function carregar_estilos_dinamicos()
 		$slug = get_post_field('post_name', get_the_ID());
 		$slug_file = $css_dir . $slug . '.css';
 		if (file_exists($slug_file)) {
-			wp_enqueue_style('estilo-' . $slug, $css_uri . $slug . '.css');
+			wp_enqueue_style('estilo-' . $slug, $css_uri . $slug . '.css', [], filemtime($slug_file));
 			$estilos_enfileirados[] = $slug;
 		}
 	}
@@ -694,7 +694,7 @@ function carregar_estilos_dinamicos()
 		$post_type = get_post_type();
 		$type_file = $css_dir . $post_type . '.css';
 		if (file_exists($type_file)) {
-			wp_enqueue_style('estilo-' . $post_type, $css_uri . $post_type . '.css');
+			wp_enqueue_style('estilo-' . $post_type, $css_uri . $post_type . '.css', [], filemtime($type_file));
 			$estilos_enfileirados[] = $post_type;
 		}
 	}
@@ -703,26 +703,26 @@ function carregar_estilos_dinamicos()
 	if (is_front_page() || is_home()) {
 		$home_file = $css_dir . 'home.css';
 		if (file_exists($home_file)) {
-			wp_enqueue_style('estilo-home', $css_uri . 'home.css');
+			wp_enqueue_style('estilo-home', $css_uri . 'home.css', [], filemtime($home_file));
 			$estilos_enfileirados[] = 'home';
 		}
 	}
 
 	// Arquivo
 	if (is_archive() && file_exists($css_dir . 'archive.css')) {
-		wp_enqueue_style('estilo-archive', $css_uri . 'archive.css');
+		wp_enqueue_style('estilo-archive', $css_uri . 'archive.css', [], filemtime($css_dir . 'archive.css'));
 		$estilos_enfileirados[] = 'archive';
 	}
 
 	// Busca
 	if (is_search() && file_exists($css_dir . 'search.css')) {
-		wp_enqueue_style('estilo-search', $css_uri . 'search.css');
+		wp_enqueue_style('estilo-search', $css_uri . 'search.css', [], filemtime($css_dir . 'search.css'));
 		$estilos_enfileirados[] = 'search';
 	}
 
 	// 404
 	if (is_404() && file_exists($css_dir . '404.css')) {
-		wp_enqueue_style('estilo-404', $css_uri . '404.css');
+		wp_enqueue_style('estilo-404', $css_uri . '404.css', [], filemtime($css_dir . '404.css'));
 		$estilos_enfileirados[] = '404';
 	}
 
@@ -880,6 +880,190 @@ function get_acf_oembed_data($field_name, $post_id = null, $is_sub = false)
 	return $data;
 }
 
+/**
+ * Página Empreendimentos - listagem com paginação via AJAX
+ */
+function nb_empreendimentos_query($paged = 1, $posts_per_page = 10, $filters = array())
+{
+	$args = array(
+		'post_type' => 'empreendimento',
+		'posts_per_page' => $posts_per_page,
+		'orderby' => 'date',
+		'order' => 'DESC',
+		'post_status' => 'publish',
+		'paged' => $paged,
+	);
+
+	if (!empty($filters)) {
+		$tax_query = array('relation' => 'AND');
+
+		if (!empty($filters['estado'])) {
+			$tax_query[] = array(
+				'taxonomy' => 'estado',
+				'field'    => 'slug',
+				'terms'    => $filters['estado'],
+			);
+		}
+
+		if (!empty($filters['tipo'])) {
+			$tax_query[] = array(
+				'taxonomy' => 'tipo',
+				'field'    => 'slug',
+				'terms'    => $filters['tipo'],
+			);
+		}
+
+		if (!empty($filters['status'])) {
+			$tax_query[] = array(
+				'taxonomy' => 'stt',
+				'field'    => 'slug',
+				'terms'    => $filters['status'],
+			);
+		}
+
+		if (count($tax_query) > 1) {
+			$args['tax_query'] = $tax_query;
+		}
+	}
+
+	return new WP_Query($args);
+}
+
+function nb_render_empreendimentos_cards($the_query)
+{
+	ob_start();
+	if ($the_query->have_posts()):
+		while ($the_query->have_posts()):
+			$the_query->the_post();
+	?>
+			<a class="card-outer relative col-span-6" href="<?= get_permalink(); ?>">
+				<div class="card">
+					<h3>
+						<?= get_the_title(); ?>
+					</h3>
+					<?php
+					if (have_rows('diferenciais_card')):
+					?>
+						<div class="flex flex-row flex-wrap justify-between items-center w-full my-6 gap-3">
+							<?php
+							while (have_rows('diferenciais_card')):
+								the_row();
+							?>
+								<div class="inline-flex flex-[1_1_auto] items-center gap-2">
+									<img class="w-7 h-7 object-contain" src="<?= get_sub_field('icone')['url'] ?>" alt="icon">
+									<p class="mb-0">
+										<?= get_sub_field('texto'); ?>
+									</p>
+								</div>
+							<?php endwhile; ?>
+
+						</div>
+					<?php endif; ?>
+					<div class="thumbnail-holder">
+						<img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>"
+							alt="<?= get_field('thumbnail')['title']; ?>">
+					</div>
+				</div>
+				<div class="w-10 h-10 lg:w-15 lg:h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
+					<img class="seta !w-6 !h-6 lg:!w-12 lg:!h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+						src="<?= IMG_URI ?>arrow-right.svg" alt="">
+				</div>
+			</a>
+	<?php
+		endwhile;
+	endif;
+	wp_reset_postdata();
+	return ob_get_clean();
+}
+
+/**
+ * Monta a lista de páginas a exibir, com "..." para intervalos maiores.
+ *
+ * @return array<int|string>
+ */
+function nb_pagination_range($current, $total, $edge = 1, $around = 1)
+{
+	$range = array();
+	$show_items = ($edge * 2) + ($around * 2) + 1;
+
+	if ($total <= $show_items + 2) {
+		for ($i = 1; $i <= $total; $i++) {
+			$range[] = $i;
+		}
+		return $range;
+	}
+
+	for ($i = 1; $i <= $total; $i++) {
+		if ($i === 1 || $i === $total || ($i >= $current - $around && $i <= $current + $around)) {
+			$range[] = $i;
+		} elseif (empty($range) || end($range) !== '...') {
+			$range[] = '...';
+		}
+	}
+
+	return $range;
+}
+
+function nb_render_empreendimentos_pagination($paged, $max_pages)
+{
+	if ($max_pages <= 1) {
+		return '';
+	}
+
+	ob_start();
+	?>
+	<nav class="empreendimentos-pagination" aria-label="Paginação de empreendimentos">
+		<?php foreach (nb_pagination_range($paged, $max_pages) as $item): ?>
+			<?php if ('...' === $item): ?>
+				<span class="empreendimentos-pagination__dots">&hellip;</span>
+			<?php else: ?>
+				<button
+					type="button"
+					class="empreendimentos-pagination__item<?= $item === $paged ? ' is-active' : ''; ?>"
+					data-page="<?= esc_attr($item); ?>"
+					<?= $item === $paged ? 'aria-current="page"' : ''; ?>>
+					<?= $item; ?>
+				</button>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</nav>
+	<?php
+	return ob_get_clean();
+}
+
+function nb_ajax_load_empreendimentos()
+{
+	check_ajax_referer('nb_empreendimentos_nonce', 'nonce');
+
+	$max_pages = 1;
+	$paged = isset($_POST['paged']) ? max(1, intval($_POST['paged'])) : 1;
+	$filters = isset($_POST['filters']) ? $_POST['filters'] : array();
+	$the_query = nb_empreendimentos_query($paged, 10, $filters);
+	$max_pages = max(1, (int) $the_query->max_num_pages);
+	$paged = min($paged, $max_pages);
+
+	wp_send_json_success(array(
+		'cards' => nb_render_empreendimentos_cards($the_query),
+		'pagination' => nb_render_empreendimentos_pagination($paged, $max_pages),
+	));
+}
+add_action('wp_ajax_nb_load_empreendimentos', 'nb_ajax_load_empreendimentos');
+add_action('wp_ajax_nopriv_nb_load_empreendimentos', 'nb_ajax_load_empreendimentos');
+
+function nb_empreendimentos_scripts()
+{
+	if (!is_page('empreendimentos')) {
+		return;
+	}
+
+	wp_enqueue_script('nb-empreendimentos', JS_URI . 'empreendimentos.js', array('jquery'), '1.0', true);
+	wp_localize_script('nb-empreendimentos', 'nbEmpreendimentos', array(
+		'ajaxUrl' => admin_url('admin-ajax.php'),
+		'nonce' => wp_create_nonce('nb_empreendimentos_nonce'),
+	));
+}
+add_action('wp_enqueue_scripts', 'nb_empreendimentos_scripts');
+
 function get_oembed_data_from_url($iframe)
 {
 	if (!$iframe) return false;
@@ -922,4 +1106,195 @@ function get_oembed_data_from_url($iframe)
 	}
 
 	return $data;
+}
+
+// AJAX para filtrar empreendimentos por estado
+add_action('wp_ajax_filter_empreendimentos', 'filter_empreendimentos_ajax');
+add_action('wp_ajax_nopriv_filter_empreendimentos', 'filter_empreendimentos_ajax');
+function filter_empreendimentos_ajax()
+{
+	$estado = isset($_POST['estado']) ? sanitize_text_field($_POST['estado']) : '';
+
+	$args_loc = array(
+		'post_type'      => 'empreendimento',
+		'posts_per_page' => -1,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'post_status'    => 'publish',
+	);
+
+	if (!empty($estado)) {
+		$args_loc['tax_query'] = array(
+			array(
+				'taxonomy' => 'estado',
+				'field'    => 'name',
+				'terms'    => $estado,
+			)
+		);
+	}
+
+	$query_loc = new WP_Query($args_loc);
+
+	if ($query_loc->have_posts()):
+		while ($query_loc->have_posts()): $query_loc->the_post();
+			$estado_terms = get_the_terms(get_the_ID(), 'estado');
+			$estado_sigla = !empty($estado_terms) ? $estado_terms[0]->name : '';
+	?>
+			<a class="card-outer relative swiper-slide" data-estado="<?= esc_attr($estado_sigla); ?>" href="<?= get_permalink(); ?>">
+				<div class="card card-small">
+					<h3><?= get_the_title(); ?></h3>
+					<div class="flex justify-start gap-3 flex-wrap">
+						<?php if (get_field('cidade')): ?>
+							<div class="itm">
+								<svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M12.1278 11.755C12.3103 11.6637 12.5199 11.6425 12.717 11.6955C12.9141 11.7485 13.0848 11.872 13.1969 12.0425L13.2453 12.1275L14.9119 15.4608C14.9714 15.5797 15.0016 15.7111 14.9999 15.844C14.9983 15.9769 14.9649 16.1075 14.9025 16.2248C14.8401 16.3422 14.7505 16.4429 14.6413 16.5186C14.532 16.5943 14.4062 16.6428 14.2744 16.66L14.1669 16.6667H0.833602C0.70066 16.6667 0.569637 16.6349 0.451474 16.574C0.333311 16.5131 0.231437 16.4248 0.15436 16.3165C0.0772817 16.2082 0.0272371 16.083 0.00840427 15.9514C-0.0104286 15.8198 0.0024971 15.6856 0.046102 15.56L0.0877686 15.46L1.75444 12.1267C1.84785 11.9336 2.01212 11.7839 2.21307 11.7089C2.41401 11.6339 2.63615 11.6392 2.83326 11.7238C3.03037 11.8084 3.18727 11.9657 3.2713 12.1631C3.35534 12.3604 3.36004 12.5826 3.28444 12.7833L3.24527 12.8725L2.18194 15H12.8186L11.7553 12.8725C11.6566 12.6749 11.6404 12.4462 11.7102 12.2367C11.7801 12.0271 11.9303 11.8539 12.1278 11.755ZM7.50027 0C9.04736 0 10.5311 0.614581 11.6251 1.70854C12.719 2.80251 13.3336 4.28624 13.3336 5.83333C13.3336 7.81833 12.2594 9.43083 11.1478 10.575C10.5338 11.1988 9.85872 11.7594 9.13277 12.2483L8.82194 12.4533L8.54527 12.6275L8.4211 12.7025L8.20693 12.8258C7.76693 13.0758 7.2336 13.0758 6.7936 12.8258L6.57944 12.7017L6.3211 12.5442L6.1786 12.4533L5.86777 12.2483C5.14182 11.7594 4.46677 11.1988 3.85277 10.575C2.7411 9.43083 1.66694 7.81833 1.66694 5.83333C1.66694 4.28624 2.28152 2.80251 3.37548 1.70854C4.46944 0.614581 5.95317 0 7.50027 0ZM7.50027 1.66667C6.3952 1.66667 5.33539 2.10565 4.55399 2.88705C3.77259 3.66846 3.3336 4.72826 3.3336 5.83333C3.3336 7.19667 4.07527 8.4125 5.04777 9.41333C5.63274 10.0042 6.27919 10.5308 6.9761 10.9842L7.25944 11.165C7.34721 11.2189 7.42749 11.2672 7.50027 11.31L7.74194 11.165L8.02444 10.9842C8.72135 10.5308 9.3678 10.0042 9.95277 9.41333C10.9253 8.41333 11.6669 7.19667 11.6669 5.83333C11.6669 4.72826 11.2279 3.66846 10.4465 2.88705C9.66514 2.10565 8.60534 1.66667 7.50027 1.66667ZM7.50027 3.33333C8.16331 3.33333 8.79919 3.59673 9.26804 4.06557C9.73688 4.53441 10.0003 5.17029 10.0003 5.83333C10.0003 6.49637 9.73688 7.13226 9.26804 7.6011C8.79919 8.06994 8.16331 8.33333 7.50027 8.33333C6.83723 8.33333 6.20134 8.06994 5.7325 7.6011C5.26366 7.13226 5.00027 6.49637 5.00027 5.83333C5.00027 5.17029 5.26366 4.53441 5.7325 4.06557C6.20134 3.59673 6.83723 3.33333 7.50027 3.33333ZM7.50027 5C7.27925 5 7.06729 5.0878 6.91101 5.24408C6.75473 5.40036 6.66693 5.61232 6.66693 5.83333C6.66693 6.05435 6.75473 6.26631 6.91101 6.42259C7.06729 6.57887 7.27925 6.66667 7.50027 6.66667C7.72128 6.66667 7.93324 6.57887 8.08952 6.42259C8.2458 6.26631 8.3336 6.05435 8.3336 5.83333C8.3336 5.61232 8.2458 5.40036 8.08952 5.24408C7.93324 5.0878 7.72128 5 7.50027 5Z" fill="#007141" />
+								</svg>
+								<?php echo get_field('cidade') ?>
+							</div>
+						<?php endif; ?>
+						<?php if (get_field('tamanho')): ?>
+							<div class="itm">
+								<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M11.388 0.0120001C11.6613 0.0680001 11.868 0.310667 11.868 0.6V5.93333L11.8547 6.05467C11.8271 6.1903 11.7535 6.31224 11.6464 6.39983C11.5392 6.48742 11.4051 6.53527 11.2667 6.53527C11.1283 6.53527 10.9941 6.48742 10.887 6.39983C10.7798 6.31224 10.7062 6.1903 10.6787 6.05467L10.6667 5.93467V2.04667L2.04933 10.6667L5.93333 10.668L6.05467 10.68C6.1993 10.711 6.32738 10.7943 6.41433 10.914C6.50127 11.0337 6.54095 11.1812 6.52574 11.3284C6.51053 11.4755 6.4415 11.6118 6.33192 11.7112C6.22234 11.8105 6.07992 11.8659 5.932 11.8667H0.6C0.44087 11.8667 0.288258 11.8035 0.175736 11.6909C0.0632143 11.5784 0 11.4258 0 11.2667V5.93333L0.0133333 5.81333C0.0408751 5.6777 0.114461 5.55576 0.221622 5.46817C0.328784 5.38058 0.462931 5.33273 0.601333 5.33273C0.739736 5.33273 0.873883 5.38058 0.981044 5.46817C1.08821 5.55576 1.16179 5.6777 1.18933 5.81333L1.2 5.93333V9.81867L9.81867 1.2H5.93333C5.7742 1.2 5.62159 1.13679 5.50907 1.02426C5.39655 0.911742 5.33333 0.75913 5.33333 0.6C5.33333 0.44087 5.39655 0.288258 5.50907 0.175736C5.62159 0.0632143 5.7742 0 5.93333 0H11.2667L11.388 0.0120001Z" fill="#007141" />
+								</svg>
+								<?php echo get_field('tamanho') ?>
+							</div>
+						<?php endif; ?>
+					</div>
+					<div class="thumbnail-holder thumbnail-holder--small">
+						<img class="thumbnail" src="<?= get_field('thumbnail')['url']; ?>" alt="<?= esc_attr(get_field('thumbnail')['title']); ?>">
+					</div>
+				</div>
+				<div class="w-10 h-10 rounded-full bg-(--amarelo) absolute right-4 bottom-4">
+					<img class="seta !w-6 !h-6 lg:!w-8 lg:!h-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" src="<?= IMG_URI ?>arrow-right.svg" alt="">
+				</div>
+			</a>
+<?php
+		endwhile;
+		wp_reset_postdata();
+	endif;
+
+	wp_die();
+}
+
+
+add_action('phpmailer_init', 'custom_phpmailer_init');
+function custom_phpmailer_init($phpmailer)
+{
+
+	$phpmailer->isSMTP();
+	$phpmailer->Host = 'smtp.gmail.com';
+	$phpmailer->Port = 465;
+	$phpmailer->Username = 'pleasedontreplyauto@gmail.com';
+	$phpmailer->Password =  'ebdi gekv azav jamv';
+	$phpmailer->SMTPAuth = true;
+	$phpmailer->SMTPSecure = 'ssl';
+	$phpmailer->From       = 'pleasedontreplyauto@gmail.com';
+	$phpmailer->FromName   = 'Nova Bairros Planejados';
+}
+
+add_action('wp_ajax_send_contact_form', 'send_contact_form_ajax');
+add_action('wp_ajax_nopriv_send_contact_form', 'send_contact_form_ajax');
+
+function send_contact_form_ajax()
+{
+	check_ajax_referer('send_contact_form_nonce', 'nonce');
+
+	$form_type = isset($_POST['form_type']) ? sanitize_text_field($_POST['form_type']) : '';
+
+	$attachments = [];
+	$temp_file = '';
+	if (!empty($_FILES['anexo']['tmp_name'])) {
+		$upload_dir = wp_upload_dir();
+		$file_name = sanitize_file_name($_FILES['anexo']['name']);
+		$temp_file = trailingslashit($upload_dir['basedir']) . 'temp_anexo_' . time() . '_' . $file_name;
+		if (move_uploaded_file($_FILES['anexo']['tmp_name'], $temp_file)) {
+			$attachments[] = $temp_file;
+		}
+	}
+
+	$headers = ['Content-Type: text/html; charset=UTF-8'];
+	$reply_to = '';
+
+	if ($form_type === 'canal_denuncia') {
+		$to = ['gabrielasilveira@novabairrosplanejados.com.br', 'rodrigooliveira@novabairrosplanejados.com.br'];
+		$subject = 'Canal de Denúncia - Nova Bairros';
+
+		$identificar = sanitize_text_field($_POST['identificar']);
+		$nome = sanitize_text_field($_POST['nome']);
+		$email = sanitize_email($_POST['email']);
+		$tipo_relato = sanitize_text_field($_POST['tipo_relato']);
+		$local_relato = sanitize_text_field($_POST['local_relato']);
+		$descricao = sanitize_textarea_field($_POST['descricao']);
+
+		if ($email) {
+			$reply_to = $email;
+		}
+
+		$body = "<h2>Novo Relato - Canal de Denúncia</h2>";
+		if ($identificar === 'sim') {
+			$body .= "<p><strong>Nome:</strong> {$nome}</p>";
+			$body .= "<p><strong>E-mail:</strong> {$email}</p>";
+		} else {
+			$body .= "<p><strong>Identificação:</strong> Anônimo</p>";
+		}
+		$body .= "<p><strong>Tipo de Relato:</strong> {$tipo_relato}</p>";
+		$body .= "<p><strong>Local do Relato:</strong> {$local_relato}</p>";
+		$body .= "<p><strong>Descrição:</strong><br/>" . nl2br($descricao) . "</p>";
+	} elseif ($form_type === 'sobre') {
+		$to = ['josejunior@novabairrosplanejados.com.br', 'rodrigodiniz@novabairrosplanejados.com.br'];
+		// $to = ['edujoseph@gmail.com'];
+		$subject = 'Novos Negócios - Nova Bairros';
+
+		$nome = sanitize_text_field($_POST['nome']);
+		$telefone = sanitize_text_field($_POST['telefone']);
+		$email = sanitize_email($_POST['email']);
+		$estado = sanitize_text_field($_POST['estado']);
+		$cidade = sanitize_text_field($_POST['cidade']);
+
+		if ($email) {
+			$reply_to = $email;
+		}
+
+		$body = "<h2>Contato - Novos Negócios</h2>";
+		$body .= "<p><strong>Nome:</strong> {$nome}</p>";
+		$body .= "<p><strong>Telefone:</strong> {$telefone}</p>";
+		$body .= "<p><strong>E-mail:</strong> {$email}</p>";
+		$body .= "<p><strong>Estado:</strong> {$estado}</p>";
+		$body .= "<p><strong>Cidade:</strong> {$cidade}</p>";
+	} elseif ($form_type === 'contato') {
+		$to = 'sac@novabairrosplanejados.com.br';
+		$subject = 'Fale Conosco - Nova Bairros';
+
+		$nome = sanitize_text_field($_POST['nome']);
+		$email = sanitize_email($_POST['email']);
+		$mensagem = sanitize_textarea_field($_POST['mensagem']);
+
+		if ($email) {
+			$reply_to = $email;
+		}
+
+		$body = "<h2>Fale Conosco</h2>";
+		$body .= "<p><strong>Nome:</strong> {$nome}</p>";
+		$body .= "<p><strong>E-mail:</strong> {$email}</p>";
+		$body .= "<p><strong>Mensagem:</strong><br/>" . nl2br($mensagem) . "</p>";
+	} else {
+		wp_send_json_error(['message' => 'Tipo de formulário inválido.']);
+	}
+
+	if (!empty($reply_to)) {
+		$headers[] = "Reply-To: {$reply_to}";
+	}
+
+	$sent = wp_mail($to, $subject, $body, $headers, $attachments);
+
+	if (!empty($temp_file) && file_exists($temp_file)) {
+		unlink($temp_file);
+	}
+
+	if ($sent) {
+		wp_send_json_success(['message' => 'Sua mensagem foi enviada com sucesso! Obrigado pelo contato.']);
+	} else {
+		wp_send_json_error(['message' => 'Ocorreu um erro ao enviar sua mensagem. Tente novamente mais tarde.']);
+	}
 }

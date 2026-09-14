@@ -41,26 +41,26 @@ get_header(); ?>
         }
     ?>
         <section class="hero relative !mt-0">
-            <a href="<?= esc_url($href); ?>" target="<?= esc_attr($target); ?>" <?= $fancybox; ?> class="relative w-full h-full"
+            <picture>
+                <?php if ($mobile_id): ?>
+                    <source media="(max-width: 1023px)" srcset="<?= wp_get_attachment_image_srcset($mobile_id); ?>"
+                        sizes="100vw">
+                <?php endif; ?>
+
+                <?php if ($desktop_id): ?>
+                    <source media="(min-width: 1024px)" srcset="<?= wp_get_attachment_image_srcset($desktop_id); ?>"
+                        sizes="100vw">
+                <?php endif; ?>
+
+                <img class="w-full h-full object-cover object-center brightness-70 min-h-[320px] max-h-[420px] lg:min-h-[320px] lg:max-h-[680px]"
+                    src="<?= esc_url($desktop_img['url'] ?? $mobile_img['url']); ?>"
+                    srcset="<?= $desktop_id ? wp_get_attachment_image_srcset($desktop_id) : ''; ?>" sizes="100vw"
+                    alt="<?= esc_attr(get_the_title()); ?>" loading="eager" fetchpriority="high">
+            </picture>
+            <!-- <a href="<?= esc_url($href); ?>" target="<?= esc_attr($target); ?>" <?= $fancybox; ?> class="relative w-full h-full"
                 aria-label="<?= esc_attr($texto ?: get_the_title()); ?>">
                 <?= $play; ?>
-                <picture>
-                    <?php if ($mobile_id): ?>
-                        <source media="(max-width: 1023px)" srcset="<?= wp_get_attachment_image_srcset($mobile_id); ?>"
-                            sizes="100vw">
-                    <?php endif; ?>
-
-                    <?php if ($desktop_id): ?>
-                        <source media="(min-width: 1024px)" srcset="<?= wp_get_attachment_image_srcset($desktop_id); ?>"
-                            sizes="100vw">
-                    <?php endif; ?>
-
-                    <img class="w-full h-full object-cover object-center brightness-70 min-h-[200px] max-h-[320px] lg:min-h-[300px] lg:max-h-[680px]"
-                        src="<?= esc_url($desktop_img['url'] ?? $mobile_img['url']); ?>"
-                        srcset="<?= $desktop_id ? wp_get_attachment_image_srcset($desktop_id) : ''; ?>" sizes="100vw"
-                        alt="<?= esc_attr(get_the_title()); ?>" loading="eager" fetchpriority="high">
-                </picture>
-            </a>
+            </a> -->
             <div class="gradient"></div>
             <div class="hero-content absolute top-1/4 lg:top-1/2 transform -translate-y-1/4 lg:-translate-y-1/2 left-0 w-full py-6 lg:py-0">
                 <div class="container">
@@ -74,7 +74,7 @@ get_header(); ?>
                             </div>
                             <h1 class="!text-white !text-start"><?= esc_html($hero['titulo'] ?? get_the_title()); ?></h1>
                         </div>
-                        <div class="hidden lg:block col-span-12 lg:col-start-9 lg:col-span-4">
+                        <div class="hidden lg:block col-span-12 lg:col-start-9 lg:col-span-4 wow fadeInUp">
                             <div class="form-container border border-(--verde) rounded-[10px] bg-white px-4 md:px-8 py-6">
                                 <h3 class="text-(--verde) mb-4">Deseja saber mais?</h3>
                                 <form action="" method="POST" class="flex flex-col gap-5 mt-8">
@@ -108,7 +108,7 @@ get_header(); ?>
             </div>
         </section>
     <?php endif; ?>
-    <div class="form-mobile relative -mt-30">
+    <div class="form-mobile relative -mt-30 lg:hidden">
         <div class="container">
             <div class="form-container border border-(--verde) rounded-[10px] bg-white px-5 md:px-8 py-6 shadow-lg">
                 <h3 class="!text-(--verde) mb-4">Deseja saber mais?</h3>
@@ -146,7 +146,7 @@ get_header(); ?>
         <section class="resumo">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
-                    <div class="col-span-12 md:col-span-7">
+                    <div class="col-span-12 lg:col-span-7 wow fadeInLeft">
                         <div class="flex flex-col items-start gap-6">
                             <?php if (!empty($resumo['logo'])): ?>
                                 <img src="<?= esc_url($resumo['logo']['url']); ?>"
@@ -166,7 +166,7 @@ get_header(); ?>
                                     <?php foreach ($resumo['itens_diferenciais'] as $item):
                                         if (empty($item['icone']) && empty($item['label'])) continue;
                                     ?>
-                                        <div class="dif-item flex flex-row items-center gap-3">
+                                        <div class="dif-item flex flex-row items-center flex-1 gap-3">
                                             <?php if (!empty($item['icone'])): ?>
                                                 <div class="rounded-full aspect-square w-15 h-15 relative bg-(--amarelo) content-center justify-items-center">
                                                     <img src="<?= esc_url($item['icone']['url']); ?>"
@@ -184,7 +184,7 @@ get_header(); ?>
                     </div>
 
                     <?php if (!empty($resumo['imagem'])): ?>
-                        <div class="col-span-12 md:col-span-5">
+                        <div class="col-span-12 lg:col-span-5 wow fadeInRight">
                             <img class="w-full h-full object-cover rounded-[10px]"
                                 src="<?= esc_url($resumo['imagem']['url']); ?>"
                                 alt="<?= esc_attr($resumo['imagem']['alt']); ?>">
@@ -205,31 +205,36 @@ get_header(); ?>
                     <div class="col-span-12">
                         <div class="flex flex-col items-center w-full gap-4 text-center">
                             <?php if (!empty($infraestrutura['label'])): ?>
-                                <span><?= esc_html($infraestrutura['label']); ?></span>
+                                <span class="wow fadeIn"><?= esc_html($infraestrutura['label']); ?></span>
                             <?php endif; ?>
                             <?php if (!empty($infraestrutura['titulo'])): ?>
-                                <h2><?= esc_html($infraestrutura['titulo']); ?></h2>
+                                <h2 class="wow fadeIn" data-wow-delay=".2s"><?= esc_html($infraestrutura['titulo']); ?></h2>
                             <?php endif; ?>
-                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-75"></div>
+                            <div data-wow-delay=".4s" class="wow fadeIn border-b border-(--amarelo) border-[3px] w-full max-w-75"></div>
                         </div>
                     </div>
-                    <div class="col-span-12 mt-10">
-                        <div class="grid grid-cols-4 lg:grid-cols-12 gap-8">
-                            <?php foreach ($infraestrutura['itens'] as $item):
-                                if (empty($item['icone']) && empty($item['label'])) continue;
-                            ?>
-                                <div class="infra-item flex flex-col items-center col-span-2 gap-3">
-                                    <?php if (!empty($item['icone'])): ?>
-                                        <div class="rounded-full aspect-square w-15 h-15 relative bg-(--verde) content-center justify-items-center">
-                                            <img src="<?= esc_url($item['icone']['url']); ?>"
-                                                alt="<?= esc_attr($item['icone']['alt']); ?>" class="icon">
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if (!empty($item['label'])): ?>
-                                        <p><?= esc_html($item['label']); ?></p>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endforeach; ?>
+                    <div class="col-span-12 mt-10 wow fadeInUp" data-wow-delay=".2s">
+                        <!-- Slider main container -->
+                        <div class='swiper infra'>
+                            <!-- Additional required wrapper -->
+                            <div class='swiper-wrapper'>
+                                <!-- Slides -->
+                                <?php foreach ($infraestrutura['itens'] as $item):
+                                    if (empty($item['icone']) && empty($item['label'])) continue;
+                                ?>
+                                    <div class="swiper-slide infra-item !flex justify-center flex-col gap-3 items-center">
+                                        <?php if (!empty($item['icone'])): ?>
+                                            <div class="rounded-full aspect-square w-15 h-15 relative bg-(--verde) content-center justify-items-center">
+                                                <img src="<?= esc_url($item['icone']['url']); ?>"
+                                                    alt="<?= esc_attr($item['icone']['alt']); ?>" class="icon">
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($item['label'])): ?>
+                                            <p><?= esc_html($item['label']); ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -240,17 +245,33 @@ get_header(); ?>
     <?php
     $galeria = get_field('galeria');
     if (!empty($galeria)):
+        // Duplicar slides se houver poucos para garantir que o loop do Swiper 12 funcione corretamente com slides fracionados e centralizados
+        $min_items = 8;
+        if (count($galeria) > 0 && count($galeria) < $min_items) {
+            $multiplicador = ceil($min_items / count($galeria));
+            $nova_galeria = [];
+            for ($i = 0; $i < $multiplicador; $i++) {
+                $nova_galeria = array_merge($nova_galeria, $galeria);
+            }
+            $galeria = $nova_galeria;
+        }
     ?>
-        <section class="galeria">
+        <section class="galeria wow fadeInUp">
             <div class="container">
                 <div class="swiper galeria">
                     <div class="swiper-wrapper">
                         <?php foreach ($galeria as $img): ?>
                             <div class="swiper-slide">
-                                <img class="w-full object-cover h-48 md:h-80 lg:!h-130" src="<?= esc_url($img['url']); ?>"
-                                    alt="<?= esc_attr($img['alt']); ?>">
+                                <a href="<?= esc_url($img['url']); ?>" data-fancybox data-caption="Single image">
+                                    <img class="w-full object-cover h-48 md:h-80 lg:!h-130" src="<?= esc_url($img['url']); ?>"
+                                        alt="<?= esc_attr($img['alt']); ?>">
+                                </a>
                             </div>
                         <?php endforeach; ?>
+                    </div>
+                    <div class="passadores-galeria">
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
                 </div>
             </div>
@@ -261,7 +282,7 @@ get_header(); ?>
     $obra = get_field('obra');
     if (!empty($obra) && (!empty($obra['fotos']) || !empty($obra['etapas']))):
     ?>
-        <section class="obra">
+        <section class="obra wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
                     <div class="col-span-12">
@@ -278,7 +299,7 @@ get_header(); ?>
 
                     <?php if (!empty($obra['fotos'])): ?>
                         <div class="col-span-12 lg:col-span-6 mt-10">
-                            <div class="swiper obras">
+                            <div class="swiper obras"> 
                                 <div class="swiper-wrapper">
                                     <?php foreach ($obra['fotos'] as $foto): ?>
                                         <div class="swiper-slide">
@@ -298,7 +319,7 @@ get_header(); ?>
                                     if (empty($etapa['label'])) continue;
                                     $pct = intval($etapa['porcentagem'] ?? 0);
                                 ?>
-                                    <div class="item-obra col-span-3">
+                                    <div class="item-obra col-span-6 md:col-span-3">
                                         <div class="flex items-baseline justify-between w-full">
                                             <div class="icon flex flex-row gap-2">
                                                 <?php if (!empty($etapa['icone'])): ?>
@@ -328,24 +349,24 @@ get_header(); ?>
     $localizacao = get_field('localizacao');
     if (!empty($localizacao) && (!empty($localizacao['titulo']) || !empty($localizacao['google_maps']) || !empty($localizacao['waze']))):
     ?>
-        <section class="loc">
+        <section class="loc wow fadeInUp">
             <div class="container">
-                <div class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-[10px] gap-6 lg:gap-0">
+                <div class="flex flex-col lg:flex-row lg:justify-between text-center items-center lg:items-stretch w-full bg-(--verde) p-6 lg:p-11 rounded-t-[10px] gap-6 lg:gap-0">
                     <div class="flex flex-col items-center justify-center">
                         <img src="<?= IMG_URI ?>app.svg" alt="App Store">
                     </div>
                     <div class="hidden lg:block border-r border-(--amarelo) border-[3px] h-auto"></div>
                     <div class="flex flex-col items-center lg:items-start text-white justify-center">
-                        <span>CONFIRA AGORA</span>
+                        <!-- <span>CONFIRA AGORA</span> -->
                         <?php if (!empty($localizacao['titulo'])): ?>
                             <h2><?= esc_html($localizacao['titulo']); ?></h2>
                         <?php endif; ?>
                     </div>
 
                     <?php if (!empty($localizacao['texto'])): ?>
-                        <div class="border-r border-(--amarelo) border-[3px] h-auto w-full max-w-50"></div>
+                        <div class="border-r border-(--amarelo) border-[3px] h-auto max-lg:w-full max-lg:max-w-50"></div>
                         <div class="flex flex-col items-center justify-center max-w-120">
-                            <p class="!text-center lg:text-start"><?= esc_html($localizacao['texto']); ?></p>
+                            <p class="!text-center lg:!text-start"><?= esc_html($localizacao['texto']); ?></p>
                         </div>
                     <?php endif; ?>
 
@@ -365,6 +386,9 @@ get_header(); ?>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
+                <div class="iframe-maps">
+                    <?= $localizacao['iframe_do_maps'] ?>
+                </div>
             </div>
         </section>
     <?php endif; ?>
@@ -373,7 +397,7 @@ get_header(); ?>
     $mapa = get_field('mapa');
     if (!empty($mapa) && !empty($mapa['imagens'])):
     ?>
-        <section class="mapa">
+        <section class="mapa wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 gap-8">
                     <div class="col-span-12">
@@ -397,15 +421,33 @@ get_header(); ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                            <div class="passadores-mapa">
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-button-next"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     <?php endif; ?>
+    <?php if (get_field('cta') && get_field('cta')['titulo']): ?>
+        <section class="cta-emp wow fadeInUp" style="background-image:url(<?php echo get_field('cta')['background']['url'] ?>)">
+            <h3 class="ctae-subtitle"><?php echo get_field('cta')['subtitulo'] ?></h3>
+            <h2 class="ctae-title"><?php echo get_field('cta')['titulo'] ?></h2>
+            <div class="ctae-line mt-3"></div>
+            <a class="cta mt-8" href="<?php echo get_field('cta')['link_do_botao'] ?>" target="_blank"><?php echo get_field('cta')['texto_do_botao'] ?></a>
+        </section>
+    <?php endif; ?>
 </main>
 
 <?php get_footer(); ?>
+
+<style>
+    body:has(.cta-emp) footer {
+        margin-top: 0 !important;
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -413,12 +455,12 @@ get_header(); ?>
             new Swiper('.swiper.galeria', {
                 loop: true,
                 centeredSlides: true,
-                initialSlide: 1,
-                slidesPerView: 1.15,
+                watchSlidesProgress: true,
+                slidesPerView: 1.2,
                 spaceBetween: 24,
                 breakpoints: {
                     1024: {
-                        slidesPerView: 1,
+                        slidesPerView: 1.2,
                         spaceBetween: 30,
                     },
                 },
@@ -426,8 +468,8 @@ get_header(); ?>
                     el: '.swiper-pagination',
                 },
                 navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: '.passadores-galeria .swiper-button-next',
+                    prevEl: '.passadores-galeria .swiper-button-prev',
                 },
             });
         }
@@ -436,10 +478,6 @@ get_header(); ?>
             new Swiper('.swiper.obras', {
                 loop: true,
                 slidesPerView: 1,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
             });
         }
 
@@ -448,10 +486,36 @@ get_header(); ?>
                 loop: true,
                 slidesPerView: 1,
                 navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    nextEl: '.passadores-mapa .swiper-button-next',
+                    prevEl: '.passadores-mapa .swiper-button-prev',
                 },
             });
         }
+    });
+
+    const swiper = new Swiper('.infra', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+        autoplay: {
+            delay: 3000,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 1
+            },
+            768: {
+                slidesPerView: 3
+            },
+            992: {
+                slidesPerView: 4
+            },
+            1200: {
+                slidesPerView: 5
+            },
+            1320: {
+                slidesPerView: 6
+            }
+        },
     });
 </script>

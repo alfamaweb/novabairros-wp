@@ -39,8 +39,8 @@ get_header(); ?>
                                         alt="<?= esc_attr(get_the_title()); ?>">
                                 </div>
                             </div>
-                            <div class="w-15 h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
-                                <img class="seta !w-12 !h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                            <div class="w-10 h-10 lg:w-15 lg:h-15 rounded-full bg-(--amarelo) absolute right-[30px] bottom-[30px]">
+                                <img class="seta !w-6 !h-6 lg:!w-12 lg:!h-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                                     src="<?= IMG_URI ?>arrow-right.svg" alt="">
                             </div>
                         </a>

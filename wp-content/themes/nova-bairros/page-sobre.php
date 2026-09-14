@@ -16,17 +16,19 @@ get_header(); ?>
     if (!empty(get_field('sobre_nos'))):
         $sobre = get_field('sobre_nos');
     ?>
-        <section class="sobre">
+        <section class="sobre wow fadeInUp">
             <div class="container">
-                <div class="flex md:grid grid-cols-12">
+                <div class="flex flex-col md:grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-6">
                         <div class="flex flex-col items-start w-fit gap-3">
-                            <span class="text-(--verde)">há mais de 14 anos no mercado</span>
+                            <span class="text-(--verde)"><?php echo get_field('titulo_sobre'); ?></span>
                             <h2><?= $sobre['titulo']; ?></h2>
                             <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
                         </div>
                         <div class="content mt-8">
-                            <?= nl2br($sobre['texto']); ?>
+                            <p>
+                                <?= nl2br($sobre['texto']); ?>
+                            </p>
                         </div>
                     </div>
                     <div class="col-span-12 lg:col-span-6">
@@ -39,7 +41,7 @@ get_header(); ?>
     endif;
     if (have_rows('itens')) :
     ?>
-        <section class="diferenciais bg-[#FDB9331A] py-8 md:py-16">
+        <section class="diferenciais bg-[#FDB9331A] py-8 md:py-16 wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col md:grid md:grid-cols-12 items-center justify-center content-center gap-x-7 gap-y-8">
                     <?php
@@ -47,7 +49,7 @@ get_header(); ?>
                     ?>
                         <div class="w-full md:col-span-6 xl:col-span-3">
                             <div class="flex flex-col items-center gap-6">
-                                <span class="w-full text-center text-white py-2 bg-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
+                                <span class="w-full text-center !text-white py-2 bg-(--verde) rounded-[10px]"><?= get_sub_field('rotulo'); ?></span>
                                 <div class="flex flex-row items-center gap-2">
                                     <img src="<?= get_sub_field('icone')['url']; ?>" alt="<?= get_sub_field('icone')['title']; ?>">
                                     <h3><?= get_sub_field('titulo'); ?></h3>
@@ -65,23 +67,25 @@ get_header(); ?>
     ?>
         <section class="mvv">
             <div class="container">
-                <div class="flex md:grid grid-cols-12 gap-8">
+                <div class="flex flex-col md:grid grid-cols-12 gap-8">
                     <div class="col-span-12">
                         <div class="flex flex-col items-center w-full gap-3 text-center">
-                            <span class="text-(--verde)">missão, visão e valores</span>
-                            <h2><?= $sobre['titulo']; ?></h2>
-                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
+                            <span class="text-(--verde) wow fadeIn">missão, visão e valores</span>
+                            <h2 class="wow fadeIn" data-wow-delay="0.2s"><?= $sobre['titulo']; ?></h2>
+                            <div data-wow-delay="0.2s" class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px] wow fadeIn"></div>
                         </div>
                     </div>
-                    <?php while (have_rows('mvv')): the_row(); ?>
-                        <div class="col-span-12 lg:col-span-4">
-                            <div class="flex flex-col items-center rounded-[10px] bg-(--verde) gap-3 p-8">
+                    <?php $i = 0;
+                    while (have_rows('mvv')): the_row(); ?>
+                        <div class="col-span-12 lg:col-span-4 wow fadeIn <?= $i == 0 ? 'fadeInLeft' : '' ?> <?= $i == 2 ? 'fadeInRight' : '' ?>">
+                            <div class="flex flex-col items-center rounded-[10px] bg-(--verde) h-full gap-3 p-8">
                                 <img src="<?= get_sub_field('icone')['url']; ?>" alt="">
                                 <h3 class="!text-white text-center"><?= get_sub_field('titulo'); ?></h3>
                                 <p class="text-white text-center"><?= get_sub_field('texto'); ?></p>
                             </div>
                         </div>
-                    <?php endwhile; ?>
+                    <?php $i++;
+                    endwhile; ?>
                 </div>
             </div>
         </section>
@@ -92,30 +96,36 @@ get_header(); ?>
         <section class="diferenciais cards overflow-hidden">
             <div class="container">
                 <div class="flex flex-col items-center w-full gap-3 text-center">
-                    <span class="text-(--verde)">diferenciais</span>
-                    <h2><?= get_field('titulo_diferenciais'); ?></h2>
-                    <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
+                    <span class="text-(--verde) wow fadeIn">diferenciais</span>
+                    <h2 class="wow fadeIn" data-wow-delay="0.2s"><?= get_field('titulo_diferenciais'); ?></h2>
+                    <div data-wow-delay="0.2s" class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px] wow fadeIn"></div>
                 </div>
-                <div class="swiper cards-diferenciais !overflow-visible mt-10 !pt-20">
-                    <div class="swiper-wrapper">
-                        <?php while (have_rows('cards')): the_row(); ?>
-                            <div class="swiper-slide">
-                                <div class="card relative pt-[80px]">
-                                    <div class="holder absolute -top-[60px] inset-x-0">
-                                        <div class="relative justify-items-center">
-                                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square w-15 h-15 bg-(--amarelo) content-center justify-items-center">
-                                                <img src="<?= get_sub_field('icone')['url']; ?>" alt="">
+                <div class="relative swiper-container wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="swiper cards-diferenciais !overflow-visible mt-10 !pt-20">
+                        <div class="swiper-wrapper">
+                            <?php while (have_rows('cards')): the_row(); ?>
+                                <div class="swiper-slide">
+                                    <div class="card relative pt-[80px]">
+                                        <div class="holder absolute -top-[44px] inset-x-0">
+                                            <div class="relative justify-items-center">
+                                                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full aspect-square w-15 h-15 bg-(--amarelo) content-center justify-items-center">
+                                                    <img src="<?= get_sub_field('icone')['url']; ?>" alt="">
+                                                </div>
+                                                <h3 class="!text-white text-center bg-(--verde) px-8 md:px-10 xl:px-14 pt-7 pb-3 rounded-[10px] w-fit"><?= get_sub_field('titulo'); ?></h3>
                                             </div>
-                                            <h3 class="!text-white text-center bg-(--verde) px-14 pt-7 pb-3 rounded-[10px] w-fit"><?= get_sub_field('titulo'); ?></h3>
                                         </div>
+                                        <p class="text-center"><?= get_sub_field('texto'); ?></p>
                                     </div>
-                                    <p class="text-center"><?= get_sub_field('texto'); ?></p>
                                 </div>
-                            </div>
 
-                        <?php endwhile; ?>
+                            <?php endwhile; ?>
+                        </div>
+                        <div class="mt-12 relative">
+                            <div class="dif-pagination swiper-pagination"></div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
     <?php
@@ -128,7 +138,7 @@ get_header(); ?>
                 $i = 0;
                 while (have_rows('blocos')): the_row();
                 ?>
-                    <div class="flex lg:grid grid-cols-12 gap-8 mb-8">
+                    <div class="flex flex-col lg:grid grid-cols-12 gap-8 mb-8 <?= $i % 2 !== 0 ? 'wow fadeInLeft' : 'wow fadeInRight'; ?>">
                         <div class="bloco-texto col-span-12 lg:col-span-6 <?= $i % 2 !== 0 ? 'lg:order-last' : ''; ?>">
                             <div class="flex flex-col items-start w-fit gap-3">
                                 <?php if ($i === 0) : ?>
@@ -138,7 +148,9 @@ get_header(); ?>
                                 <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
                             </div>
                             <div class="content mt-8">
-                                <?= nl2br(get_sub_field('texto')); ?>
+                                <p>
+                                    <?= nl2br(get_sub_field('texto')); ?>
+                                </p>
                             </div>
                         </div>
                         <div class="bloco-img col-span-12 lg:col-span-6 <?= $i % 2 !== 0 ? 'lg:order-first' : ''; ?>">
@@ -151,10 +163,10 @@ get_header(); ?>
         </section>
     <?php
     endif;
-    if (!empty(get_field('bloco_socios'))):
+    if (!empty(get_field('bloco_socios')['titulo'])):
         $socios = get_field('bloco_socios');
     ?>
-        <section class="socios bg-[#FDB9331A] py-6 md:py-8">
+        <section class="socios bg-[#FDB9331A] py-6 md:py-8 wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col items-center w-full gap-3 text-center">
                     <span class="text-(--verde)">ÁREA DO INVESTIDOR</span>
@@ -178,26 +190,34 @@ get_header(); ?>
         </section>
     <?php endif;
     if (!empty(get_field('negocios'))):
-    $negocios = get_field('negocios'); ?>
-        <section class="negocios">
+        $negocios = get_field('negocios'); ?>
+        <section class="negocios bg-[#00663B] py-8 md:py-16 wow fadeInUp">
             <div class="container">
                 <div class="flex flex-col lg:grid grid-cols-12 gap-8">
                     <div class="col-span-6">
                         <div class="flex flex-col items-start w-fit gap-3">
-                            <span class="text-(--verde)">novos negócios</span>
-                            <h2><?= $negocios['titulo']; ?></h2>
-                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px]"></div>
+                            <span class="!text-white">novos negócios</span>
+                            <h2 class="!text-white"><?= $negocios['titulo']; ?></h2>
+                            <div class="border-b border-(--amarelo) border-[3px] w-full max-w-[300px] !text-white"></div>
                         </div>
-                        <div class="content mt-8">
-                            <?= nl2br($negocios['texto']); ?>
+                        <div class="content mt-8 !text-white">
+                            <p>
+                                <?= nl2br($negocios['texto']); ?>
+                            </p>
                         </div>
-                        <a href="#" class="cta mt-6">Fale conosco pelo Whatsapp</a>
+                        <a href="<?php echo get_field('negocios')['whatsapp'] ?>" class="cta mt-6 d-inline-flex" target="_blank">
+                            <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M28.5752 7.36502C27.1998 5.97618 25.5617 4.87497 23.7565 4.12556C21.9512 3.37616 20.0148 2.99354 18.0602 3.00002C9.87019 3.00002 3.1952 9.67502 3.1952 17.865C3.1952 20.49 3.8852 23.04 5.1752 25.29L3.0752 33L10.9502 30.93C13.1252 32.115 15.5702 32.745 18.0602 32.745C26.2502 32.745 32.9252 26.07 32.9252 17.88C32.9252 13.905 31.3802 10.17 28.5752 7.36502ZM18.0602 30.225C15.8402 30.225 13.6652 29.625 11.7602 28.5L11.3102 28.23L6.6302 29.46L7.8752 24.9L7.5752 24.435C6.34152 22.4656 5.68658 20.1889 5.6852 17.865C5.6852 11.055 11.2352 5.50502 18.0452 5.50502C21.3452 5.50502 24.4502 6.79502 26.7752 9.13502C27.9266 10.2808 28.8391 11.6438 29.4596 13.145C30.0802 14.6462 30.3965 16.2556 30.3902 17.88C30.4202 24.69 24.8702 30.225 18.0602 30.225ZM24.8402 20.985C24.4652 20.805 22.6352 19.905 22.3052 19.77C21.9602 19.65 21.7202 19.59 21.4652 19.95C21.2102 20.325 20.5052 21.165 20.2952 21.405C20.0852 21.66 19.8602 21.69 19.4852 21.495C19.1102 21.315 17.9102 20.91 16.5002 19.65C15.3902 18.66 14.6552 17.445 14.4302 17.07C14.2202 16.695 14.4002 16.5 14.5952 16.305C14.7602 16.14 14.9702 15.87 15.1502 15.66C15.3302 15.45 15.4052 15.285 15.5252 15.045C15.6452 14.79 15.5852 14.58 15.4952 14.4C15.4052 14.22 14.6552 12.39 14.3552 11.64C14.0552 10.92 13.7402 11.01 13.5152 10.995H12.7952C12.5402 10.995 12.1502 11.085 11.8052 11.46C11.4752 11.835 10.5152 12.735 10.5152 14.565C10.5152 16.395 11.8502 18.165 12.0302 18.405C12.2102 18.66 14.6552 22.41 18.3752 24.015C19.2602 24.405 19.9502 24.63 20.4902 24.795C21.3752 25.08 22.1852 25.035 22.8302 24.945C23.5502 24.84 25.0352 24.045 25.3352 23.175C25.6502 22.305 25.6502 21.57 25.5452 21.405C25.4402 21.24 25.2152 21.165 24.8402 20.985Z" fill="#252525"></path>
+                            </svg>
+                            Fale conosco pelo Whatsapp</a>
                     </div>
                     <div class="col-span-6">
-                        <div class="form-container border border-(--verde) rounded-[10px] px-8 py-6">
+                        <div class="form-container border border-(--verde) !bg-white rounded-[10px] px-8 py-6">
                             <h3 class="text-(--verde) mb-4">Entre em contato</h3>
                             <p>Para mais informações sobre novas oportunidades </p>
-                            <form action="" method="POST" class="flex flex-col gap-5 mt-8">
+                            <form id="ajax-contact-form" action="" method="POST" enctype="multipart/form-data" class="flex flex-col gap-5 mt-8">
+                                <input type="hidden" name="form_type" value="sobre">
+                                <?php wp_nonce_field('send_contact_form_nonce', 'nonce'); ?>
                                 <div class="form-group flex flex-col">
                                     <label for="nome">Nome Completo</label>
                                     <input type="text" name="nome" placeholder="Nome" required>
@@ -208,27 +228,47 @@ get_header(); ?>
                                         <input type="tel" name="telefone" placeholder="Telefone" required>
                                     </div>
                                     <div class="form-group flex flex-col flex-1">
-                                        <label for="mensagem">Mensagem</label>
-                                        <input type="email" name="email" placeholder="E-mail" required></input>
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" placeholder="E-mail" required>
                                     </div>
                                 </div>
                                 <div class="flex lg:flex-row flex-col gap-6">
                                     <div class="form-group flex flex-col flex-1">
-                                        <label for="telefone">Telefone</label>
-                                        <select type="tel" name="telefone" placeholder="Telefone" required>
-                                            <option value="">Selecione</option>
-                                            <option value="whatsapp">WhatsApp</option>
-                                            <option value="telefone">Telefone Fixo</option>
+                                        <label for="estado">Estado</label>
+                                        <select name="estado" placeholder="estado" required>
+                                            <option value="">Estado</option>
+                                            <option value="ACRE">ACRE</option>
+                                            <option value="ALAGOAS">ALAGOAS</option>
+                                            <option value="AMAPÁ">AMAPÁ</option>
+                                            <option value="AMAZONAS">AMAZONAS</option>
+                                            <option value="BAHIA">BAHIA</option>
+                                            <option value="CEARÁ">CEARÁ</option>
+                                            <option value="DISTRITO FEDERAL">DISTRITO FEDERAL</option>
+                                            <option value="ESPÍRITO SANTO">ESPÍRITO SANTO</option>
+                                            <option value="GOIÁS">GOIÁS</option>
+                                            <option value="MARANHÃO">MARANHÃO</option>
+                                            <option value="MATO GROSSO">MATO GROSSO</option>
+                                            <option value="MATO GROSSO DO SUL">MATO GROSSO DO SUL</option>
+                                            <option value="MINAS GERAIS">MINAS GERAIS</option>
+                                            <option value="PARÁ">PARÁ</option>
+                                            <option value="PARAÍBA">PARAÍBA</option>
+                                            <option value="PARANÁ">PARANÁ</option>
+                                            <option value="PERNAMBUCO">PERNAMBUCO</option>
+                                            <option value="PIAUÍ">PIAUÍ</option>
+                                            <option value="RIO DE JANEIRO">RIO DE JANEIRO</option>
+                                            <option value="RIO GRANDE DO NORTE">RIO GRANDE DO NORTE</option>
+                                            <option value="RIO GRANDE DO SUL">RIO GRANDE DO SUL</option>
+                                            <option value="RONDÔNIA">RONDÔNIA</option>
+                                            <option value="RORAIR">RORAIR</option>
+                                            <option value="SANTA CATARINA">SANTA CATARINA</option>
+                                            <option value="SÃO PAULO">SÃO PAULO</option>
+                                            <option value="SERGIPE">SERGIPE</option>
+                                            <option value="TOCANTINS">TOCANTINS</option>
                                         </select>
                                     </div>
                                     <div class="form-group flex flex-col flex-1">
-                                        <label for="mensagem">Mensagem</label>
-                                        <select type="email" name="email" placeholder="E-mail" required>
-                                            <option value="">Selecione</option>
-                                            <option value="interessado">Estou interessado em investir</option>
-                                            <option value="parceria">Quero ser parceiro</option>
-                                            <option value="outros">Outros</option>
-                                        </select>
+                                        <label for="cidade">Cidade</label>
+                                        <input type="text" name="cidade" placeholder="Cidade" required>
                                     </div>
                                 </div>
                                 <a id="anexo-trigger" class="flex flex-row justify-between items-center cursor-pointer" href="#" onclick="document.getElementById('anexo-input').click(); return false;">
@@ -248,6 +288,18 @@ get_header(); ?>
 
 <?php get_footer(); ?>
 
+<style>
+    footer {
+        margin-top: 0;
+    }
+
+    @media (max-width: 992px) {
+        section.hero.interna {
+            height: 350px;
+        }
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const anexoInput = document.getElementById('anexo-input');
@@ -258,13 +310,137 @@ get_header(); ?>
             });
         }
 
+        const form = document.getElementById('ajax-contact-form');
+        if (form) {
+            function showFormPopupMessage(message, isSuccess) {
+                const existingMsg = document.getElementById('form-popup-overlay');
+                if (existingMsg) existingMsg.remove();
+                
+                const overlayDiv = document.createElement('div');
+                overlayDiv.id = 'form-popup-overlay';
+                overlayDiv.style.position = 'fixed';
+                overlayDiv.style.top = '0';
+                overlayDiv.style.left = '0';
+                overlayDiv.style.width = '100vw';
+                overlayDiv.style.height = '100vh';
+                overlayDiv.style.backgroundColor = 'rgba(0,0,0,0.6)';
+                overlayDiv.style.zIndex = '99999';
+                overlayDiv.style.display = 'flex';
+                overlayDiv.style.alignItems = 'center';
+                overlayDiv.style.justifyContent = 'center';
+                overlayDiv.style.opacity = '0';
+                overlayDiv.style.transition = 'opacity 0.3s ease-in-out';
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.style.backgroundColor = isSuccess ? '#00663B' : '#fee2e2';
+                msgDiv.style.color = isSuccess ? '#ffffff' : '#991b1b';
+                msgDiv.style.padding = '40px 30px';
+                msgDiv.style.borderRadius = '12px';
+                msgDiv.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
+                msgDiv.style.fontWeight = '500';
+                msgDiv.style.fontFamily = 'inherit';
+                msgDiv.style.textAlign = 'center';
+                msgDiv.style.maxWidth = '90%';
+                msgDiv.style.width = '400px';
+                msgDiv.style.position = 'relative';
+                msgDiv.style.transform = 'scale(0.9)';
+                msgDiv.style.transition = 'transform 0.3s ease-in-out';
+                if (!isSuccess) msgDiv.style.border = '2px solid #ef4444';
+                
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '&times;';
+                closeBtn.style.position = 'absolute';
+                closeBtn.style.top = '10px';
+                closeBtn.style.right = '15px';
+                closeBtn.style.background = 'transparent';
+                closeBtn.style.border = 'none';
+                closeBtn.style.color = isSuccess ? '#ffffff' : '#991b1b';
+                closeBtn.style.fontSize = '24px';
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.lineHeight = '1';
+                closeBtn.style.padding = '0';
+                
+                const textNode = document.createElement('p');
+                textNode.innerText = message;
+                textNode.style.margin = '0';
+                textNode.style.fontSize = '18px';
+                
+                msgDiv.appendChild(closeBtn);
+                msgDiv.appendChild(textNode);
+                overlayDiv.appendChild(msgDiv);
+                document.body.appendChild(overlayDiv);
+                
+                document.body.style.overflow = 'hidden';
+                
+                setTimeout(() => {
+                    overlayDiv.style.opacity = '1';
+                    msgDiv.style.transform = 'scale(1)';
+                }, 10);
+                
+                function closeModal() {
+                    overlayDiv.style.opacity = '0';
+                    msgDiv.style.transform = 'scale(0.9)';
+                    document.body.style.overflow = '';
+                    setTimeout(() => overlayDiv.remove(), 300);
+                }
+                
+                closeBtn.addEventListener('click', closeModal);
+                overlayDiv.addEventListener('click', function(e) {
+                    if (e.target === overlayDiv) closeModal();
+                });
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+                btn.innerText = 'Enviando...';
+                btn.disabled = true;
+                btn.style.opacity = '0.7';
+                
+                const formData = new FormData(form);
+                formData.append('action', 'send_contact_form');
+                
+                fetch('<?= admin_url('admin-ajax.php') ?>', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(res => {
+                    showFormPopupMessage(res.data.message || 'Erro ao enviar.', res.success);
+                    
+                    if (res.success) {
+                        form.reset();
+                        if (anexoLabel) anexoLabel.textContent = 'Anexos e Documentação (Word / PDF / JPEG / PNG)';
+                    }
+                })
+                .catch(err => {
+                    showFormPopupMessage('Ocorreu um erro inesperado.', false);
+                })
+                .finally(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
+            });
+        }
+
         const swiper = new Swiper('.cards-diferenciais', {
             // centeredSlides: true,
-            loop: true,
+            loop: false,
             initialSlide: 1,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            pagination: {
+                el: '.dif-pagination'
             },
             breakpoints: {
                 0: {

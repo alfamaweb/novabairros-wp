@@ -1,21 +1,59 @@
 /* Estilo automático para a página: home */
 
 section.hero {
+  height: 400px;
+
+  @media (min-width: 768px) {
+    height: 528px;
+  }
+
+  @media (min-width: 1024px) {
+    height: 680px;
+  }
+
   .hero-content {
     h2 {
       font-weight: 500;
-      font-size: 40px;
+      font-size: 24px;
       line-height: 135%;
+      color: white;
+      @media (min-width: 768px) {
+        font-size: 30px;
+      }
+      @media (min-width: 1200px) {
+        font-size: 34px;
+      }
+    }
+    span {
       color: white;
     }
   }
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
+
+section.empreendimentos {
+  margin-top: 160px;
+  @media (min-width: 768px) {
+    margin-top: 64px;
+  }
+}
+
 section.infraestrutura {
   h2 {
     color: white;
   }
   span {
     color: white;
+  }
+  .swiper-wrapper {
+    align-items: stretch !important;
+    .swiper-slide {
+      height: auto !important;
+    }
   }
   .card {
     background-color: white;
@@ -25,6 +63,7 @@ section.infraestrutura {
     flex-direction: column;
     padding: 18px 10px;
     gap: 10px;
+    height: 100%;
     img {
       width: 40px;
       height: 40px;
@@ -43,15 +82,24 @@ section.infraestrutura {
       text-align: center;
       color: var(--cinza);
     }
+    &:hover {
+      h3 {
+        color: var(--verde) !important;
+      }
+    }
   }
 }
 
 section.diferenciais {
   p {
+    font-family: Montserrat;
     font-weight: 600;
+    font-style: SemiBold;
     font-size: 20px;
     line-height: 135%;
+    letter-spacing: 0%;
     text-align: center;
+    vertical-align: middle;
     color: var(--verde);
   }
 }
@@ -85,4 +133,84 @@ section.app {
     color: white;
     text-align: start;
   }
+  @media (max-width: 1400px) {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    p {
+      text-align: center;
+    }
+  }
+}
+
+
+
+.localizacoes{
+  margin-top: 80px; 
+}
+
+
+.empreendimentos{
+  .swiper-slide {
+      justify-content: center;
+  }
+}
+
+.empreendimentos{
+  .card{
+    p{
+      color: var(--cor-texto, #5D5D5D);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 135%;
+    }
+    &:hover p{
+      color: var(--cor-texto, #fff);
+    }
+  }
+}
+
+section.infraestrutura {
+    .swiper-wrapper {
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+
+
+.botoes{
+  display: flex;
+  flex-direction: column;
+
+  a{
+    margin: 4px 0;
+  }
+
+}
+
+/* TABLET */
+@media (min-width: 768px) and (max-width: 1024px) {
+ 
+ .localizacoes{
+   .thumbnail-holder {
+        height: 250px !important;
+        clip-path: polygon(100% 0, 100% 55%, 65% 100%, 0% 100%, 0 49%, 0% 0%);
+    }
+ }
+}
+
+/* MOBILE */
+@media all and (max-width: 767px) { 
+ .localizacoes{
+   .thumbnail-holder {
+        height: 250px !important;
+        clip-path: polygon(100% 0, 100% 55%, 65% 100%, 0% 100%, 0 49%, 0% 0%);
+    }
+ }
 }
