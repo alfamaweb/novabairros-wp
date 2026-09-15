@@ -116,7 +116,7 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
         </div>
 
         <!-- Barra de copyright -->
-        <div class="border-t border-white/20 flex justify-between items-center py-6 wow fadeIn" data-wow-delay="0.2s">
+        <div class="border-t border-white/20 flex justify-between items-center py-6 wow fadeIn bg-[#00663B]" data-wow-delay="0.2s">
             <div class="flex flex-col md:flex-row text-center text-sm items-center gap-5 justify-between w-full">
                 <p class="!text-white/60">©<?= date('Y'); ?> Nova Bairros - Todos os direitos reservados.</p>
                 <!-- <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div> -->
