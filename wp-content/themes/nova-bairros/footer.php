@@ -116,13 +116,13 @@ $desenvolvido_por    = $footer_opts['desenvolvido_por'] ?? [];
         </div>
 
         <!-- Barra de copyright -->
-        <div class="border-t border-white/20 flex justify-center items-center py-6 wow fadeIn" data-wow-delay="0.2s">
+        <div class="border-t border-white/20 flex justify-between items-center py-6 wow fadeIn" data-wow-delay="0.2s">
             <div class="flex flex-col md:flex-row text-center text-sm items-center gap-5">
-                <p class="!text-white/60">Copyright <?= date('Y'); ?> - Todos os direitos reservados.</p>
-                <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div>
+                <p class="!text-white/60">©<?= date('Y'); ?>Nova Bairros - Todos os direitos reservados.</p>
+                <!-- <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div> -->
                 <!-- <a class="!text-white/60 font-medium !underline" href="#">Política de Privacidade</a>
                 <div class="hidden md:block w-[1px] h-4 bg-white/20 mx-3"></div> -->
-                <a class="!text-white/60" target="_blank" href="https://alfamaweb.com.br">Desenvolvido por <span class="font-medium underline">AlfamaWeb em parceria com LZ MKT e Negócios</span></a>
+                <a class="!text-white/60" target="_blank" href="https://alfamaweb.com.br"><img src="<?= IMG_URI ?>alfamaw.svg" alt="AlfamaWeb" loading="lazy"></a>
             </div>
         </div>
     </div>
