@@ -609,12 +609,16 @@ get_header(); ?>
                     </div>
                     <div class="hidden xl:block border-r border-(--amarelo) border-[3px] h-auto"></div>
                     <div class="botoes">
-                        <a href="<?= $aplicativo['link'] ?>" target="_blank" class="text-center lg:text-start cta w-full md:w-auto text-nowrap my-auto">
-                            Acesse o Google Store
-                        </a>
-                        <a href="<?= $aplicativo['link_apple_stores'] ?>" target="_blank" class="text-center lg:text-start cta w-full md:w-auto text-nowrap my-auto">
-                            Acesse o Apple Store
-                        </a>
+                        <?php if (!empty($aplicativo['link'])): ?>
+                            <a href="<?= esc_url($aplicativo['link']) ?>" target="_blank" class="text-center lg:text-start cta w-full md:w-auto text-nowrap my-auto">
+                                Acesse o Google Store
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($aplicativo['link_apple_stores'])): ?>
+                            <a href="<?= esc_url($aplicativo['link_apple_stores']) ?>" target="_blank" class="text-center lg:text-start cta w-full md:w-auto text-nowrap my-auto">
+                                Acesse o Apple Store
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
