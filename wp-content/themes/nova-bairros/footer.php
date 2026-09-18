@@ -186,6 +186,14 @@ $desenvolvido_por = $footer_opts['desenvolvido_por'] ?? [];
             display: ["zoom", "close"],
         },
     });
+
+    document.querySelectorAll('a[href="#topo"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+            setTimeout(function () {
+                history.replaceState(null, '', window.location.pathname + window.location.search);
+            }, 300);
+        });
+    });
 </script>
 
 <!-- SCRIPT INTEGRAÇÃO RD -->
